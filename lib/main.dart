@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const Gift2Grow());
@@ -24,7 +23,8 @@ class Gift2Grow extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primaryColor: const Color(0xFF9468AC),
-        fontFamily: 'Poppins'
+        accentColor: const Color(0xFFFECE6B),
+        fontFamily: 'Poppins',
       ),
       home: const MyHomePage(title: 'Gift2Grow Demo Home Page'),
     );
