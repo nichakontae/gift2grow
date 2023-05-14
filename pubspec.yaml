@@ -35,6 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:
@@ -52,14 +53,13 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-   assets:
+  assets:
      - assets/logo/
      - assets/images/
 
@@ -86,5 +86,52 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/google_fonts/Poppins-Regular.ttf
+        - asset: assets/google_fonts/Poppins-Italic.ttf
+          style: italic
+        - asset: assets/google_fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/google_fonts/Poppins-Thin.ttf
+          weight: 100
+        - asset: assets/google_fonts/Poppins-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: assets/google_fonts/Poppins-ExtraLight.ttf
+          weight: 200
+        - asset: assets/google_fonts/Poppins-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/google_fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/google_fonts/Poppins-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/google_fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/google_fonts/Poppins-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/google_fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/google_fonts/Poppins-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/google_fonts/Poppins-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/google_fonts/Poppins-ExtraBold.ttf
+          weight: 800
+        - asset: assets/google_fonts/Poppins-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: assets/google_fonts/Poppins-Black.ttf
+          weight: 900
+        - asset: assets/google_fonts/Poppins-BlackItalic.ttf
+          weight: 900
+          style: italic
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

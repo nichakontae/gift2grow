@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const Gift2Grow());
@@ -22,7 +23,8 @@ class Gift2Grow extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFF9468AC),
+        fontFamily: 'Poppins'
       ),
       home: const MyHomePage(title: 'Gift2Grow Demo Home Page'),
     );
@@ -74,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
