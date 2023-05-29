@@ -10,12 +10,16 @@ class Gift2Grow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = ThemeData();
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: const Color(0xFF9468AC),
-        accentColor: const Color(0xFFFECE6B),
-        fontFamily: 'Poppins',
+      theme: theme.copyWith(
+        colorScheme: theme.colorScheme.copyWith(
+          primary: const Color(0xFF9468AC),
+          secondary: const Color(0xFFFECE6B),
+          tertiary: const Color(0xFFD9D9D9)
+        ),
+    textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Poppins')
       ),
       home: const MyHomePage(title: 'Gift2Grow Demo Home Page'),
     );
@@ -51,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Center(
         child: Container(

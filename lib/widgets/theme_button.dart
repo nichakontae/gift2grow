@@ -18,9 +18,9 @@ class CustomButton extends StatelessWidget {
           gradient: type == "primary" ? LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor.withOpacity(0.7)],
+            colors: [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.primary.withOpacity(0.7)],
           ): null,
-          color: type == "primary" ? null : const Color(0xFFD9D9D9),
+          color: type == "primary" ? null : Theme.of(context).colorScheme.tertiary,
         ),
         child: Center(
           child: Container(
