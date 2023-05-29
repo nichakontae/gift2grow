@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomButton(type: "secondary", text: "Cancel", onTap: (){},paddingHorizontal: const EdgeInsets.symmetric(horizontal: 40),),
+                  CustomButton(type: "tertiary", text: "Cancel", onTap: (){},paddingHorizontal: const EdgeInsets.symmetric(horizontal: 40),),
                   CustomButton(type: "primary", text: "Donate", onTap: (){}, paddingHorizontal: const EdgeInsets.symmetric(horizontal: 40),),
                 ],
               )
