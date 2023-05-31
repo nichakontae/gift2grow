@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
             padding: paddingHorizontal,
             child: Text(text,
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 14,
                 color: color == "primary" ? Colors.white : Colors.black87,
                 fontWeight: FontWeight.w600
               ),
