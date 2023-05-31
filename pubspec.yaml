@@ -40,6 +40,8 @@ dependencies:
   json_annotation: ^4.8.1
   flutter_platform_alert: ^0.4.0
   flutter_native_splash: ^2.3.0
+  firebase_auth: ^4.6.2
+  firebase_core: ^2.13.1
 
 dev_dependencies:
   flutter_test:
