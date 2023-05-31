@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gift2grow/models/login_controller.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
@@ -12,6 +14,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   bool passwordVisible = false;
+  final LoginTextEditController _loginController = LoginTextEditController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +37,13 @@ class _LoginPageState extends State<LoginPage> {
                       backgroundColor: Colors.white,
                     ),
                     const SizedBox(height: 20),
-                    const Row
-                      (
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("Email",style: TextStyle(fontWeight: FontWeight.w500),),
+                        Text(
+                          "Email",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -48,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Expanded(
                           child: TextFormField(
+                            controller: _loginController.emailController,
                             validator: (value) {
                               if (value == null ||
                                   value.isEmpty ||
@@ -80,7 +86,10 @@ class _LoginPageState extends State<LoginPage> {
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("Password",style: TextStyle(fontWeight: FontWeight.w500),),
+                        Text(
+                          "Password",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -90,6 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Expanded(
                           child: TextFormField(
+                            controller: _loginController.passwordController,
                             obscureText: !passwordVisible,
                             validator: (value) {
                               if (value == null ||
@@ -157,8 +167,23 @@ class _LoginPageState extends State<LoginPage> {
                         CustomButton(
                           color: "primary",
                           text: "Login",
-                          onTap: () {
-                            if(_formKey.currentState!.validate()){
+                          onTap: () async {
+                            if (_formKey.currentState!.validate()) {
+                              try {
+                                UserCredential userCredential =
+                                    await FirebaseAuth.instance
+                                        .signInWithEmailAndPassword(
+                                            email: _loginController.email,
+                                            password:
+                                                _loginController.password);
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'user-not-found') {
+                                  debugPrint('No user found for that email');
+                                } else if (e.code == 'wrong-password') {
+                                  debugPrint(
+                                      'wrong password provided for that user');
+                                }
+                              }
                               debugPrint("successfully login");
                             }
                           },
@@ -167,12 +192,17 @@ class _LoginPageState extends State<LoginPage> {
                         )
                       ],
                     ),
-                    const SizedBox(height: 30,),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Don't have an account? "),
-                        Text("Create",style: TextStyle(fontWeight: FontWeight.bold),)
+                        Text(
+                          "Create",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )
                       ],
                     )
                   ],
