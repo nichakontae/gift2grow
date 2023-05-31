@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gift2grow/screen/check_email_reset_password.dart';
+import 'package:gift2grow/screen/forgot_password.dart';
 import 'package:gift2grow/screen/login.dart';
+import 'package:gift2grow/screen/resgister.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,7 +31,7 @@ class Gift2Grow extends StatelessWidget {
         ),
     textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Poppins')
       ),
-      home: const LoginPage(),
+      home: const RegisterPage(),
     );
   }
 }
