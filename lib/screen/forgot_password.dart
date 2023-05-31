@@ -47,7 +47,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             style: TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 24),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Row(
@@ -65,7 +65,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                   return null;
                                 },
                                 decoration: InputDecoration(
-                                    border: OutlineInputBorder(
+                                    border: const OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(25))),
                                     prefixIcon: Icon(
@@ -77,7 +77,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               )),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Row(
@@ -95,7 +95,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 text: "Confirm",
                                 onTap: () {
                                   if(_formKey.currentState!.validate()){
-                                    debugPrint("sent email to reset passsword successfully");
+                                    debugPrint("sent email to reset password successfully");
                                   }
                                 },
                                 paddingHorizontal:
