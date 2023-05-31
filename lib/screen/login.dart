@@ -29,8 +29,9 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const CircleAvatar(
-                      backgroundImage: AssetImage("assets/logo/logo.png"),
+                      backgroundImage: AssetImage("assets/logo/logo7@2x.png"),
                       radius: 120,
+                      backgroundColor: Colors.white,
                     ),
                     const SizedBox(height: 20),
                     const Row
