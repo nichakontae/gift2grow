@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gift2grow/screen/login.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class Gift2Grow extends StatelessWidget {
         ),
     textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Poppins')
       ),
-      home: const MyHomePage(title: 'Gift2Grow Demo Home Page'),
+      home: const LoginPage(),
     );
   }
 }
