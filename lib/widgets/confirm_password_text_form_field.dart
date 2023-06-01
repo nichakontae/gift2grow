@@ -10,7 +10,7 @@ class ConfirmPasswordFormField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ConfirmPasswordFormFieldState createState() => _ConfirmPasswordFormFieldState();
+  State<ConfirmPasswordFormField> createState() => _ConfirmPasswordFormFieldState();
 }
 
 class _ConfirmPasswordFormFieldState extends State<ConfirmPasswordFormField> {
@@ -22,7 +22,6 @@ class _ConfirmPasswordFormFieldState extends State<ConfirmPasswordFormField> {
     return ValueListenableBuilder<bool>(
       valueListenable: passwordMatchNotifier,
       builder: (context, passwordMatch, _) {
-        print(passwordMatch);
         final borderColor = passwordMatch ? Colors.green : Colors.red;
         return Builder(
           builder: (BuildContext context) {
@@ -55,7 +54,6 @@ class _ConfirmPasswordFormFieldState extends State<ConfirmPasswordFormField> {
                 final password = widget.passwordController.text;
                 final confirmPassword = value;
                 passwordMatchNotifier.value = password == confirmPassword;
-                print("nofiy ${passwordMatchNotifier.value}");
               },
             );
           },
