@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 class ConfirmPasswordFormField extends StatefulWidget {
   final TextEditingController passwordController;
+  final TextEditingController confirmPasswordController;
   final String hintText;
 
   const ConfirmPasswordFormField({
     Key? key,
     required this.passwordController,
     required this.hintText,
+    required this.confirmPasswordController
   }) : super(key: key);
 
   @override
@@ -26,7 +28,17 @@ class _ConfirmPasswordFormFieldState extends State<ConfirmPasswordFormField> {
         return Builder(
           builder: (BuildContext context) {
             return TextFormField(
+              validator: (value){
+                if (value == null ||
+                    value.isEmpty ) {
+                  return 'Please enter password';
+                }else if(value != widget.passwordController.text){
+                    return "Password must be same as above";
+                }
+                return null;
+              },
               obscureText: passwordVisible,
+              controller: widget.confirmPasswordController,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),

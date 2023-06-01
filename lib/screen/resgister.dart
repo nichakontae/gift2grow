@@ -43,62 +43,122 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: TextStyle(
                               fontSize: 24, fontWeight: FontWeight.w600),
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         RegisterTextFormField(
                             controller: _registerController.usernameController,
                             validate: (value) {
                               if (value == null ||
                                   value.isEmpty ||
-                                  !RegExp(r'^[A-Za-z]\\w{5, 29}$')
+                                  !RegExp(r'^[A-Za-z]{5,29}$')
                                       .hasMatch(value)) {
-                                return "Please fill out valid user name";
+                                return "username must be at least 5 characters";
                                 // อย่าลืมใส่คำที่ดีกว่านี้
                               }
+                              return null;
                             },
                             hintText: "Username"),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         RegisterTextFormField(
                             controller: _registerController.firstnameController,
-                            validate: (value) {},
+                            validate: (value) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !RegExp(r'^\w+$')
+                                      .hasMatch(value)) {
+                                return "Please enter only text";
+                                // อย่าลืมใส่คำที่ดีกว่านี้
+                              }
+                              return null;
+                            },
                             hintText: "First Name"),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         RegisterTextFormField(
                             controller: _registerController.lastnameController,
-                            validate: (value) {},
+                            validate: (value) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !RegExp(r'^\w+$')
+                                      .hasMatch(value)) {
+                                return "Please enter only text";
+                                // อย่าลืมใส่คำที่ดีกว่านี้
+                              }
+                              return null;
+                            },
                             hintText: "Last Name"),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         RegisterTextFormField(
                             controller: _registerController.emailController,
-                            validate: (value) {},
+                            validate: (value) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  !RegExp(r'^\w+@(\w+\.)+\w{2,4}$')
+                                      .hasMatch(value)) {
+                                return 'Please enter a valid email';
+                              }
+                              return null;
+                            },
                             hintText: "Email"),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         PasswordTextFormField(
                             passwordVisible: password,
                             controller: _registerController.passwordController,
                             validate: (value) {
                               if (value == null ||
-                                  value.isEmpty ||
-                                  !RegExp(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$')
-                                      .hasMatch(value)) {
-                                return 'Please enter a valid password';
+                                  value.isEmpty ) {
+                                return 'Please enter password';
+                              }else if(value.length < 8){
+                                return "Password must be at least 8 characters long";
                               }
                               return null;
                             },
                             hintText: "Password"),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         ConfirmPasswordFormField(
+                          confirmPasswordController: _registerController.confirmPasswordController,
                             passwordController:
                                 _registerController.passwordController,
                             hintText: "Confirm password"),
-                        const SizedBox(height: 40,),
+                        const SizedBox(
+                          height: 40,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            CustomButton(color: "secondary", text: "Back to Login", onTap: (){},paddingHorizontal: const EdgeInsets.symmetric(horizontal: 20),),
-                            CustomButton(color: "primary", text: "Confirm", onTap: (){},paddingHorizontal: const EdgeInsets.symmetric(horizontal: 40),)
+                            CustomButton(
+                              color: "secondary",
+                              text: "Back to Login",
+                              onTap: () {},
+                              paddingHorizontal:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                            ),
+                            CustomButton(
+                              color: "primary",
+                              text: "Confirm",
+                              onTap: () {
+                                if(_formKey.currentState!.validate()){
+                                  debugPrint("register successful");
+                                }
+                              },
+                              paddingHorizontal:
+                                  const EdgeInsets.symmetric(horizontal: 40),
+                            )
                           ],
                         ),
-                        const SizedBox(height: 40,),
+                        const SizedBox(
+                          height: 40,
+                        ),
                       ],
                     ),
                   ))
