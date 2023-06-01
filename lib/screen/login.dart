@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  bool passwordVisible = false;
+  bool passwordVisible = true;
   final LoginTextEditController _loginController = LoginTextEditController();
 
   @override
@@ -64,6 +64,8 @@ class _LoginPageState extends State<LoginPage> {
                               return null;
                             },
                             decoration: InputDecoration(
+                                contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                                 border: const OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(25),
@@ -100,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                         Expanded(
                           child: TextFormField(
                             controller: _loginController.passwordController,
-                            obscureText: !passwordVisible,
+                            obscureText: passwordVisible,
                             validator: (value) {
                               if (value == null ||
                                   value.isEmpty ||
@@ -111,6 +113,8 @@ class _LoginPageState extends State<LoginPage> {
                               return null;
                             },
                             decoration: InputDecoration(
+                                contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                                 border: const OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(25),
@@ -125,8 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                                     passwordVisible
                                         ? Icons.visibility
                                         : Icons.visibility_off,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
+
                                   ),
                                   onPressed: () {
                                     setState(() {
