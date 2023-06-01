@@ -29,6 +29,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(30))),
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -55,6 +56,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 return null;
                               },
                               decoration: InputDecoration(
+                                  contentPadding:
+                                  const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                                   border: const OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(25))),

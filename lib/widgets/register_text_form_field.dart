@@ -17,8 +17,10 @@ class RegisterTextFormField extends StatelessWidget {
             BorderRadius.all(Radius.circular(25))),
         hintText: hintText,
         contentPadding: const EdgeInsets.symmetric(
-            horizontal: 25, vertical: 20),
+            horizontal: 25, vertical: 15),
       ),
     );
   }
 }
+
+
