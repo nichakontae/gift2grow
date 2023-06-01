@@ -12,7 +12,7 @@ class CustomButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           gradient: color == "primary" ? LinearGradient(
@@ -27,9 +27,9 @@ class CustomButton extends StatelessWidget {
             padding: paddingHorizontal,
             child: Text(text,
               style: TextStyle(
-                fontSize: 18,
-                color: color == "primary" ? Colors.white : Colors.black,
-                fontWeight: FontWeight.bold
+                fontSize: 14,
+                color: color == "primary" ? Colors.white : Colors.black87,
+                fontWeight: FontWeight.w600
               ),
             ),
           ),
