@@ -134,7 +134,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
                                  CustomButton(
                                      paddingHorizontal:
-                                     const EdgeInsets.symmetric(horizontal: 50),
+                                     const EdgeInsets.symmetric(horizontal: 40),
                                      color: "secondary",
                                      text: "Cancel",
                                      onTap: () {
@@ -147,7 +147,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                                    onTap:
                                    canResendEmail ? sendVerificationEmail : null,
                                    paddingHorizontal:
-                                   const EdgeInsets.symmetric(horizontal: 30),
+                                   const EdgeInsets.symmetric(horizontal: 20),
                                  ),
                                ],
                              )

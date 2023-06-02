@@ -35,6 +35,40 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  void showLoading() {
+    if (loading && errorMessage == "") {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                content: SizedBox(
+                  height: 120,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("Loading...")
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BackgroundGradient(
@@ -145,35 +179,40 @@ class _RegisterPageState extends State<RegisterPage> {
                           passwordController:
                               _registerController.passwordController,
                           hintText: "Confirm password"),
-                      errorMessage != ""
-                          ? const SizedBox(
-                        height: 20,
-                      )
-                          : const Text(""),
-                      errorMessage != ""
-                          ? Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding:
-                              const EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                  color: const Color(0xFFFFEFF2),
-                                  border: Border.all(
-                                      color: const Color(0xFFB7415E),
-                                      width: 2),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10))),
-                              child: Text(
-                                errorMessage,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.grey[800]),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Visibility(
+                        visible: errorMessage != "" ? true : false,
+                        child: const SizedBox(
+                          height: 20,
+                        ),
+                      ),
+                      Visibility(
+                        visible: errorMessage != "" ? true : false,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFFFFEFF2),
+                                    border: Border.all(
+                                        color: const Color(0xFFB7415E),
+                                        width: 2),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                                child: Text(
+                                  errorMessage,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.grey[800]),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                          : const Text(""),
+                          ],
+                        ),
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -194,59 +233,21 @@ class _RegisterPageState extends State<RegisterPage> {
                               if (_formKey.currentState!.validate()) {
                                 try {
                                   setState(() => loading = true);
-                                  if (loading && errorMessage == "") {
-                                    showDialog<String>(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            AlertDialog(
-                                              content: SizedBox(
-                                                height: 120,
-                                                child: Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 10),
-                                                  child: Center(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            CircularProgressIndicator(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .primary,
-                                                            ),
-                                                            const SizedBox(
-                                                              height: 10,
-                                                            ),
-                                                            const Text(
-                                                                "Loading...")
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ));
-                                  }
+
                                   UserCredential userCredential =
                                       await auth.createUserWithEmailAndPassword(
                                           email: _registerController.email,
                                           password:
                                               _registerController.password);
-                                  await Caller.dio.post("/auth/register", data:{
+                                  await Caller.dio
+                                      .post("/auth/register", data: {
                                     "user_id": userCredential.user?.uid,
                                     "username": _registerController.username,
-                                    "firstname":_registerController.firstname,
+                                    "firstname": _registerController.firstname,
                                     "lastname": _registerController.lastname,
                                     "email": _registerController.email
-                                  } );
+                                  });
+                                  showLoading();
                                   debugPrint("register successful");
                                   setState(() {
                                     loading = false;
@@ -256,7 +257,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 } on FirebaseAuthException catch (e) {
                                   if (e.code == 'email-already-in-use') {
                                     setState(() => emailAlreadyUse = true);
-                                    errorMessage = "The account already exists for that email.";
+                                    errorMessage =
+                                        "User not found";
                                     debugPrint(
                                         'The account already exists for that email.');
                                   }

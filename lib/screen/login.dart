@@ -25,6 +25,50 @@ class _LoginPageState extends State<LoginPage> {
         MaterialPageRoute(builder: (context) => VerifyEmailPage(email: email)));
   }
 
+  void showLoading(){
+    if (loading && errorMessage == "") {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                content: SizedBox(
+                  height: 120,
+                  child: Container(
+                    padding: const EdgeInsets
+                        .symmetric(vertical: 10),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment:
+                        MainAxisAlignment
+                            .center,
+                        children: [
+                          Column(
+                            mainAxisAlignment:
+                            MainAxisAlignment
+                                .center,
+                            children: [
+                              CircularProgressIndicator(
+                                color: Theme.of(
+                                    context)
+                                    .colorScheme
+                                    .primary,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text(
+                                  "Loading...")
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
               end: Alignment.bottomCenter,
               colors: [Theme.of(context).colorScheme.secondary, Colors.white])),
       child: Scaffold(
-        resizeToAvoidBottomInset:false,
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         body: Form(
           key: _formKey,
@@ -186,35 +230,39 @@ class _LoginPageState extends State<LoginPage> {
                       // const SizedBox(
                       //   height: 20,
                       // ),
-                      errorMessage != ""
-                          ? const SizedBox(
-                              height: 20,
-                            )
-                          : const Text(""),
-                      errorMessage != ""
-                          ? Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    decoration: BoxDecoration(
-                                        color: const Color(0xFFFFEFF2),
-                                        border: Border.all(
-                                            color: const Color(0xFFB7415E),
-                                            width: 2),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10))),
-                                    child: Text(
-                                      errorMessage,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.grey[800]),
-                                    ),
-                                  ),
+                      Visibility(
+                        visible: errorMessage != "" ? true : false,
+                        child: const SizedBox(
+                          height: 20,
+                        ),
+                      ),
+
+                      Visibility(
+                        visible: errorMessage != "" ? true : false,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFFFFEFF2),
+                                    border: Border.all(
+                                        color: const Color(0xFFB7415E),
+                                        width: 2),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                                child: Text(
+                                  errorMessage,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.grey[800]),
                                 ),
-                              ],
-                            )
-                          : const Text(""),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
                       const SizedBox(
                         height: 20,
                       ),
@@ -228,52 +276,11 @@ class _LoginPageState extends State<LoginPage> {
                               if (_formKey.currentState!.validate()) {
                                 try {
                                   setState(() => loading = true);
-                                  if (loading && errorMessage == "") {
-                                    showDialog<String>(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            AlertDialog(
-                                              content: SizedBox(
-                                                height: 120,
-                                                child: Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 10),
-                                                  child: Center(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            CircularProgressIndicator(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .primary,
-                                                            ),
-                                                            const SizedBox(
-                                                              height: 10,
-                                                            ),
-                                                            const Text(
-                                                                "Loading...")
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ));
-                                  }
                                   await FirebaseAuth.instance
                                       .signInWithEmailAndPassword(
                                           email: _loginController.email,
                                           password: _loginController.password);
-
+                                  showLoading();
                                   setState(() {
                                     loading = false;
                                     errorMessage = "";
