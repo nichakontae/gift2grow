@@ -129,7 +129,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               color: "secondary",
                               text: "Back to Login",
                               onTap: () {
-                                Navigator.pop(context);
+                                Navigator.popUntil(context, ModalRoute.withName('/login'));
                               },
                               paddingHorizontal:
                                   const EdgeInsets.symmetric(horizontal: 20),

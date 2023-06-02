@@ -47,7 +47,7 @@ class CheckEmail extends StatelessWidget {
                             color: "secondary",
                             text: "Back to Login",
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginPage()));
+                              Navigator.popUntil(context, ModalRoute.withName('/login'));
                             },
                             paddingHorizontal:
                                 const EdgeInsets.symmetric(horizontal: 20),

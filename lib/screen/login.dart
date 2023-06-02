@@ -17,7 +17,6 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   bool passwordVisible = true;
   String errorMessage = "";
-  bool loading = false;
   final LoginTextEditController _loginController = LoginTextEditController();
 
   void navigate(String email) {
@@ -25,49 +24,6 @@ class _LoginPageState extends State<LoginPage> {
         MaterialPageRoute(builder: (context) => VerifyEmailPage(email: email)));
   }
 
-  void showLoading(){
-    if (loading && errorMessage == "") {
-      showDialog<String>(
-          context: context,
-          builder: (BuildContext context) =>
-              AlertDialog(
-                content: SizedBox(
-                  height: 120,
-                  child: Container(
-                    padding: const EdgeInsets
-                        .symmetric(vertical: 10),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment
-                            .center,
-                        children: [
-                          Column(
-                            mainAxisAlignment:
-                            MainAxisAlignment
-                                .center,
-                            children: [
-                              CircularProgressIndicator(
-                                color: Theme.of(
-                                    context)
-                                    .colorScheme
-                                    .primary,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              const Text(
-                                  "Loading...")
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -275,19 +231,43 @@ class _LoginPageState extends State<LoginPage> {
                             onTap: () async {
                               if (_formKey.currentState!.validate()) {
                                 try {
-                                  setState(() => loading = true);
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) => AlertDialog(
+                                      content: SizedBox(
+                                        height: 120,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(vertical: 10),
+                                          child: Center(
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    CircularProgressIndicator(
+                                                      color: Theme.of(context).colorScheme.primary,
+                                                    ),
+                                                    const SizedBox(height: 10),
+                                                    const Text("Loading..."),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
                                   await FirebaseAuth.instance
                                       .signInWithEmailAndPassword(
                                           email: _loginController.email,
                                           password: _loginController.password);
-                                  showLoading();
-                                  setState(() {
-                                    loading = false;
-                                    errorMessage = "";
-                                  });
+
                                   navigate(_loginController.email);
                                   debugPrint("successfully login");
                                 } on FirebaseAuthException catch (e) {
+                                  Navigator.of(context).pop();
                                   if (e.code == 'user-not-found') {
                                     setState(() {
                                       errorMessage = "User not found";

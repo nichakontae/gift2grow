@@ -22,8 +22,6 @@ class _RegisterPageState extends State<RegisterPage> {
       RegisterTextEditController();
   List<bool> password = [true, true];
   FirebaseAuth auth = FirebaseAuth.instance;
-  bool emailAlreadyUse = false;
-  bool loading = false;
   String errorMessage = "";
 
   void navigate() {
@@ -33,40 +31,6 @@ class _RegisterPageState extends State<RegisterPage> {
           builder: (context) =>
               VerifyEmailPage(email: _registerController.email)),
     );
-  }
-
-  void showLoading() {
-    if (loading && errorMessage == "") {
-      showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-                content: SizedBox(
-                  height: 120,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CircularProgressIndicator(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              const Text("Loading...")
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ));
-    }
   }
 
   @override
@@ -149,8 +113,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 !RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
                                     .hasMatch(value)) {
                               return 'Please enter a valid email';
-                            } else if (emailAlreadyUse) {
-                              return "The account already exists for that email.";
                             }
                             return null;
                           },
@@ -222,7 +184,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           CustomButton(
                             color: "secondary",
                             text: "Back to Login",
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.popUntil(context, ModalRoute.withName('/login'));
+                            },
                             paddingHorizontal:
                                 const EdgeInsets.symmetric(horizontal: 20),
                           ),
@@ -232,7 +196,40 @@ class _RegisterPageState extends State<RegisterPage> {
                             onTap: () async {
                               if (_formKey.currentState!.validate()) {
                                 try {
-                                  setState(() => loading = true);
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      content: SizedBox(
+                                        height: 120,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          child: Center(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    CircularProgressIndicator(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary,
+                                                    ),
+                                                    const SizedBox(height: 10),
+                                                    const Text("Loading..."),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
 
                                   UserCredential userCredential =
                                       await auth.createUserWithEmailAndPassword(
@@ -247,22 +244,18 @@ class _RegisterPageState extends State<RegisterPage> {
                                     "lastname": _registerController.lastname,
                                     "email": _registerController.email
                                   });
-                                  showLoading();
                                   debugPrint("register successful");
-                                  setState(() {
-                                    loading = false;
-                                    errorMessage = "";
-                                  });
                                   navigate();
                                 } on FirebaseAuthException catch (e) {
+                                  Navigator.of(context).pop();
                                   if (e.code == 'email-already-in-use') {
-                                    setState(() => emailAlreadyUse = true);
-                                    errorMessage =
-                                        "User not found";
+                                    setState(
+                                        () => errorMessage = "email already in use");
                                     debugPrint(
                                         'The account already exists for that email.');
                                   }
                                 } catch (e) {
+                                  Navigator.of(context).pop();
                                   debugPrint(e.toString());
                                 }
                               }
