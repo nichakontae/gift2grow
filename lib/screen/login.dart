@@ -28,16 +28,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(30),
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                Theme.of(context).colorScheme.secondary,
-                Colors.white
-              ])),
-      child: Scaffold(backgroundColor: Colors.transparent, body:  Form(
+              colors: [Theme.of(context).colorScheme.secondary, Colors.white])),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Form(
           key: _formKey,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -90,7 +88,8 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   prefixIcon: Icon(
                                     Icons.account_circle,
-                                    color: Theme.of(context).colorScheme.primary,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
@@ -138,7 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   prefixIcon: Icon(
                                     Icons.key,
-                                    color: Theme.of(context).colorScheme.primary,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                   ),
                                   suffixIcon: IconButton(
                                     icon: Icon(
@@ -195,8 +195,8 @@ class _LoginPageState extends State<LoginPage> {
                               children: [
                                 Expanded(
                                   child: Container(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 10),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
                                     decoration: BoxDecoration(
                                         color: const Color(0xFFFFEFF2),
                                         border: Border.all(
@@ -235,9 +235,8 @@ class _LoginPageState extends State<LoginPage> {
                                               content: SizedBox(
                                                 height: 120,
                                                 child: Container(
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                          vertical: 10),
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 10),
                                                   child: Center(
                                                     child: Row(
                                                       mainAxisAlignment:
