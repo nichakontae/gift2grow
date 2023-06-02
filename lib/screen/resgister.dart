@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/register_controller.dart';
 import 'package:gift2grow/screen/verify_email.dart';
+import 'package:gift2grow/utilities/caller.dart';
 import 'package:gift2grow/widgets/background_gradient.dart';
 import 'package:gift2grow/widgets/confirm_password_text_form_field.dart';
 import 'package:gift2grow/widgets/password_text_form_field.dart';
@@ -193,7 +194,9 @@ class _RegisterPageState extends State<RegisterPage> {
                               if (_formKey.currentState!.validate()) {
                                 try {
                                   setState(() => loading = true);
-                                  if (loading && errorMessage != "") {
+                                  print(loading);
+                                  print(errorMessage);
+                                  if (loading && errorMessage == "") {
                                     showDialog<String>(
                                         context: context,
                                         builder: (BuildContext context) =>
@@ -239,8 +242,18 @@ class _RegisterPageState extends State<RegisterPage> {
                                           email: _registerController.email,
                                           password:
                                               _registerController.password);
+                                  await Caller.dio.post("/auth/register", data:{
+                                    "user_id": userCredential.user?.uid,
+                                    "username": _registerController.username,
+                                    "firstname":_registerController.firstname,
+                                    "lastname": _registerController.lastname,
+                                    "email": _registerController.email
+                                  } );
                                   debugPrint("register successful");
-                                  setState(() => loading = false);
+                                  setState(() {
+                                    loading = false;
+                                    errorMessage = "";
+                                  });
                                   navigate();
                                 } on FirebaseAuthException catch (e) {
                                   if (e.code == 'email-already-in-use') {
