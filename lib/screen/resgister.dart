@@ -22,8 +22,6 @@ class _RegisterPageState extends State<RegisterPage> {
       RegisterTextEditController();
   List<bool> password = [true, true];
   FirebaseAuth auth = FirebaseAuth.instance;
-  bool emailAlreadyUse = false;
-  bool loading = false;
   String errorMessage = "";
 
   void navigate() {
@@ -115,8 +113,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 !RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
                                     .hasMatch(value)) {
                               return 'Please enter a valid email';
-                            } else if (emailAlreadyUse) {
-                              return "The account already exists for that email.";
                             }
                             return null;
                           },
@@ -145,35 +141,40 @@ class _RegisterPageState extends State<RegisterPage> {
                           passwordController:
                               _registerController.passwordController,
                           hintText: "Confirm password"),
-                      errorMessage != ""
-                          ? const SizedBox(
-                        height: 20,
-                      )
-                          : const Text(""),
-                      errorMessage != ""
-                          ? Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding:
-                              const EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                  color: const Color(0xFFFFEFF2),
-                                  border: Border.all(
-                                      color: const Color(0xFFB7415E),
-                                      width: 2),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10))),
-                              child: Text(
-                                errorMessage,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.grey[800]),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Visibility(
+                        visible: errorMessage != "" ? true : false,
+                        child: const SizedBox(
+                          height: 20,
+                        ),
+                      ),
+                      Visibility(
+                        visible: errorMessage != "" ? true : false,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFFFFEFF2),
+                                    border: Border.all(
+                                        color: const Color(0xFFB7415E),
+                                        width: 2),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                                child: Text(
+                                  errorMessage,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.grey[800]),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                          : const Text(""),
+                          ],
+                        ),
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -183,7 +184,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           CustomButton(
                             color: "secondary",
                             text: "Back to Login",
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.popUntil(context, ModalRoute.withName('/login'));
+                            },
                             paddingHorizontal:
                                 const EdgeInsets.symmetric(horizontal: 20),
                           ),
@@ -193,74 +196,66 @@ class _RegisterPageState extends State<RegisterPage> {
                             onTap: () async {
                               if (_formKey.currentState!.validate()) {
                                 try {
-                                  setState(() => loading = true);
-                                  if (loading && errorMessage == "") {
-                                    showDialog<String>(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            AlertDialog(
-                                              content: SizedBox(
-                                                height: 120,
-                                                child: Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 10),
-                                                  child: Center(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            CircularProgressIndicator(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .primary,
-                                                            ),
-                                                            const SizedBox(
-                                                              height: 10,
-                                                            ),
-                                                            const Text(
-                                                                "Loading...")
-                                                          ],
-                                                        ),
-                                                      ],
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      content: SizedBox(
+                                        height: 120,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          child: Center(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    CircularProgressIndicator(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary,
                                                     ),
-                                                  ),
+                                                    const SizedBox(height: 10),
+                                                    const Text("Loading..."),
+                                                  ],
                                                 ),
-                                              ),
-                                            ));
-                                  }
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+
                                   UserCredential userCredential =
                                       await auth.createUserWithEmailAndPassword(
                                           email: _registerController.email,
                                           password:
                                               _registerController.password);
-                                  await Caller.dio.post("/auth/register", data:{
+                                  await Caller.dio
+                                      .post("/auth/register", data: {
                                     "user_id": userCredential.user?.uid,
                                     "username": _registerController.username,
-                                    "firstname":_registerController.firstname,
+                                    "firstname": _registerController.firstname,
                                     "lastname": _registerController.lastname,
                                     "email": _registerController.email
-                                  } );
-                                  debugPrint("register successful");
-                                  setState(() {
-                                    loading = false;
-                                    errorMessage = "";
                                   });
+                                  debugPrint("register successful");
                                   navigate();
                                 } on FirebaseAuthException catch (e) {
+                                  Navigator.of(context).pop();
                                   if (e.code == 'email-already-in-use') {
-                                    setState(() => emailAlreadyUse = true);
-                                    errorMessage = "The account already exists for that email.";
+                                    setState(
+                                        () => errorMessage = "email already in use");
                                     debugPrint(
                                         'The account already exists for that email.');
                                   }
                                 } catch (e) {
+                                  Navigator.of(context).pop();
                                   debugPrint(e.toString());
                                 }
                               }
