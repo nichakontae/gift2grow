@@ -23,6 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   FirebaseAuth auth = FirebaseAuth.instance;
   bool emailAlreadyUse = false;
   bool loading = false;
+  String errorMessage = "";
 
   void navigate() {
     Navigator.push(
@@ -143,8 +144,37 @@ class _RegisterPageState extends State<RegisterPage> {
                           passwordController:
                               _registerController.passwordController,
                           hintText: "Confirm password"),
+                      errorMessage != ""
+                          ? const SizedBox(
+                        height: 20,
+                      )
+                          : const Text(""),
+                      errorMessage != ""
+                          ? Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              padding:
+                              const EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                  color: const Color(0xFFFFEFF2),
+                                  border: Border.all(
+                                      color: const Color(0xFFB7415E),
+                                      width: 2),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10))),
+                              child: Text(
+                                errorMessage,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.grey[800]),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                          : const Text(""),
                       const SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -163,7 +193,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               if (_formKey.currentState!.validate()) {
                                 try {
                                   setState(() => loading = true);
-                                  if (loading) {
+                                  if (loading && errorMessage != "") {
                                     showDialog<String>(
                                         context: context,
                                         builder: (BuildContext context) =>
@@ -214,7 +244,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   navigate();
                                 } on FirebaseAuthException catch (e) {
                                   if (e.code == 'email-already-in-use') {
-                                    emailAlreadyUse = true;
+                                    setState(() => emailAlreadyUse = true);
+                                    errorMessage = "The account already exists for that email.";
                                     debugPrint(
                                         'The account already exists for that email.');
                                   }
