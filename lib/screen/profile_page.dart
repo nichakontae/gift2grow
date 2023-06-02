@@ -47,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
               child: ListView(
                 children: [
-                  const UserInfo(),
+                  const UserInformation(),
                 ],
               ),
             ),
