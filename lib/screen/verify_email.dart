@@ -28,7 +28,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     if (!isEmailVerified) {
       sendVerificationEmail();
 
-      // timer = Timer.periodic(Duration(seconds: 5), (_) => checkEmailVerified());
+      timer = Timer.periodic(const Duration(seconds: 3), (_) => checkEmailVerified());
     }
   }
 
@@ -38,16 +38,16 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     super.dispose();
   }
 
-  // Future checkEmailVerified() async {
-  //   // call after email verification
-  //   await FirebaseAuth.instance.currentUser!.reload();
-  //
-  //   setState(() {
-  //     isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-  //   });
-  //
-  //   if(isEmailVerified) timer?.cancel();
-  // }
+  Future checkEmailVerified() async {
+    // call after email verification
+    await FirebaseAuth.instance.currentUser!.reload();
+
+    setState(() {
+      isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    });
+
+    if(isEmailVerified) timer?.cancel();
+  }
 
   Future sendVerificationEmail() async {
     try {
