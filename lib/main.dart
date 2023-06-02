@@ -31,7 +31,7 @@ class Gift2Grow extends StatelessWidget {
         ),
     textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Poppins')
       ),
-      home: const RegisterPage(),
+      home: const LoginPage(),
     );
   }
 }
