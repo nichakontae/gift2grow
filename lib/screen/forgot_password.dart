@@ -14,14 +14,16 @@ class ForgotPasswordPage extends StatefulWidget {
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _formKey = GlobalKey<FormState>();
   String email = "";
-  bool canNavigate = true;
+  String errorMessage = "";
 
   Future sendResetPasswordEmail() async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      canNavigate = true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        setState(() => errorMessage = "user not found");
+      }
     } catch (e) {
-      canNavigate = false;
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
@@ -66,7 +68,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                         .hasMatch(value)) {
                                   return 'Please enter a valid email';
                                 }
-                                // เหลือเช็คว่าemail นี้มีในระบบมั้ย
                                 return null;
                               },
                               onChanged: (value) {
@@ -87,6 +88,37 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             )),
                           ],
                         ),
+                        Visibility(
+                          visible: errorMessage != "" ? true : false,
+                          child: const SizedBox(
+                            height: 20,
+                          ),
+                        ),
+                        Visibility(
+                          visible: errorMessage != "" ? true : false,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFFFFEFF2),
+                                      border: Border.all(
+                                          color: const Color(0xFFB7415E),
+                                          width: 2),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10))),
+                                  child: Text(
+                                    errorMessage,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(color: Colors.grey[800]),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
@@ -97,7 +129,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               color: "secondary",
                               text: "Back to Login",
                               onTap: () {
-                                Navigator.pop(context);
+                                Navigator.popUntil(context, ModalRoute.withName('/login'));
                               },
                               paddingHorizontal:
                                   const EdgeInsets.symmetric(horizontal: 20),
@@ -108,7 +140,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
                                   sendResetPasswordEmail();
-                                  canNavigate
+                                  errorMessage != ""
                                       ? Navigator.push(
                                           context,
                                           MaterialPageRoute(
