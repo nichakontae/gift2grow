@@ -5,7 +5,6 @@ import 'package:gift2grow/screen/forgot_password.dart';
 import 'package:gift2grow/screen/resgister.dart';
 import 'package:gift2grow/screen/verify_email.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -28,294 +27,307 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      body: Form(
-        key: _formKey,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const CircleAvatar(
-                      backgroundImage: AssetImage("assets/logo/logo7@2x.png"),
-                      radius: 120,
-                      backgroundColor: Colors.white,
-                    ),
-                    const SizedBox(height: 20),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Email",
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: _loginController.emailController,
-                            validator: (value) {
-                              if (value == null ||
-                                  value.isEmpty ||
-                                  !RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                      .hasMatch(value)) {
-                                return 'Please enter a valid email';
-                              }
-                              return null;
+    return Container(
+      padding: const EdgeInsets.all(30),
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Theme.of(context).colorScheme.secondary,
+                Colors.white
+              ])),
+      child: Scaffold(backgroundColor: Colors.transparent, body:  Form(
+          key: _formKey,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const CircleAvatar(
+                        backgroundImage: AssetImage("assets/logo/logo7@2x.png"),
+                        radius: 120,
+                        backgroundColor: Colors.white,
+                      ),
+                      const SizedBox(height: 20),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Email",
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: _loginController.emailController,
+                              validator: (value) {
+                                if (value == null ||
+                                    value.isEmpty ||
+                                    !RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                        .hasMatch(value)) {
+                                  return 'Please enter a valid email';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 25, vertical: 15),
+                                  border: const OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(25),
+                                    ),
+                                  ),
+                                  prefixIcon: Icon(
+                                    Icons.account_circle,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: "Type your email"),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Password",
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: _loginController.passwordController,
+                              obscureText: passwordVisible,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter password';
+                                } else if (value.length < 8) {
+                                  return "Password must be at least 8 characters long";
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 25, vertical: 15),
+                                  border: const OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(25),
+                                    ),
+                                  ),
+                                  prefixIcon: Icon(
+                                    Icons.key,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      passwordVisible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        passwordVisible = !passwordVisible;
+                                      });
+                                    },
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: "Type your email"),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ForgotPasswordPage()));
                             },
-                            decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 25, vertical: 15),
-                                border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(25),
-                                  ),
-                                ),
-                                prefixIcon: Icon(
-                                  Icons.account_circle,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: "Type your email"),
+                            child: Text(
+                              "Forgot password?",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Password",
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: _loginController.passwordController,
-                            obscureText: passwordVisible,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter password';
-                              } else if (value.length < 8) {
-                                return "Password must be at least 8 characters long";
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 25, vertical: 15),
-                                border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(25),
+                        ],
+                      ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+                      errorMessage != ""
+                          ? const SizedBox(
+                              height: 20,
+                            )
+                          : const Text(""),
+                      errorMessage != ""
+                          ? Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 10),
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFFFFEFF2),
+                                        border: Border.all(
+                                            color: const Color(0xFFB7415E),
+                                            width: 2),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10))),
+                                    child: Text(
+                                      errorMessage,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.grey[800]),
+                                    ),
                                   ),
                                 ),
-                                prefixIcon: Icon(
-                                  Icons.key,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    passwordVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      passwordVisible = !passwordVisible;
-                                    });
-                                  },
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: "Type your email"),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ForgotPasswordPage()));
-                          },
-                          child: Text(
-                            "Forgot password?",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.primary),
-                          ),
-                        ),
-                      ],
-                    ),
-                    // const SizedBox(
-                    //   height: 20,
-                    // ),
-                    errorMessage != ""
-                        ? const SizedBox(
-                            height: 20,
-                          )
-                        : const Text(""),
-                    errorMessage != ""
-                        ? Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xFFFFEFF2),
-                                      border: Border.all(
-                                          color: const Color(0xFFB7415E),
-                                          width: 2),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(10))),
-                                  child: Text(
-                                    errorMessage,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.grey[800]),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        : const Text(""),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomButton(
-                          color: "primary",
-                          text: "Login",
-                          onTap: () async {
-                            if (_formKey.currentState!.validate()) {
-                              try {
-                                setState(() => loading = true);
-                                if (loading && errorMessage != "") {
-                                  showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          AlertDialog(
-                                            content: SizedBox(
-                                              height: 120,
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 10),
-                                                child: Center(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          CircularProgressIndicator(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .primary,
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          const Text(
-                                                              "Loading...")
-                                                        ],
-                                                      ),
-                                                    ],
+                              ],
+                            )
+                          : const Text(""),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomButton(
+                            color: "primary",
+                            text: "Login",
+                            onTap: () async {
+                              if (_formKey.currentState!.validate()) {
+                                try {
+                                  setState(() => loading = true);
+                                  if (loading && errorMessage == "") {
+                                    showDialog<String>(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                              content: SizedBox(
+                                                height: 120,
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                          vertical: 10),
+                                                  child: Center(
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            CircularProgressIndicator(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .primary,
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            const Text(
+                                                                "Loading...")
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ));
-                                }
-                                await FirebaseAuth.instance
-                                    .signInWithEmailAndPassword(
-                                        email: _loginController.email,
-                                        password: _loginController.password);
-                                setState(() => loading = false);
-                                navigate(_loginController.email);
-                                debugPrint("successfully login");
-                              } on FirebaseAuthException catch (e) {
-                                if (e.code == 'user-not-found') {
+                                            ));
+                                  }
+                                  await FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                          email: _loginController.email,
+                                          password: _loginController.password);
+
                                   setState(() {
-                                    errorMessage = "User not found";
+                                    loading = false;
+                                    errorMessage = "";
                                   });
-                                  debugPrint('No user found for that email');
-                                } else if (e.code == 'wrong-password') {
-                                  setState(() {
-                                    errorMessage = "Wrong password";
-                                  });
-                                  debugPrint(
-                                      'wrong password provided for that user');
+                                  navigate(_loginController.email);
+                                  debugPrint("successfully login");
+                                } on FirebaseAuthException catch (e) {
+                                  if (e.code == 'user-not-found') {
+                                    setState(() {
+                                      errorMessage = "User not found";
+                                    });
+                                    debugPrint('No user found for that email');
+                                  } else if (e.code == 'wrong-password') {
+                                    setState(() {
+                                      errorMessage = "Wrong password";
+                                    });
+                                    debugPrint(
+                                        'wrong password provided for that user');
+                                  }
                                 }
                               }
-                            }
-                          },
-                          paddingHorizontal:
-                              const EdgeInsets.symmetric(horizontal: 60),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Don't have an account? "),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RegisterPage()));
-                          },
-                          child: const Text(
-                            "Create",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
+                            },
+                            paddingHorizontal:
+                                const EdgeInsets.symmetric(horizontal: 60),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("Don't have an account? "),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RegisterPage()));
+                            },
+                            child: const Text(
+                              "Create",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
