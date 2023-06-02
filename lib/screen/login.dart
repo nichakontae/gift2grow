@@ -220,7 +220,7 @@ class _LoginPageState extends State<LoginPage> {
                             if (_formKey.currentState!.validate()) {
                               try {
                                 setState(() => loading = true);
-                                if (loading) {
+                                if (loading && errorMessage != "") {
                                   showDialog<String>(
                                       context: context,
                                       builder: (BuildContext context) =>
@@ -312,7 +312,6 @@ class _LoginPageState extends State<LoginPage> {
                         )
                       ],
                     ),
-                    loading ? const CircularProgressIndicator() : const Text("")
                   ],
                 ),
               ),
