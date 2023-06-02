@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   bool passwordVisible = true;
+  String errorMessage = "";
   final LoginTextEditController _loginController = LoginTextEditController();
 
   void navigate(String email) {
@@ -25,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: Colors.white,
       body: Form(
         key: _formKey,
         child: Container(
@@ -110,11 +111,10 @@ class _LoginPageState extends State<LoginPage> {
                             controller: _loginController.passwordController,
                             obscureText: passwordVisible,
                             validator: (value) {
-                              if (value == null ||
-                                  value.isEmpty ||
-                                  !RegExp(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$')
-                                      .hasMatch(value)) {
-                                return 'Please enter a valid password';
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter password';
+                              } else if (value.length < 8) {
+                                return "Password must be at least 8 characters long";
                               }
                               return null;
                             },
@@ -166,7 +166,39 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ],
                     ),
-                    const SizedBox(
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
+                    errorMessage != ""
+                        ? const SizedBox(
+                            height: 20,
+                          )
+                        : const Text(""),
+                    errorMessage != ""
+                        ? Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFFFFEFF2),
+                                      border: Border.all(
+                                          color: const Color(0xFFB7415E),
+                                          width: 2),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10))),
+                                  child: Text(
+                                    errorMessage,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(color: Colors.grey[800]),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Text(""),
+                    SizedBox(
                       height: 20,
                     ),
                     Row(
@@ -185,15 +217,21 @@ class _LoginPageState extends State<LoginPage> {
                                             password:
                                                 _loginController.password);
                                 navigate(_loginController.email);
+                                debugPrint("successfully login");
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {
+                                  setState(() {
+                                    errorMessage = "User not found";
+                                  });
                                   debugPrint('No user found for that email');
                                 } else if (e.code == 'wrong-password') {
+                                  setState(() {
+                                    errorMessage = "Wrong password";
+                                  });
                                   debugPrint(
                                       'wrong password provided for that user');
                                 }
                               }
-                              debugPrint("successfully login");
                             }
                           },
                           paddingHorizontal:
@@ -213,7 +251,7 @@ class _LoginPageState extends State<LoginPage> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
