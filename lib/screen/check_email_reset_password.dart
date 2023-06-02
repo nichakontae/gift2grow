@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gift2grow/screen/login.dart';
 import 'package:gift2grow/widgets/background_gradient.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
@@ -45,7 +46,9 @@ class CheckEmail extends StatelessWidget {
                           CustomButton(
                             color: "secondary",
                             text: "Back to Login",
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginPage()));
+                            },
                             paddingHorizontal:
                                 const EdgeInsets.symmetric(horizontal: 20),
                           )

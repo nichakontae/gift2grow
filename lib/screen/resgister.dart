@@ -24,12 +24,10 @@ class _RegisterPageState extends State<RegisterPage> {
   bool emailAlreadyUse = false;
 
   void navigate() {
-    if (_registerController.email != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => VerifyEmailPage(email: _registerController.email!)),
-      );
-    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => VerifyEmailPage(email: _registerController.email)),
+    );
   }
 
 
@@ -115,7 +113,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                       .hasMatch(value)) {
                                 return 'Please enter a valid email';
                               } else if (emailAlreadyUse) {
-                                print("hi");
                                 return "The account already exists for that email.";
                               }
                               return null;
@@ -174,7 +171,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                   } on FirebaseAuthException catch (e) {
                                     if (e.code == 'email-already-in-use') {
                                       emailAlreadyUse = true;
-                                      print(emailAlreadyUse);
                                       debugPrint(
                                           'The account already exists for that email.');
                                     }
