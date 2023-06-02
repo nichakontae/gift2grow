@@ -45,9 +45,9 @@ class _HistoryPageState extends State<HistoryPage> {
               ),
             ),
             for (var i = 0; i < 12; i++)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-                child: const DonateHistory(),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
+                child: DonateHistory(),
               ),
           ],
         ),

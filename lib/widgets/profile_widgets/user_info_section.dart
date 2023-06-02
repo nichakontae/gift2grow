@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:gift2grow/screen/edit_profile_page.dart';
 import 'package:gift2grow/widgets/profile_widgets/history_section.dart';
 import 'package:gift2grow/widgets/profile_widgets/user_info_section.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
@@ -41,13 +42,22 @@ class _UserInfoState extends State<UserInfo> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("Profile",
+                  const Text("Profile",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-                  Icon(Icons.edit_square),
+                  GestureDetector(
+                    child: const Icon(Icons.edit_square),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EditProfilePage()),
+                      );
+                    },
+                  ),
                 ],
               ),
               Padding(
