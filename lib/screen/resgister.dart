@@ -194,8 +194,6 @@ class _RegisterPageState extends State<RegisterPage> {
                               if (_formKey.currentState!.validate()) {
                                 try {
                                   setState(() => loading = true);
-                                  print(loading);
-                                  print(errorMessage);
                                   if (loading && errorMessage == "") {
                                     showDialog<String>(
                                         context: context,

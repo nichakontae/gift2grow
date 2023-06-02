@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gift2grow/screen/forgot_password.dart';
 import 'package:gift2grow/screen/login.dart';
+import 'package:gift2grow/screen/resgister.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -19,6 +21,12 @@ class Gift2Grow extends StatelessWidget {
     final ThemeData theme = ThemeData();
     return MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => const LoginPage(),
+        '/register' : (context) => const RegisterPage(),
+        '/forgot-password':(context) => const ForgotPasswordPage(),
+      },
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(
           primary: const Color(0xFF9468AC),

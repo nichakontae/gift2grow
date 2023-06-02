@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/screen/home_test.dart';
-import 'package:gift2grow/screen/login.dart';
 import 'package:gift2grow/widgets/background_gradient.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
@@ -19,34 +18,43 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   bool isEmailVerified = false;
   bool canResendEmail = false;
   Timer? timer;
+  bool _isDisposed = false;
+
 
   @override
   void initState() {
     super.initState();
     // user need to be create before
-    isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-    if (!isEmailVerified) {
-      sendVerificationEmail();
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      isEmailVerified = currentUser.emailVerified;
+      if (!isEmailVerified) {
+        sendVerificationEmail();
 
-      timer = Timer.periodic(const Duration(seconds: 3), (_) => checkEmailVerified());
+        timer = Timer.periodic(const Duration(seconds: 3), (_) => checkEmailVerified());
+      }
     }
   }
 
   @override
   void dispose() {
-    // timer?.cancel();
+    _isDisposed = true;
+    timer?.cancel();
     super.dispose();
   }
 
   Future checkEmailVerified() async {
-    // call after email verification
-    await FirebaseAuth.instance.currentUser!.reload();
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      // call after email verification
+      await currentUser.reload();
 
-    setState(() {
-      isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-    });
+      setState(() {
+        isEmailVerified = currentUser.emailVerified;
+      });
 
-    if(isEmailVerified) timer?.cancel();
+      if (isEmailVerified) timer?.cancel();
+    }
   }
 
   Future sendVerificationEmail() async {
@@ -54,10 +62,17 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       final user = FirebaseAuth.instance.currentUser!;
       await user.sendEmailVerification();
 
+      if (_isDisposed) return;
+
       setState(() => canResendEmail = false);
       await Future.delayed(const Duration(seconds: 5));
+
+      if (_isDisposed) return;
+
       setState(() => canResendEmail = true);
+
     } catch (e) {
+      if (_isDisposed) return;
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
@@ -98,7 +113,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                                      text: "We've sent an email to ",
                                    ),
                                    TextSpan(
-                                     text: widget!.email,
+                                     text: widget.email,
                                      style: const TextStyle(
                                        fontWeight: FontWeight.bold,
                                      ),
@@ -124,11 +139,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                                      text: "Cancel",
                                      onTap: () {
                                        FirebaseAuth.instance.signOut();
-                                       Navigator.push(
-                                         context,
-                                         MaterialPageRoute(
-                                             builder: (context) =>
-                                             const LoginPage()),);
+                                       Navigator.popUntil(context, ModalRoute.withName('/login'));
                                      }),
                                  CustomButton(
                                    color: "primary",
