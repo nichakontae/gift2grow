@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/login_controller.dart';
+import 'package:gift2grow/screen/forgot_password.dart';
+import 'package:gift2grow/screen/resgister.dart';
 import 'package:gift2grow/screen/verify_email.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -16,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   bool passwordVisible = true;
   String errorMessage = "";
+  bool loading = false;
   final LoginTextEditController _loginController = LoginTextEditController();
 
   void navigate(String email) {
@@ -26,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       body: Form(
         key: _formKey,
         child: Container(
@@ -64,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                             validator: (value) {
                               if (value == null ||
                                   value.isEmpty ||
-                                  !RegExp(r'^\w+@(\w+\.)+\w{2,4}$')
+                                  !RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
                                       .hasMatch(value)) {
                                 return 'Please enter a valid email';
                               }
@@ -156,7 +159,13 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ForgotPasswordPage()));
+                          },
                           child: Text(
                             "Forgot password?",
                             style: TextStyle(
@@ -197,8 +206,8 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ],
                           )
-                        : Text(""),
-                    SizedBox(
+                        : const Text(""),
+                    const SizedBox(
                       height: 20,
                     ),
                     Row(
@@ -210,12 +219,54 @@ class _LoginPageState extends State<LoginPage> {
                           onTap: () async {
                             if (_formKey.currentState!.validate()) {
                               try {
-                                UserCredential userCredential =
-                                    await FirebaseAuth.instance
-                                        .signInWithEmailAndPassword(
-                                            email: _loginController.email,
-                                            password:
-                                                _loginController.password);
+                                setState(() => loading = true);
+                                if (loading) {
+                                  showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                            content: SizedBox(
+                                              height: 120,
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10),
+                                                child: Center(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          CircularProgressIndicator(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .primary,
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          const Text(
+                                                              "Loading...")
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ));
+                                }
+                                await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                        email: _loginController.email,
+                                        password: _loginController.password);
+                                setState(() => loading = false);
                                 navigate(_loginController.email);
                                 debugPrint("successfully login");
                               } on FirebaseAuthException catch (e) {
@@ -242,16 +293,26 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 30,
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don't have an account? "),
-                        Text(
-                          "Create",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        const Text("Don't have an account? "),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegisterPage()));
+                          },
+                          child: const Text(
+                            "Create",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         )
                       ],
                     ),
+                    loading ? const CircularProgressIndicator() : const Text("")
                   ],
                 ),
               ),
