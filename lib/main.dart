@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gift2grow/screen/donate_to_app.dart';
 import 'package:gift2grow/screen/profile_page.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return ProfilePage();
+    return const DonateToApp();
     // Scaffold(
     //   appBar: AppBar(
     //     title: Text(widget.title),

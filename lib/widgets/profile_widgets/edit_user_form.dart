@@ -48,8 +48,7 @@ class _EditProfileformState extends State<EditProfileform> {
                 children: [
                   widget.userInfo.profileImageFile != null
                       ? CircleAvatar(
-                          backgroundImage: FileImage(
-                              File(widget.userInfo.profileImageFile!.path)),
+                          backgroundImage: FileImage(File(widget.userInfo.profileImageFile!.path)),
                           radius: 90.0,
                         )
                       :
@@ -59,8 +58,7 @@ class _EditProfileformState extends State<EditProfileform> {
                       //   radius: 90.0,
                       // ),
                       const CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/profileNull.png'),
+                          backgroundImage: AssetImage('assets/images/profileNull.png'),
                           radius: 90.0,
                         ),
                   Positioned(
@@ -102,9 +100,12 @@ class _EditProfileformState extends State<EditProfileform> {
               const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    "Edit Profile",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  Padding(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Text(
+                      "Edit Profile",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ],
               ),
@@ -120,8 +121,7 @@ class _EditProfileformState extends State<EditProfileform> {
                           controller: _usernameController,
                           decoration: const InputDecoration(
                             labelText: 'Username',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(128, 38, 38, 38)),
+                            labelStyle: TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
                             ),
@@ -141,8 +141,7 @@ class _EditProfileformState extends State<EditProfileform> {
                           controller: _firstNameController,
                           decoration: const InputDecoration(
                             labelText: 'First Name',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(128, 38, 38, 38)),
+                            labelStyle: TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
                             ),
@@ -162,8 +161,7 @@ class _EditProfileformState extends State<EditProfileform> {
                           controller: _lastNameController,
                           decoration: const InputDecoration(
                             labelText: 'Last Name',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(128, 38, 38, 38)),
+                            labelStyle: TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
                             ),
@@ -183,8 +181,7 @@ class _EditProfileformState extends State<EditProfileform> {
                           controller: _emailController,
                           decoration: const InputDecoration(
                             labelText: 'Email',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(128, 38, 38, 38)),
+                            labelStyle: TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
                             ),

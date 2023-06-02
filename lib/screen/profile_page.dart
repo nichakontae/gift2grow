@@ -25,11 +25,11 @@ class _ProfilePageState extends State<ProfilePage> {
             body: Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(colors: [
-                  Color(0xFF9468AC),
-                  Color.fromARGB(255, 255, 255, 255)
-                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [Theme.of(context).colorScheme.primary, Colors.white],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter)),
                 child: const Center(child: Text('please login'))),
           )
         : Scaffold(
@@ -40,14 +40,14 @@ class _ProfilePageState extends State<ProfilePage> {
             body: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                Color(0xFF9468AC),
-                Color.fromARGB(255, 255, 255, 255)
-              ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Theme.of(context).colorScheme.primary, Colors.white],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter)),
               child: ListView(
-                children: [
-                  const UserInformation(),
+                children: const [
+                  UserInformation(),
                 ],
               ),
             ),
