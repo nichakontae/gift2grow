@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:gift2grow/main.dart';
+import 'package:gift2grow/models/user_info.dart';
 import 'package:gift2grow/screen/edit_profile_page.dart';
 import 'package:gift2grow/widgets/profile_widgets/history_section.dart';
 import 'package:gift2grow/widgets/profile_widgets/user_info_section.dart';
@@ -10,7 +11,8 @@ import 'package:gift2grow/widgets/theme_button.dart';
 import '../../screen/donate_history.dart';
 
 class UserInformation extends StatefulWidget {
-  const UserInformation({super.key});
+  const UserInformation({super.key, required this.userInfo});
+  final MyUserInfo? userInfo;
 
   @override
   State<UserInformation> createState() => _UserInformationState();
@@ -21,25 +23,25 @@ class _UserInformationState extends State<UserInformation> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Column(
+        Column(
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(0, 32, 0, 16),
-              child:
-                  // CircleAvatar(
-                  //   backgroundImage: NetworkImage(
-                  //       'https://happeningandfriends.com/uploads/happening/products/46/004554/mock_ST_newSadCat.jpg'),
-                  //   radius: 90.0,
-                  // ),
-                  CircleAvatar(
-                backgroundImage: AssetImage('assets/images/profileNull.png'),
-                radius: 90.0,
-              ),
+              child: widget.userInfo!.profileImage != null
+                  ? CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'http://server1.ivelse.com:8080${widget.userInfo!.profileImage}'),
+                      radius: 90.0,
+                    )
+                  : const CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/profileNull.png'),
+                      radius: 90.0,
+                    ),
             ),
             Text(
-              "User Name",
+              widget.userInfo!.userName,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -65,7 +67,10 @@ class _UserInformationState extends State<UserInformation> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const EditProfilePage()),
+                        MaterialPageRoute(
+                            builder: (context) => EditProfilePage(
+                                  userInfo: widget.userInfo,
+                                )),
                       );
                     },
                   ),
@@ -84,10 +89,10 @@ class _UserInformationState extends State<UserInformation> {
                             fontSize: 16, fontWeight: FontWeight.w400, color: Color(0xff9468AC)),
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Text(
-                        "FirstName LastName",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                        '${widget.userInfo!.firstName} ${widget.userInfo!.lastName}',
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         softWrap: false,
@@ -109,10 +114,10 @@ class _UserInformationState extends State<UserInformation> {
                             fontSize: 16, fontWeight: FontWeight.w400, color: Color(0xff9468AC)),
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Text(
-                        "User.Email@gmail.com",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                        widget.userInfo!.email,
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         softWrap: false,

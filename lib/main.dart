@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gift2grow/screen/donate_to_app.dart';
-import 'package:gift2grow/screen/profile_page.dart';
-import 'package:gift2grow/widgets/theme_button.dart';
 import 'package:gift2grow/screen/forgot_password.dart';
 import 'package:gift2grow/screen/login.dart';
 import 'package:gift2grow/screen/resgister.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const Gift2Grow());
 }
 
@@ -20,6 +19,12 @@ class Gift2Grow extends StatelessWidget {
     final ThemeData theme = ThemeData();
     return MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => const LoginPage(),
+        '/register': (context) => const RegisterPage(),
+        '/forgot-password': (context) => const ForgotPasswordPage(),
+      },
       theme: theme.copyWith(
           colorScheme: theme.colorScheme.copyWith(
               primary: const Color(0xFF9468AC),

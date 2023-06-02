@@ -1,20 +1,26 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/user_info.dart';
 import 'package:gift2grow/screen/profile_page.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../utilities/caller.dart';
 import '../theme_button.dart';
 
 class EditProfileform extends StatefulWidget {
   const EditProfileform({super.key, required this.userInfo});
-  final UserInfo userInfo;
+  final MyUserInfo? userInfo;
 
   @override
   State<EditProfileform> createState() => _EditProfileformState();
 }
 
 class _EditProfileformState extends State<EditProfileform> {
+  final _formKey = GlobalKey<FormState>();
+  bool _isloading = false;
   final _usernameController = TextEditingController();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
@@ -23,10 +29,10 @@ class _EditProfileformState extends State<EditProfileform> {
   @override
   void initState() {
     super.initState();
-    _usernameController.text = 'Username';
-    _firstNameController.text = 'First Name';
-    _lastNameController.text = 'Last Name';
-    _emailController.text = 'Email';
+    _usernameController.text = widget.userInfo!.userName;
+    _firstNameController.text = widget.userInfo!.firstName;
+    _lastNameController.text = widget.userInfo!.lastName;
+    _emailController.text = widget.userInfo!.email;
   }
 
   @override
@@ -34,8 +40,43 @@ class _EditProfileformState extends State<EditProfileform> {
     Future getImage() async {
       XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
       setState(() {
-        widget.userInfo.profileImageFile = file;
+        widget.userInfo!.profileImageFile = file;
       });
+    }
+
+    Future<void> updateProfile() async {
+      try {
+        await Caller.dio.put(
+          '/profile/updateProfile?userId=${widget.userInfo!.userId}',
+          data: {
+            "username": _usernameController.text,
+            "first_name": _firstNameController.text,
+            "last_name": _lastNameController.text,
+            "email": _emailController.text,
+          },
+        );
+        if (widget.userInfo!.profileImageFile != null) {
+          XFile file = widget.userInfo!.profileImageFile!;
+          String fileName = file.path.split('/').last;
+          FormData formData = FormData.fromMap({
+            "image": await MultipartFile.fromFile(file.path, filename: fileName),
+          });
+
+          await Caller.dio
+              .post('/upload/profileImg?userId=${widget.userInfo!.userId}', data: formData);
+        }
+
+        setState(() {
+          _isloading = false;
+        });
+        int count = 0;
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).popUntil((_) => count++ >= 2);
+      } on DioError catch (e) {
+        if (kDebugMode) {
+          print(e.response);
+        }
+      }
     }
 
     return Column(
@@ -46,21 +87,21 @@ class _EditProfileformState extends State<EditProfileform> {
               padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
               child: Stack(
                 children: [
-                  widget.userInfo.profileImageFile != null
+                  widget.userInfo!.profileImageFile != null
                       ? CircleAvatar(
-                          backgroundImage: FileImage(File(widget.userInfo.profileImageFile!.path)),
+                          backgroundImage: FileImage(File(widget.userInfo!.profileImageFile!.path)),
                           radius: 90.0,
                         )
-                      :
-                      // CircleAvatar(
-                      //   backgroundImage: NetworkImage(
-                      //       'https://happeningandfriends.com/uploads/happening/products/46/004554/mock_ST_newSadCat.jpg'),
-                      //   radius: 90.0,
-                      // ),
-                      const CircleAvatar(
-                          backgroundImage: AssetImage('assets/images/profileNull.png'),
-                          radius: 90.0,
-                        ),
+                      : widget.userInfo!.profileImage != null
+                          ? CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  'http://server1.ivelse.com:8080${widget.userInfo!.profileImage}'),
+                              radius: 90.0,
+                            )
+                          : const CircleAvatar(
+                              backgroundImage: AssetImage('assets/images/profileNull.png'),
+                              radius: 90.0,
+                            ),
                   Positioned(
                     bottom: 0,
                     right: 0,
@@ -85,11 +126,6 @@ class _EditProfileformState extends State<EditProfileform> {
                 ],
               ),
             ),
-            const Text(
-              "User Name",
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-            ),
           ],
         ),
         Padding(
@@ -110,6 +146,7 @@ class _EditProfileformState extends State<EditProfileform> {
                 ],
               ),
               Form(
+                key: _formKey,
                 child: Column(
                   children: [
                     Padding(
@@ -221,13 +258,53 @@ class _EditProfileformState extends State<EditProfileform> {
                         child: CustomButton(
                           color: 'primary',
                           text: 'Confirm',
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => const ProfilePage(),
-                            //   ),
-                            // );
+                          onTap: () async {
+                            if (_formKey.currentState!.validate()) {
+                              try {
+                                setState(() {
+                                  _isloading = true;
+                                  if (_isloading) {
+                                    showDialog<String>(
+                                        context: context,
+                                        builder: (BuildContext context) => AlertDialog(
+                                              content: SizedBox(
+                                                height: 120,
+                                                child: Container(
+                                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                                  child: Center(
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment.center,
+                                                          children: [
+                                                            CircularProgressIndicator(
+                                                              color: Theme.of(context)
+                                                                  .colorScheme
+                                                                  .primary,
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            const Text("Loading...")
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ));
+                                  }
+                                  updateProfile();
+                                });
+                              } catch (e) {
+                                if (kDebugMode) {
+                                  print(e);
+                                }
+                              }
+                            }
                           },
                         ),
                       ),

@@ -1,6 +1,6 @@
 import 'package:image_picker/image_picker.dart';
 
-class UserInfo {
+class MyUserInfo {
   String? userId;
   String userName;
   String? profileImage;
@@ -9,7 +9,10 @@ class UserInfo {
   String lastName;
   String email;
 
-  UserInfo({
+  MyUserInfo({
+    this.userId,
+    this.profileImage,
+    this.profileImageFile,
     required this.userName,
     required this.firstName,
     required this.lastName,
