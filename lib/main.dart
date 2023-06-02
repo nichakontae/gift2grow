@@ -9,7 +9,9 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const Gift2Grow());
 }
 
@@ -44,14 +46,16 @@ class _Gift2GrowState extends State<Gift2Grow> {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/forgot-password': (context) => const ForgotPasswordPage(),
+        '/home': (context) => const HomePage(),
       },
       theme: theme.copyWith(
-          colorScheme: theme.colorScheme.copyWith(
-              primary: const Color(0xFF9468AC),
-              secondary: const Color(0xFFFECE6B),
-              tertiary: const Color(0xFFD9D9D9)),
-          textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Poppins')),
-      home: const LoginPage(),
+        colorScheme: theme.colorScheme.copyWith(
+          primary: const Color(0xFF9468AC),
+          secondary: const Color(0xFFFECE6B),
+          tertiary: const Color(0xFFD9D9D9),
+        ),
+        textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Poppins'),
+      ),
     );
   }
 }
