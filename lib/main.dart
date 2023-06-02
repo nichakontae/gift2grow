@@ -8,7 +8,6 @@ import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const Gift2Grow());
@@ -43,17 +42,10 @@ class _Gift2GrowState extends State<Gift2Grow> {
       initialRoute: user == null ? '/login' : '/home',
       routes: {
         '/login': (context) => const LoginPage(),
-        '/register' : (context) => const RegisterPage(),
-        '/forgot-password':(context) => const ForgotPasswordPage(),
+        '/register': (context) => const RegisterPage(),
+        '/forgot-password': (context) => const ForgotPasswordPage(),
       },
       theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(
-          primary: const Color(0xFF9468AC),
-          secondary: const Color(0xFFFECE6B),
-          tertiary: const Color(0xFFD9D9D9),
-        ),
-        textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Poppins'),
-      ),
           colorScheme: theme.colorScheme.copyWith(
               primary: const Color(0xFF9468AC),
               secondary: const Color(0xFFFECE6B),
