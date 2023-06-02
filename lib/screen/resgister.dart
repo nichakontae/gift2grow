@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/register_controller.dart';
+import 'package:gift2grow/screen/verify_email.dart';
 import 'package:gift2grow/widgets/background_gradient.dart';
 import 'package:gift2grow/widgets/confirm_password_text_form_field.dart';
 import 'package:gift2grow/widgets/password_text_form_field.dart';
@@ -18,6 +20,18 @@ class _RegisterPageState extends State<RegisterPage> {
   final RegisterTextEditController _registerController =
       RegisterTextEditController();
   List<bool> password = [true, true];
+  FirebaseAuth auth = FirebaseAuth.instance;
+  bool emailAlreadyUse = false;
+
+  void navigate() {
+    if (_registerController.email != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => VerifyEmailPage(email: _registerController.email!)),
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             validate: (value) {
                               if (value == null ||
                                   value.isEmpty ||
-                                  !RegExp(r'^\w+$')
-                                      .hasMatch(value)) {
+                                  !RegExp(r'^\w+$').hasMatch(value)) {
                                 return "Please enter only text";
                                 // อย่าลืมใส่คำที่ดีกว่านี้
                               }
@@ -83,8 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             validate: (value) {
                               if (value == null ||
                                   value.isEmpty ||
-                                  !RegExp(r'^\w+$')
-                                      .hasMatch(value)) {
+                                  !RegExp(r'^\w+$').hasMatch(value)) {
                                 return "Please enter only text";
                                 // อย่าลืมใส่คำที่ดีกว่านี้
                               }
@@ -102,6 +114,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                   !RegExp(r'^\w+@(\w+\.)+\w{2,4}$')
                                       .hasMatch(value)) {
                                 return 'Please enter a valid email';
+                              } else if (emailAlreadyUse) {
+                                print("hi");
+                                return "The account already exists for that email.";
                               }
                               return null;
                             },
@@ -113,10 +128,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             passwordVisible: password,
                             controller: _registerController.passwordController,
                             validate: (value) {
-                              if (value == null ||
-                                  value.isEmpty ) {
+                              if (value == null || value.isEmpty) {
                                 return 'Please enter password';
-                              }else if(value.length < 8){
+                              } else if (value.length < 8) {
                                 return "Password must be at least 8 characters long";
                               }
                               return null;
@@ -126,7 +140,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           height: 20,
                         ),
                         ConfirmPasswordFormField(
-                          confirmPasswordController: _registerController.confirmPasswordController,
+                            confirmPasswordController:
+                                _registerController.confirmPasswordController,
                             passwordController:
                                 _registerController.passwordController,
                             hintText: "Confirm password"),
@@ -146,9 +161,26 @@ class _RegisterPageState extends State<RegisterPage> {
                             CustomButton(
                               color: "primary",
                               text: "Confirm",
-                              onTap: () {
-                                if(_formKey.currentState!.validate()){
-                                  debugPrint("register successful");
+                              onTap: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  try {
+                                    UserCredential userCredential = await auth
+                                        .createUserWithEmailAndPassword(
+                                            email: _registerController.email,
+                                            password:
+                                                _registerController.password);
+                                    debugPrint("register successful");
+                                    navigate();
+                                  } on FirebaseAuthException catch (e) {
+                                    if (e.code == 'email-already-in-use') {
+                                      emailAlreadyUse = true;
+                                      print(emailAlreadyUse);
+                                      debugPrint(
+                                          'The account already exists for that email.');
+                                    }
+                                  } catch (e) {
+                                    debugPrint(e.toString());
+                                  }
                                 }
                               },
                               paddingHorizontal:

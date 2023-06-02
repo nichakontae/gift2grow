@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/login_controller.dart';
+import 'package:gift2grow/screen/verify_email.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
@@ -15,6 +16,11 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   bool passwordVisible = true;
   final LoginTextEditController _loginController = LoginTextEditController();
+
+  void navigate(String email) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => VerifyEmailPage(email: email)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +70,8 @@ class _LoginPageState extends State<LoginPage> {
                               return null;
                             },
                             decoration: InputDecoration(
-                                contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 25, vertical: 15),
                                 border: const OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(25),
@@ -113,8 +119,8 @@ class _LoginPageState extends State<LoginPage> {
                               return null;
                             },
                             decoration: InputDecoration(
-                                contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 25, vertical: 15),
                                 border: const OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(25),
@@ -129,7 +135,6 @@ class _LoginPageState extends State<LoginPage> {
                                     passwordVisible
                                         ? Icons.visibility
                                         : Icons.visibility_off,
-
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -179,6 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                                             email: _loginController.email,
                                             password:
                                                 _loginController.password);
+                                navigate(_loginController.email);
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {
                                   debugPrint('No user found for that email');
