@@ -10,6 +10,6 @@ class RankingPage extends StatefulWidget {
 class _RankingPageState extends State<RankingPage> {
   @override
   Widget build(BuildContext context) {
-    return const Text("Ranking jaa2");
+    return const Text("Ranking jaa");
   }
 }

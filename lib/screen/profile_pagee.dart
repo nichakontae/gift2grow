@@ -10,6 +10,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return const Text("profile you know1");
+    return const Text("profile you know");
   }
 }

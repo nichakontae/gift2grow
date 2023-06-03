@@ -10,6 +10,6 @@ class CompletedCampaign extends StatefulWidget {
 class _CompletedCampaignState extends State<CompletedCampaign> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Text("12312313");
   }
 }
