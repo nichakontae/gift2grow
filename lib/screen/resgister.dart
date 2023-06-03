@@ -65,9 +65,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           validate: (value) {
                             if (value == null ||
                                 value.isEmpty ||
-                                !RegExp(r'^[A-Za-z]{5,29}$').hasMatch(value)) {
+                                !RegExp(r'^[A-Za-z][A-Za-z\d]{5,29}$').hasMatch(value)) {
                               return "username must be at least 5 characters";
-                              // อย่าลืมใส่คำที่ดีกว่านี้
                             }
                             return null;
                           },
