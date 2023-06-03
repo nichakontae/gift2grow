@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gift2grow/screen/bottomNavbar.dart';
 import 'package:gift2grow/screen/forgot_password.dart';
-import 'package:gift2grow/screen/home_test.dart';
+import 'package:gift2grow/screen/home.dart';
 import 'package:gift2grow/screen/login.dart';
 import 'package:gift2grow/screen/resgister.dart';
 import 'firebase_options.dart';
@@ -46,7 +47,7 @@ class _Gift2GrowState extends State<Gift2Grow> {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/forgot-password': (context) => const ForgotPasswordPage(),
-        '/home': (context) => const HomePage(),
+        '/home': (context) => const MyBottomNavbar(),
       },
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(
