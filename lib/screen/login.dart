@@ -34,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
               end: Alignment.bottomCenter,
               colors: [Theme.of(context).colorScheme.secondary, Colors.white])),
       child: Scaffold(
+        resizeToAvoidBottomInset:false,
         backgroundColor: Colors.transparent,
         body: Form(
           key: _formKey,

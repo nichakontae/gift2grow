@@ -16,6 +16,9 @@ class BackgroundGradient extends StatelessWidget {
               Theme.of(context).colorScheme.primary.withOpacity(0.7),
               Theme.of(context).colorScheme.primary
             ])),
-        child: Scaffold(backgroundColor: Colors.transparent, body: child));
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Colors.transparent,
+            body: child));
   }
 }
