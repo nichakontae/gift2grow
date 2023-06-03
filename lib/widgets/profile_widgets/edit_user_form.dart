@@ -62,7 +62,7 @@ class _EditProfileformState extends State<EditProfileform> {
             "image": await MultipartFile.fromFile(file.path, filename: fileName),
           });
 
-          await Caller.dio
+          final up = await Caller.dio
               .post('/upload/profileImg?userId=${widget.userInfo!.userId}', data: formData);
         }
 

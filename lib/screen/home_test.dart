@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gift2grow/screen/donate_history.dart';
 import 'package:gift2grow/screen/profile_page.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
@@ -11,12 +12,35 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Home"),
         ),
-        body: CustomButton(
-          text: "GO!",
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));
-          },
-          color: 'primary',
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 150,
+              height: 50,
+              child: CustomButton(
+                text: "GOhistory!",
+                onTap: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => const HistoryPage()));
+                },
+                color: 'primary',
+              ),
+            ),
+            SizedBox(
+              width: 150,
+              height: 50,
+              child: CustomButton(
+                text: "GOprofile",
+                onTap: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => const ProfilePage()));
+                },
+                color: 'primary',
+              ),
+            ),
+          ],
         ));
   }
 }

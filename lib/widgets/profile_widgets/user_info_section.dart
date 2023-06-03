@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -8,7 +9,9 @@ import 'package:gift2grow/widgets/profile_widgets/history_section.dart';
 import 'package:gift2grow/widgets/profile_widgets/user_info_section.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
+import '../../models/donate_history.dart';
 import '../../screen/donate_history.dart';
+import '../../utilities/caller.dart';
 
 class UserInformation extends StatefulWidget {
   const UserInformation({super.key, required this.userInfo});
@@ -20,13 +23,51 @@ class UserInformation extends StatefulWidget {
 
 class _UserInformationState extends State<UserInformation> {
   @override
+  void initState() {
+    super.initState();
+    getDonateHistory();
+  }
+
+  List<DonateHistoryDetail>? donateHistory;
+
+  Future<void> getDonateHistory() async {
+    try {
+      final response = await Caller.dio.get(
+        '/profile/getDonateHistory?userId=${widget.userInfo!.userId}',
+      );
+      print(response.data[1]['campaign']['school_name']);
+      setState(() {
+        donateHistory = List.generate(
+            response.data.length,
+            (index) => DonateHistoryDetail(
+                  campaignId: response.data[index]['campaign']['id'],
+                  trackingNumber: response.data[index]['tracking_number'],
+                  donatedAt: response.data[index]['donation_date'],
+                  schoolName: response.data[index]['campaign']['school_name'],
+                ));
+      });
+      print(donateHistory![0].schoolName);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (donateHistory == null) {
+      return const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+      );
+    }
     return Column(
       children: [
         Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 32, 0, 16),
+              padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
               child: widget.userInfo!.profileImage != null
                   ? CircleAvatar(
                       backgroundImage: NetworkImage(
@@ -132,17 +173,20 @@ class _UserInformationState extends State<UserInformation> {
                   Text("History", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                 ],
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "12" + " succesful donations",
-                    style: TextStyle(
+                    '${donateHistory!.length} succesful donations',
+                    style: const TextStyle(
                         fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xff9468AC)),
                   ),
                 ],
               ),
-              for (var i = 0; i < 2; i++) const DonateHistory(),
+              for (var i = 0; i < 2; i++)
+                DonateHistory(
+                  donateHistory: donateHistory![i],
+                ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
