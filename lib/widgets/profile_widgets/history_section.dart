@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/donate_history.dart';
+import 'package:intl/intl.dart';
 
 class DonateHistory extends StatefulWidget {
   const DonateHistory({super.key, this.donateHistory});
@@ -12,6 +13,8 @@ class DonateHistory extends StatefulWidget {
 class _DonateHistoryState extends State<DonateHistory> {
   @override
   Widget build(BuildContext context) {
+    DateTime? date = DateTime.parse(widget.donateHistory!.donatedAt);
+    var formatDate = DateFormat('d MMMM yyyy').format(date);
     return GestureDetector(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
@@ -80,7 +83,7 @@ class _DonateHistoryState extends State<DonateHistory> {
                       style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
                     ),
                     Text(
-                      widget.donateHistory!.donatedAt,
+                      formatDate,
                       style: const TextStyle(
                           fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff9468AC)),
                     ),

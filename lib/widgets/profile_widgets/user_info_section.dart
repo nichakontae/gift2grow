@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/user_info.dart';
@@ -6,6 +7,7 @@ import 'package:gift2grow/widgets/profile_widgets/history_section.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
 import '../../models/donate_history.dart';
+import '../../screen/login.dart';
 import '../../utilities/caller.dart';
 
 class UserInformation extends StatefulWidget {
@@ -185,7 +187,7 @@ class _UserInformationState extends State<UserInformation> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/editprofile');
+                        Navigator.pushNamed(context, '/donatehistory');
                       },
                       child: const Text(
                         'show more...',
@@ -245,12 +247,10 @@ class _UserInformationState extends State<UserInformation> {
                                     child: CustomButton(
                                       color: 'primary',
                                       text: 'Confirm',
-                                      onTap: () {
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //       builder: (context) => const LoginPage()),
-                                        // );
+                                      onTap: () async {
+                                        await FirebaseAuth.instance.signOut().then(
+                                              (_) => Navigator.pushNamed(context, '/login'),
+                                            );
                                       },
                                     ),
                                   ),

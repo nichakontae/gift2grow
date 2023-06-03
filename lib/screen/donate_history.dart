@@ -60,11 +60,11 @@ class _HistoryPageState extends State<HistoryPage> {
       return Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Color(0xFF9468AC), Color.fromARGB(255, 255, 255, 255)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter)),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+          Theme.of(context).colorScheme.primary,
+          const Color.fromARGB(255, 255, 255, 255)
+        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,32 +73,80 @@ class _HistoryPageState extends State<HistoryPage> {
       );
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Gift2Grow'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Color(0xFF9468AC), Color.fromARGB(255, 255, 255, 255)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter)),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+          Theme.of(context).colorScheme.primary,
+          Colors.white,
+        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: ListView(
           children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    "History",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 0, 0, 16),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(30),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                offset: const Offset(0.0, 3.0),
+                                blurRadius: 7.0,
+                              ),
+                            ],
+                          ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: IconButton(
+                              color: Colors.white,
+                              icon: const Icon(
+                                Icons.arrow_back,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "History",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                              Text(
+                                '${donateHistory!.length} succesful donations',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context).colorScheme.primary),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

@@ -53,7 +53,6 @@ class _Gift2GrowState extends State<Gift2Grow> {
         '/home': (context) => const HomePage(),
         '/profile': (context) => const ProfilePage(),
         '/donatetoapp': (context) => const DonateToApp(),
-        '/editprofile': (context) => const EditProfilePage(),
         '/donatehistory': (context) => const HistoryPage(),
       },
       theme: theme.copyWith(
