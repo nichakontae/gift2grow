@@ -44,6 +44,7 @@ dependencies:
   firebase_core: ^2.13.1
 
   image_picker: ^0.8.7+5
+  intl: ^0.18.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -207,6 +208,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/logo/
+     - assets/icon/
      - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
