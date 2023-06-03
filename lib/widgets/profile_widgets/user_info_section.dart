@@ -1,16 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:gift2grow/main.dart';
 import 'package:gift2grow/models/user_info.dart';
 import 'package:gift2grow/screen/edit_profile_page.dart';
 import 'package:gift2grow/widgets/profile_widgets/history_section.dart';
-import 'package:gift2grow/widgets/profile_widgets/user_info_section.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
 import '../../models/donate_history.dart';
-import '../../screen/donate_history.dart';
 import '../../utilities/caller.dart';
 
 class UserInformation extends StatefulWidget {
@@ -35,7 +30,6 @@ class _UserInformationState extends State<UserInformation> {
       final response = await Caller.dio.get(
         '/profile/getDonateHistory?userId=${widget.userInfo!.userId}',
       );
-      print(response.data[1]['campaign']['school_name']);
       setState(() {
         donateHistory = List.generate(
             response.data.length,
@@ -46,7 +40,6 @@ class _UserInformationState extends State<UserInformation> {
                   schoolName: response.data[index]['campaign']['school_name'],
                 ));
       });
-      print(donateHistory![0].schoolName);
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -106,13 +99,11 @@ class _UserInformationState extends State<UserInformation> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EditProfilePage(
-                                  userInfo: widget.userInfo,
-                                )),
-                      );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return EditProfilePage(
+                          userInfo: widget.userInfo,
+                        );
+                      }));
                     },
                   ),
                 ],
@@ -194,10 +185,7 @@ class _UserInformationState extends State<UserInformation> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const HistoryPage()),
-                        );
+                        Navigator.pushNamed(context, '/editprofile');
                       },
                       child: const Text(
                         'show more...',

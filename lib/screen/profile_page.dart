@@ -1,12 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:gift2grow/models/user_info.dart';
-import 'package:gift2grow/widgets/profile_widgets/history_section.dart';
 import 'package:gift2grow/widgets/profile_widgets/user_info_section.dart';
-import 'package:gift2grow/widgets/theme_button.dart';
 
 import '../utilities/caller.dart';
 
@@ -42,7 +38,6 @@ class _ProfilePageState extends State<ProfilePage> {
       final response = await Caller.dio.get(
         '/profile/getProfile?userId=$uid',
       );
-      print(response.data);
       setState(() {
         userInfo = MyUserInfo(
           userId: response.data["id"],
@@ -53,7 +48,6 @@ class _ProfilePageState extends State<ProfilePage> {
           email: response.data['email'],
         );
       });
-      print(userInfo!.userName);
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -71,10 +65,6 @@ class _ProfilePageState extends State<ProfilePage> {
       );
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Gift2Grow'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,

@@ -1,10 +1,9 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/user_info.dart';
-import 'package:gift2grow/screen/profile_page.dart';
+import 'package:gift2grow/utilities/upload.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../utilities/caller.dart';
@@ -56,22 +55,28 @@ class _EditProfileformState extends State<EditProfileform> {
           },
         );
         if (widget.userInfo!.profileImageFile != null) {
-          XFile file = widget.userInfo!.profileImageFile!;
-          String fileName = file.path.split('/').last;
-          FormData formData = FormData.fromMap({
-            "image": await MultipartFile.fromFile(file.path, filename: fileName),
-          });
-
-          final up = await Caller.dio
-              .post('/upload/profileImg?userId=${widget.userInfo!.userId}', data: formData);
+          try {
+            XFile file = widget.userInfo!.profileImageFile!;
+            String fileName = file.path.split('/').last;
+            FormData formData = FormData.fromMap({
+              "image": await MultipartFile.fromFile(file.path, filename: fileName),
+              "userId": widget.userInfo!.userId,
+            });
+            final upload = await UploadCaller.dio.post('/profileImg', data: formData);
+            if (kDebugMode) {
+              print(upload.data);
+            }
+          } catch (e) {
+            if (kDebugMode) {
+              print(e);
+            }
+          }
         }
-
         setState(() {
           _isloading = false;
         });
-        int count = 0;
         // ignore: use_build_context_synchronously
-        Navigator.of(context).popUntil((_) => count++ >= 2);
+        Navigator.pushNamedAndRemoveUntil(context, '/profile', (route) => false);
       } on DioError catch (e) {
         if (kDebugMode) {
           print(e.response);

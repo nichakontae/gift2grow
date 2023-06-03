@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gift2grow/screen/donate_history.dart';
-import 'package:gift2grow/screen/profile_page.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,8 +20,7 @@ class HomePage extends StatelessWidget {
               child: CustomButton(
                 text: "GOhistory!",
                 onTap: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => const HistoryPage()));
+                  Navigator.pushNamed(context, '/donatehistory');
                 },
                 color: 'primary',
               ),
@@ -34,8 +31,7 @@ class HomePage extends StatelessWidget {
               child: CustomButton(
                 text: "GOprofile",
                 onTap: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => const ProfilePage()));
+                  Navigator.pushNamed(context, '/profile');
                 },
                 color: 'primary',
               ),
