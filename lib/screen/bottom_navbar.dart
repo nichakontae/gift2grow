@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gift2grow/screen/donateApp.dart';
+import 'package:gift2grow/screen/donate_App.dart';
 import 'package:gift2grow/screen/home.dart';
-import 'package:gift2grow/screen/profilePage.dart';
-import 'package:gift2grow/screen/rankingPage.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-
-const String iconFont = 'AutofillHints.addressCity';
-const String iconFontPackage = 'AutofillHints.addressCity';
+import 'package:gift2grow/screen/profile_Page.dart';
+import 'package:gift2grow/screen/ranking_Page.dart';
 
 class MyBottomNavbar extends StatefulWidget {
   const MyBottomNavbar({super.key});
@@ -30,7 +26,6 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
     });
   }
 
-static const IconData gift = IconData(0xf689, fontFamily: iconFont, fontPackage: iconFontPackage);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

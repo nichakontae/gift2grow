@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gift2grow/screen/bottomNavbar.dart';
+import 'package:gift2grow/screen/bottom_navbar.dart';
 import 'package:gift2grow/screen/home.dart';
 // import 'package:gift2grow/screen/home_test.dart';
 import 'package:gift2grow/widgets/background_gradient.dart';

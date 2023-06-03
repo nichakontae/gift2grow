@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gift2grow/screen/bottomNavbar.dart';
+import 'package:gift2grow/screen/bottom_navbar.dart';
 import 'package:gift2grow/screen/forgot_password.dart';
-import 'package:gift2grow/screen/home.dart';
+//import 'package:gift2grow/screen/home.dart';
 import 'package:gift2grow/screen/login.dart';
 import 'package:gift2grow/screen/resgister.dart';
 import 'firebase_options.dart';
