@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
-                                  hintText: "Type your email"),
+                                  hintText: "Type your password"),
                             ),
                           ),
                         ],
