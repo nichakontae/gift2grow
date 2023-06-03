@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gift2grow/screen/donate_App.dart';
+import 'package:gift2grow/screen/donate_appp.dart';
 import 'package:gift2grow/screen/home.dart';
-import 'package:gift2grow/screen/profile_Page.dart';
-import 'package:gift2grow/screen/ranking_Page.dart';
+import 'package:gift2grow/screen/profile_pagee.dart';
+import 'package:gift2grow/screen/ranking_page.dart';
 
 class MyBottomNavbar extends StatefulWidget {
   const MyBottomNavbar({super.key});
