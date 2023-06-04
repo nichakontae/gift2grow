@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gift2grow/screen/donate_appp.dart';
+import 'package:gift2grow/screen/donate_to_app.dart';
 import 'package:gift2grow/screen/home.dart';
-import 'package:gift2grow/screen/profile_pagee.dart';
+import 'package:gift2grow/screen/profile_page.dart';
 import 'package:gift2grow/screen/ranking_pagee.dart';
 
 class MyBottomNavbar extends StatefulWidget {
@@ -16,7 +16,7 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     RankingPage(),
-    DonateApp(),
+    DonateToApp(),
     ProfilePage(),
   ];
 
