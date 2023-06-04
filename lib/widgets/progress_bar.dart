@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ProgressBar extends StatefulWidget {
-  const ProgressBar({super.key, required this.trackingNumber, required this.completedAmount});
+  const ProgressBar({super.key, required this.trackingNumber, required this.completedAmount, required this.isCompleted});
   final int trackingNumber;
   final int completedAmount;
+  final bool isCompleted;
   @override
   State<ProgressBar> createState() => _ProgressBarState();
 }
@@ -23,12 +24,12 @@ class _ProgressBarState extends State<ProgressBar> {
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             child: LinearPercentIndicator(
             barRadius: const Radius.circular(16),
-            center:  Text("${widget.trackingNumber}/${widget.completedAmount}", style: const TextStyle(color: Colors.white, fontFamily: "Poppins-Medium"),),
+            center:  widget.isCompleted == true ? const Text("Completed", style: TextStyle(color: Colors.black),)  :  Text("${widget.trackingNumber}/${widget.completedAmount}", style: const TextStyle(color: Colors.white,)),
             animation: true,
             lineHeight: 25.0,
             animationDuration: 500,
             percent: widget.trackingNumber/widget.completedAmount,
-            progressColor: const Color(0xFF9468AC),
+            progressColor: widget.isCompleted == true ? const Color(0xFFFECE6B) : const Color(0xFF9468AC),
           ),
             
           ),
