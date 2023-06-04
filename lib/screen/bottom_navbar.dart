@@ -36,9 +36,9 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.5), // Shadow color
+                color: Colors.black.withOpacity(0.4), // Shadow color
                 blurRadius: 10.0, // Spread radius
-                offset: const Offset(0, 2), // Shadow offset
+                offset: const Offset(0, 6), // Shadow offset
               ),
             ],
           ),
@@ -53,27 +53,27 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
               BottomNavigationBarItem(
                 icon: Image(
                   image: AssetImage("assets/icon/ranking-3.png"),
-                  width: 35,
-                  height: 35,
+                  width: 30,
+                  height: 30,
                 ),
                 label: "Ranking",
                 activeIcon: Image(
                   image: AssetImage("assets/icon/ranking-4.png"),
-                  width: 35,
-                  height: 35,
+                  width: 30,
+                  height: 30,
                 ),
               ),
               BottomNavigationBarItem(
                   icon: Image(
                     image: AssetImage("assets/icon/gift.png"),
-                    width: 35,
-                    height: 35,
+                    width: 30,
+                    height: 30,
                   ),
                   label: "Donate",
                   activeIcon: Image(
                     image: AssetImage("assets/icon/gift-2.png"),
-                    width: 35,
-                    height: 35,
+                    width: 30,
+                    height: 30,
                   )),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person_2_outlined),
