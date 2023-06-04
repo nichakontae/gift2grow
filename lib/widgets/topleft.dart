@@ -60,7 +60,7 @@ class _MyTopLeftState extends State<MyTopLeft> {
                     children: [
                       Text(
                         tamboon.toString(),
-                        style: TextStyle(fontSize: 22),
+                        style: const TextStyle(fontSize: 22),
                       ),
                       const Image(
                         image: AssetImage("assets/icon/tamboon.png"),
@@ -79,14 +79,14 @@ class _MyTopLeftState extends State<MyTopLeft> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(12, 2, 12, 2),
+                  padding: const EdgeInsets.fromLTRB(12, 2, 12, 2),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         tamboon.toString(),
-                        style: TextStyle(fontSize: 22),
+                        style: const TextStyle(fontSize: 22),
                       ),
                       const Image(
                         image: AssetImage("assets/icon/tamboon.png"),
