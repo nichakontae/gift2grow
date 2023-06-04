@@ -21,7 +21,7 @@ class _DonateToAppState extends State<DonateToApp> {
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
             Theme.of(context).colorScheme.primary,
-            const Color.fromARGB(255, 230, 166, 255)
+            Theme.of(context).colorScheme.primary.withOpacity(0.7)
           ], begin: Alignment.bottomCenter, end: Alignment.topCenter)),
           child: Stack(
             children: [

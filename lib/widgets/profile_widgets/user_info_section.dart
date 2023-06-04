@@ -65,6 +65,7 @@ class _UserInformationState extends State<UserInformation> {
               padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
               child: widget.userInfo!.profileImage != null
                   ? CircleAvatar(
+                      backgroundColor: Colors.transparent,
                       backgroundImage: NetworkImage(
                           'http://server1.ivelse.com:8080${widget.userInfo!.profileImage}'),
                       radius: 90.0,

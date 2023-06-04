@@ -18,9 +18,9 @@ class HomePage extends StatelessWidget {
               width: 150,
               height: 50,
               child: CustomButton(
-                text: "GOhistory!",
+                text: "GOdoatetoapp!",
                 onTap: () {
-                  Navigator.pushNamed(context, '/donatehistory');
+                  Navigator.pushNamed(context, '/donatetoapp');
                 },
                 color: 'primary',
               ),

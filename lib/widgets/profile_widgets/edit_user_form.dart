@@ -99,6 +99,7 @@ class _EditProfileformState extends State<EditProfileform> {
                         )
                       : widget.userInfo!.profileImage != null
                           ? CircleAvatar(
+                              backgroundColor: Colors.transparent,
                               backgroundImage: NetworkImage(
                                   'http://server1.ivelse.com:8080${widget.userInfo!.profileImage}'),
                               radius: 90.0,
@@ -158,9 +159,16 @@ class _EditProfileformState extends State<EditProfileform> {
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.06,
                         child: TextFormField(
                           controller: _usernameController,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                !RegExp(r'^[A-Za-z][A-Za-z\d]{5,29}$').hasMatch(value)) {
+                              return "username must be at least 5 characters";
+                            }
+                            return null;
+                          },
                           decoration: const InputDecoration(
                             labelText: 'Username',
                             labelStyle: TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
@@ -178,9 +186,16 @@ class _EditProfileformState extends State<EditProfileform> {
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.06,
                         child: TextFormField(
                           controller: _firstNameController,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                !RegExp(r'^\w+$').hasMatch(value)) {
+                              return "Please enter only text";
+                            }
+                            return null;
+                          },
                           decoration: const InputDecoration(
                             labelText: 'First Name',
                             labelStyle: TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
@@ -198,9 +213,17 @@ class _EditProfileformState extends State<EditProfileform> {
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.06,
                         child: TextFormField(
                           controller: _lastNameController,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                !RegExp(r'^\w+$').hasMatch(value)) {
+                              return "Please enter only text";
+                              // อย่าลืมใส่คำที่ดีกว่านี้
+                            }
+                            return null;
+                          },
                           decoration: const InputDecoration(
                             labelText: 'Last Name',
                             labelStyle: TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
@@ -218,9 +241,16 @@ class _EditProfileformState extends State<EditProfileform> {
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.06,
                         child: TextFormField(
                           controller: _emailController,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                !RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                              return 'Please enter a valid email';
+                            }
+                            return null;
+                          },
                           decoration: const InputDecoration(
                             labelText: 'Email',
                             labelStyle: TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
