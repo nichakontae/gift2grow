@@ -137,7 +137,7 @@ class _HistoryPageState extends State<HistoryPage> {
                               ),
                               Text(
                                 '${donateHistory!.length} succesful donations',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w500, color: Colors.black),
                               ),
                             ],

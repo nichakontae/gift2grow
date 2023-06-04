@@ -5,9 +5,7 @@ import 'package:gift2grow/models/user_info.dart';
 import 'package:gift2grow/screen/edit_profile_page.dart';
 import 'package:gift2grow/widgets/profile_widgets/history_section.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
-
 import '../../models/donate_history.dart';
-import '../../screen/login.dart';
 import '../../utilities/caller.dart';
 
 class UserInformation extends StatefulWidget {

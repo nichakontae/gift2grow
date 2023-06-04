@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/user_info.dart';
 import 'package:gift2grow/widgets/profile_widgets/user_info_section.dart';
+import 'package:gift2grow/widgets/topleft.dart';
 
 import '../utilities/caller.dart';
 
@@ -75,6 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 end: Alignment.bottomCenter)),
         child: ListView(
           children: [
+            const MyTopLeft(),
             UserInformation(
               userInfo: userInfo,
             ),
