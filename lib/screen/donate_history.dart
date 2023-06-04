@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import '../models/donate_history.dart';
 import '../utilities/caller.dart';
 import '../widgets/profile_widgets/history_section.dart';
@@ -97,7 +96,7 @@ class _HistoryPageState extends State<HistoryPage> {
                           width: 40,
                           height: 40,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.grey[400]!.withOpacity(1),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(30),
                             ),
@@ -115,7 +114,7 @@ class _HistoryPageState extends State<HistoryPage> {
                               color: Colors.white,
                               icon: const Icon(
                                 Icons.arrow_back,
-                                color: Colors.black,
+                                color: Colors.white,
                               ),
                               onPressed: () {
                                 Navigator.pop(context);
@@ -128,20 +127,18 @@ class _HistoryPageState extends State<HistoryPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "History",
                                 style: TextStyle(
                                   fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
                                 ),
                               ),
                               Text(
                                 '${donateHistory!.length} succesful donations',
                                 style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: Theme.of(context).colorScheme.primary),
+                                    fontSize: 12, fontWeight: FontWeight.w500, color: Colors.black),
                               ),
                             ],
                           ),
