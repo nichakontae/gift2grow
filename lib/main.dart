@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:gift2grow/screen/donate_history.dart';
 import 'package:gift2grow/screen/donate_to_app.dart';
 import 'package:gift2grow/screen/edit_profile_page.dart';
+import 'package:gift2grow/screen/bottom_navbar.dart';
 import 'package:gift2grow/screen/forgot_password.dart';
-import 'package:gift2grow/screen/home_test.dart';
+//import 'package:gift2grow/screen/home.dart';
 import 'package:gift2grow/screen/login.dart';
 import 'package:gift2grow/screen/profile_page.dart';
 import 'package:gift2grow/screen/resgister.dart';
@@ -50,7 +51,7 @@ class _Gift2GrowState extends State<Gift2Grow> {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/forgot-password': (context) => const ForgotPasswordPage(),
-        '/home': (context) => const HomePage(),
+        '/home': (context) => const MyBottomNavbar(),
         '/profile': (context) => const ProfilePage(),
         '/donatetoapp': (context) => const DonateToApp(),
         '/donatehistory': (context) => const HistoryPage(),
