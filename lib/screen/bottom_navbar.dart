@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gift2grow/screen/Ranking.dart';
 import 'package:gift2grow/screen/donate_to_app.dart';
 import 'package:gift2grow/screen/home.dart';
 import 'package:gift2grow/screen/profile_page.dart';
@@ -15,7 +16,7 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
   int _selectedScreen = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    RankingPage(),
+    RankPage(),
     DonateToApp(),
     ProfilePage(),
   ];
