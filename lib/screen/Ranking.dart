@@ -4,6 +4,9 @@ import 'package:gift2grow/widgets/profile_frame2nd.dart';
 import 'package:gift2grow/widgets/profile_frame3rd.dart';
 import 'package:gift2grow/widgets/rank_card_profile.dart';
 import 'package:gift2grow/widgets/share_1st.dart';
+// import 'package:gift2grow/widgets/share_2nd.dart';
+// import 'package:gift2grow/widgets/share_3rd.dart';
+// import 'package:gift2grow/widgets/share_born_angel.dart';
 
 class RankPage extends StatelessWidget {
   const RankPage({Key? key}) : super(key: key);
@@ -28,7 +31,7 @@ class RankPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     //Padding(padding: EdgeInsets.fromLTRB(0, 65, 0, 5)),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.fromLTRB(0, 74, 0, 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -46,11 +49,11 @@ class RankPage extends StatelessWidget {
                     Container(
                       child: Stack(
                         children: [
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(2.0),
                                 child: Text(
                                   "1st",
                                   style: TextStyle(
@@ -62,7 +65,7 @@ class RankPage extends StatelessWidget {
                             ],
                           ),
                           //Padding(padding: EdgeInsets.only(bottom: 20)),
-                          Center(
+                          const Center(
                             child: Profile1st(),
                             heightFactor: 1.3,
                           ),
@@ -70,21 +73,20 @@ class RankPage extends StatelessWidget {
                               top: 63,
                               left: 32,
                               child: Transform.scale(
-                                child: Profile2nd(),
+                                child: const Profile2nd(),
                                 scale: 0.8,
                               )),
                           Positioned(
                               top: 63,
                               left: 245,
                               child: Transform.scale(
-                                child: Profile3rd(),
+                                child: const Profile3rd(),
                                 scale: 0.8,
                               )),
-                          Row(
+                          const Row(
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(76.5, 60, 0, 0),
+                                padding: EdgeInsets.fromLTRB(76.5, 60, 0, 0),
                                 child: Text(
                                   "2nd",
                                   style: TextStyle(
@@ -95,8 +97,7 @@ class RankPage extends StatelessWidget {
                               ),
                               Spacer(),
                               Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 60, 76.5, 0),
+                                padding: EdgeInsets.fromLTRB(0, 60, 76.5, 0),
                                 child: Text(
                                   "3rd",
                                   style: TextStyle(
@@ -107,9 +108,8 @@ class RankPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(53.5, 180, 52, 17),
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(53.5, 180, 52, 17),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -181,7 +181,7 @@ class RankPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(padding: EdgeInsets.all(38))
+                    const Padding(padding: EdgeInsets.all(38))
                   ],
                 )),
           ),
@@ -190,8 +190,8 @@ class RankPage extends StatelessWidget {
             right: 0,
             top: 708,
             child: Card(
-              color: Color(0xFFFECE6B),
-              shape: RoundedRectangleBorder(
+              color: const Color(0xFFFECE6B),
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(35.0),
                   topRight: Radius.circular(35.0),
@@ -203,23 +203,25 @@ class RankPage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text("  Your Rank  ",
+                        const Text("  Your Rank  ",
                             style: TextStyle(fontWeight: FontWeight.w600)),
-                        Text("#120",
+                        const Text("#120",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF9468AC))),
-                        Spacer(),
-                        Text("100 TAMBOON",
+                        const Spacer(),
+                        const Text("100 TAMBOON",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF9468AC))),
+                        // ตอนดึงข้อมูลuserมาแล้วเช็คif(1/2/3)else(เช็คlevel)
                         InkWell(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Share_1st()),
+                                  builder: (context) =>
+                                      const Share_1st()), //widget for test sharing
                             );
                           },
                           child: Padding(

@@ -24,97 +24,113 @@ class Share_1st extends StatelessWidget {
         )),
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 74, 0, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Ranking",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500),
+            const Padding(padding: EdgeInsets.fromLTRB(0, 74, 0, 0)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 103, 0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pop(); // Perform the back navigation
+                        },
+                        child: Image.asset(
+                          'assets/icon/cancel.png',
+                          scale: 14,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      "Ranking",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+                const Padding(padding: EdgeInsets.all(2)),
+                const Text(
+                  "You are in #1st",
+                  style: TextStyle(
+                      fontSize: 29,
+                      shadows: [
+                        Shadow(
+                          color: Color.fromARGB(255, 100, 98, 98),
+                          offset: Offset(0, 2),
+                          blurRadius: 9,
+                        ),
+                      ],
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 80, 8, 85),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Transform.scale(
+                        scale: 2.2, // Adjust the scale factor as needed
+                        child: const Profile1st(),
+                      )
+                    ],
                   ),
-                  Padding(padding: EdgeInsets.all(2)),
-                  Text(
-                    "You are in #1st",
-                    style: TextStyle(
-                        fontSize: 29,
-                        shadows: [
-                          Shadow(
-                            color: Color.fromARGB(255, 100, 98, 98),
-                            offset: Offset(0, 2),
-                            blurRadius: 9,
-                          ),
-                        ],
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500),
+                ),
+                Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 80, 8, 85),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  child: const Padding(
+                    padding: EdgeInsets.fromLTRB(10, 20, 10, 30),
+                    child: Column(
                       children: [
-                        Transform.scale(
-                          scale: 2.2, // Adjust the scale factor as needed
-                          child: Profile1st(),
+                        Text('BenHann',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF9468AC))),
+                        Text('999 TAMBOON',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF9468AC))),
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                              '"You have made a total of 120 donations"',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFFFFC107))),
+                        ),
+                        //ทำเช็คว่าอยู่levelไหน
+                        Text(
+                          'For truly we are all angels',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF9468AC),
+                          ),
+                        ),
+                        Text(
+                          'temporarily hiding as humans.',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF9468AC),
+                          ),
                         )
                       ],
                     ),
                   ),
-                  Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 20, 10, 30),
-                      child: Column(
-                        children: [
-                          Text('BenHann',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF9468AC))),
-                          Text('999 TAMBOON',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFF9468AC))),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                                '"You have made a total of 120 donations"',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFFFFC107))),
-                          ),
-                          Text(
-                            'For truly we are all angels',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF9468AC),
-                            ),
-                          ),
-                          Text(
-                            'temporarily hiding as humans.',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF9468AC),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.height,
-              height: MediaQuery.of(context).size.height * 0.189,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.181,
               child: Stack(
                 children: [
                   Positioned(
@@ -131,6 +147,38 @@ class Share_1st extends StatelessWidget {
                     child: Image.asset(
                       'assets/images/Cloud_left.png',
                       scale: 1,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 15,
+                    right: 20,
+                    child: Image.asset(
+                      'assets/icon/download.png',
+                      scale: 12,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 15,
+                    left: 20,
+                    child: Image.asset(
+                      'assets/icon/facebook.png',
+                      scale: 12,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 14,
+                    left: 75,
+                    child: Image.asset(
+                      'assets/icon/twitter.png',
+                      scale: 11.9,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 13.5,
+                    left: 130,
+                    child: Image.asset(
+                      'assets/icon/instagram.png',
+                      scale: 11.5,
                     ),
                   ),
                 ],
