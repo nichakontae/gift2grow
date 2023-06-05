@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gift2grow/models/campaign_detail.dart';
 import 'package:gift2grow/screen/campaign_donate_page.dart';
 import 'package:gift2grow/utilities/caller.dart';
+import 'package:gift2grow/widgets/progress_bar.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 import 'package:gift2grow/widgets/unordered_list.dart';
 
@@ -12,7 +13,9 @@ import 'full_screen_image.dart';
 
 class CampaignDetailPage extends StatefulWidget {
   final int campaignId;
-  const CampaignDetailPage({super.key, required this.campaignId});
+  final int amountTracking;
+  const CampaignDetailPage(
+      {super.key, required this.campaignId, required this.amountTracking});
 
   @override
   State<CampaignDetailPage> createState() => _CampaignDetailPageState();
@@ -20,6 +23,7 @@ class CampaignDetailPage extends StatefulWidget {
 
 class _CampaignDetailPageState extends State<CampaignDetailPage> {
   CampaignDetail? campaign;
+  late int remaining = campaign!.completedAmount - widget.amountTracking;
 // /campaign/getCampaignDetail?campaignId=
   Future<void> getCampaignDetail() async {
     try {
@@ -137,11 +141,38 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                 ),
               ),
               Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 24, 8, 0),
+                  padding: const EdgeInsets.fromLTRB(8, 15, 8, 0),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Container(
+                            child: Column(
+                          children: [
+                            ProgressBar(
+                              trackingNumber: widget.amountTracking,
+                              completedAmount: campaign!.completedAmount,
+                              isCompleted: campaign!.isComplete,
+                            ),
+                            SizedBox(height: 5,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Remaining:${remaining}',
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 12),
+                                ),
+                                Text(
+                                  'Date:${campaign!.createdAt}',
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 12),
+                                )
+                              ],
+                            )
+                          ],
+                        )),
+                        SizedBox(height: 20,),
                         Text(campaign!.topic,
                             textAlign: TextAlign.start,
                             style: TextStyle(
@@ -172,7 +203,7 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 0, bottom: 16),
+                          padding: const EdgeInsets.only(top: 0, bottom: 10),
                           child: DescriptionTextWidget(
                             text: campaign!.description,
                           ),
