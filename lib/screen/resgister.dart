@@ -66,7 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (value == null ||
                                 value.isEmpty ||
                                 !RegExp(r'^[A-Za-z][A-Za-z\d]{5,29}$').hasMatch(value)) {
-                              return "username must be at least 5 characters";
+                              return "username must be at least 6 characters";
                             }
                             return null;
                           },
