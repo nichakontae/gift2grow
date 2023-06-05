@@ -5,7 +5,11 @@ import 'package:gift2grow/screen/profile_page.dart';
 import 'package:gift2grow/screen/ranking_pagee.dart';
 
 class MyBottomNavbar extends StatefulWidget {
-  const MyBottomNavbar({super.key});
+  const MyBottomNavbar({
+    super.key,
+    required this.screen,
+  });
+  final int screen;
 
   @override
   State<MyBottomNavbar> createState() => _MyBottomNavbarState();
@@ -13,6 +17,12 @@ class MyBottomNavbar extends StatefulWidget {
 
 class _MyBottomNavbarState extends State<MyBottomNavbar> {
   int _selectedScreen = 0;
+  @override
+  void initState() {
+    super.initState();
+    _selectedScreen = widget.screen;
+  }
+
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     RankingPage(),
@@ -84,13 +94,13 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
                     height: 30,
                   )),
               BottomNavigationBarItem(
-                  icon: Image(
+                icon: Image(
                   image: AssetImage("assets/icon/user.png"),
                   width: 25,
                   height: 25,
                 ),
-                  label: "Profile",
-                  activeIcon: Image(
+                label: "Profile",
+                activeIcon: Image(
                   image: AssetImage("assets/icon/user-2.png"),
                   width: 25,
                   height: 25,
