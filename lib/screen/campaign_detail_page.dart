@@ -88,7 +88,7 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
       );
     }
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(20),
@@ -146,33 +146,38 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                            child: Column(
+                        Column(
                           children: [
                             ProgressBar(
                               trackingNumber: widget.amountTracking,
                               completedAmount: campaign!.completedAmount,
                               isCompleted: campaign!.isComplete,
                             ),
-                            SizedBox(height: 5,),
+                            const SizedBox(
+                              height: 5,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Remaining:${remaining}',
+                                  'Remaining:$remaining',
                                   style: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 12),
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      fontSize: 12),
                                 ),
                                 Text(
                                   'Date:${campaign!.createdAt}',
                                   style: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 12),
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      fontSize: 12),
                                 )
                               ],
                             )
                           ],
-                        )),
-                        const SizedBox(height: 20,),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         Text(campaign!.topic,
                             textAlign: TextAlign.start,
                             style: const TextStyle(
@@ -295,7 +300,7 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                     ),
                     const SizedBox(width: 15.0),
                     Text(
-                      'Tel. ' + campaign!.telContact,
+                      'Tel. ${campaign!.telContact}',
                       style: const TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   ],

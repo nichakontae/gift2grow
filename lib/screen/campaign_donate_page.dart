@@ -48,7 +48,7 @@ class _CampaignDonatePageState extends State<CampaignDonatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(20),
