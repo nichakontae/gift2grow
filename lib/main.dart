@@ -49,7 +49,9 @@ class _Gift2GrowState extends State<Gift2Grow> {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/forgot-password': (context) => const ForgotPasswordPage(),
-        '/home': (context) => const MyBottomNavbar(),
+        '/home': (context) => const MyBottomNavbar(
+              screen: 0,
+            ),
         '/profile': (context) => const ProfilePage(),
         '/donatetoapp': (context) => const DonateToApp(),
         '/donatehistory': (context) => const HistoryPage(),
