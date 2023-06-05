@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:gift2grow/widgets/preview_share_icon.dart';
 import 'package:gift2grow/widgets/profile_frame1st.dart';
 
 class Share_1st extends StatelessWidget {
@@ -149,38 +150,7 @@ class Share_1st extends StatelessWidget {
                       scale: 1,
                     ),
                   ),
-                  Positioned(
-                    bottom: 15,
-                    right: 20,
-                    child: Image.asset(
-                      'assets/icon/download.png',
-                      scale: 12,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 15,
-                    left: 20,
-                    child: Image.asset(
-                      'assets/icon/facebook.png',
-                      scale: 12,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 14,
-                    left: 75,
-                    child: Image.asset(
-                      'assets/icon/twitter.png',
-                      scale: 11.9,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 13.5,
-                    left: 130,
-                    child: Image.asset(
-                      'assets/icon/instagram.png',
-                      scale: 11.5,
-                    ),
-                  ),
+                  const PreviewShareIcon()
                 ],
               ),
             ),
