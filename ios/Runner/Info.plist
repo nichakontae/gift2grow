@@ -30,6 +30,8 @@
 		<string>Main</string>
 	    <key>NSPhotoLibraryUsageDescription</key>
         <string>Upload images for screen background</string>
+        <key>NSPhotoLibraryAddUsageDescription</key>
+        <string>Save image into device</string>
         <key>NSCameraUsageDescription</key>
         <string>Upload image from camera for screen background</string>
         <key>NSMicrophoneUsageDescription</key>
