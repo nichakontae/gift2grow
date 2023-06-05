@@ -59,6 +59,9 @@ dependencies:
   #save image
   image_gallery_saver: ^2.0.1
   permission_handler: ^10.2.0
+
+  # for share on social media
+  url_launcher: ^6.1.11
 dev_dependencies:
   flutter_test:
     sdk: flutter
