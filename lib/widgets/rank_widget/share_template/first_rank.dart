@@ -1,12 +1,10 @@
-// ignore_for_file: camel_case_types
-
 import 'package:flutter/material.dart';
-import 'package:gift2grow/models/rank/user_profile_for_share.dart';
-import 'package:gift2grow/widgets/preview_share_icon.dart';
-import 'package:gift2grow/widgets/profile_frame1st.dart';
 
-class Share_1st extends StatelessWidget {
-  const Share_1st({Key? key, required this.profile}) : super(key: key);
+import '../../../models/rank/user_profile_for_share.dart';
+import '../profile_for_top_three/profile_frame1st.dart';
+
+class FirstRank extends StatelessWidget {
+  const FirstRank({Key? key, required this.profile}) : super(key: key);
   final UserProfileForShare profile;
 
   @override
@@ -17,43 +15,26 @@ class Share_1st extends StatelessWidget {
         height: double.infinity,
         decoration: const BoxDecoration(
             gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF9569AC),
-            Color(0xFFFFFAEF),
-          ],
-          stops: [0, 0.74],
-        )),
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFF9569AC),
+                Color(0xFFFFFAEF),
+              ],
+              stops: [0, 0.74],
+            )),
         child: Column(
           children: [
             const Padding(padding: EdgeInsets.fromLTRB(0, 74, 0, 0)),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 103, 0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context)
-                              .pop(); // Perform the back navigation
-                        },
-                        child: Image.asset(
-                          'assets/icon/cancel.png',
-                          scale: 14,
-                        ),
-                      ),
-                    ),
-                    const Text(
-                      "Ranking",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ],
+                const Text(
+                  "Ranking",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500),
                 ),
                 const Padding(padding: EdgeInsets.all(2)),
                 const Text(
@@ -152,7 +133,7 @@ class Share_1st extends StatelessWidget {
                       scale: 1,
                     ),
                   ),
-                  const PreviewShareIcon()
+                  // const PreviewShareIcon()
                 ],
               ),
             ),

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:gift2grow/models/rank/response_user_profile_for_share.dart';
 import 'package:gift2grow/models/rank/user_profile_for_share.dart';
 import 'package:gift2grow/utilities/caller.dart';
-import 'package:gift2grow/widgets/profile_frame1st.dart';
+import 'package:gift2grow/widgets/rank_widget/profile_for_top_three/profile_frame1st.dart';
 import 'package:gift2grow/widgets/profile_frame2nd.dart';
-import 'package:gift2grow/widgets/profile_frame3rd.dart';
-import 'package:gift2grow/widgets/rank_card_profile.dart';
-import 'package:gift2grow/widgets/share_1st.dart';
+import 'package:gift2grow/widgets/rank_widget/profile_frame3rd.dart';
+import 'package:gift2grow/widgets/rank_widget/rank_card_profile.dart';
+import 'package:gift2grow/widgets/rank_widget/preview_share.dart';
 // import 'package:gift2grow/widgets/share_2nd.dart';
 // import 'package:gift2grow/widgets/share_3rd.dart';
 // import 'package:gift2grow/widgets/share_born_angel.dart';
@@ -75,120 +75,118 @@ class _RankPageState extends State<RankPage> {
                         ],
                       ),
                     ),
-                    Container(
-                      child: Stack(
-                        children: [
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(2.0),
-                                child: Text(
-                                  "1st",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 21,
-                                      fontWeight: FontWeight.w700),
-                                ),
+                    Stack(
+                      children: [
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(2.0),
+                              child: Text(
+                                "1st",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.w700),
                               ),
-                            ],
-                          ),
-                          //Padding(padding: EdgeInsets.only(bottom: 20)),
-                          Center(
-                            heightFactor: 1.3,
-                            child: Profile1st(profile: profile,),
-                          ),
-                          Positioned(
-                              top: 63,
-                              left: 32,
-                              child: Transform.scale(
-                                child: const Profile2nd(),
-                                scale: 0.8,
-                              )),
-                          Positioned(
-                              top: 63,
-                              left: 245,
-                              child: Transform.scale(
-                                child: const Profile3rd(),
-                                scale: 0.8,
-                              )),
-                          const Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(76.5, 60, 0, 0),
-                                child: Text(
-                                  "2nd",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              Spacer(),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(0, 60, 76.5, 0),
-                                child: Text(
-                                  "3rd",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(53.5, 180, 52, 17),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    Text("username",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600)),
-                                    Text("8888 TAMBOON",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 9,
-                                        ))
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text("${profile.username}",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600)),
-                                    Text("8888 TAMBOON",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 9,
-                                        ))
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text("username",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600)),
-                                    Text("8888 TAMBOON",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 9,
-                                        ))
-                                  ],
-                                )
-                              ],
                             ),
-                          )
-                        ],
-                      ),
+                          ],
+                        ),
+                        //Padding(padding: EdgeInsets.only(bottom: 20)),
+                        Center(
+                          heightFactor: 1.3,
+                          child: Profile1st(profile: profile,),
+                        ),
+                        Positioned(
+                            top: 63,
+                            left: 32,
+                            child: Transform.scale(
+                              scale: 0.8,
+                              child: const Profile2nd(),
+                            )),
+                        Positioned(
+                            top: 63,
+                            left: 245,
+                            child: Transform.scale(
+                              scale: 0.8,
+                              child: const Profile3rd(),
+                            )),
+                        const Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(76.5, 60, 0, 0),
+                              child: Text(
+                                "2nd",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Spacer(),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 60, 76.5, 0),
+                              child: Text(
+                                "3rd",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(53.5, 180, 52, 17),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Column(
+                                children: [
+                                  Text("username",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600)),
+                                  Text("8888 TAMBOON",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 9,
+                                      ))
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text(profile.username,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600)),
+                                  const Text("8888 TAMBOON",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 9,
+                                      ))
+                                ],
+                              ),
+                              const Column(
+                                children: [
+                                  Text("username",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600)),
+                                  Text("8888 TAMBOON",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 9,
+                                      ))
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                     Column(
                       children: List.generate(
@@ -240,7 +238,7 @@ class _RankPageState extends State<RankPage> {
                                 color: Color(0xFF9468AC))),
                         const Spacer(),
                         Text("${profile.tamboonPoint} TAMBOON",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF9468AC))),
                         // ตอนดึงข้อมูลuserมาแล้วเช็คif(1/2/3)else(เช็คlevel)
@@ -250,7 +248,8 @@ class _RankPageState extends State<RankPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                  Share_1st(profile: profile,)), //widget for test sharing
+                                  PreviewShare(profile: profile,),
+                              ), //widget for test sharing
                             );
                           },
                           child: Padding(

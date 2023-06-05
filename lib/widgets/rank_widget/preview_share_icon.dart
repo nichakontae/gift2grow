@@ -18,13 +18,17 @@ class PreviewShareIcon extends StatelessWidget {
                   //color: Colors.black,
                   color: Colors.black.withOpacity(0.25), // Shadow color
                   blurRadius: 1, // Spread radius
-                  offset: Offset(1, 2), // Offset in x and y directions
+                  offset: const Offset(1, 2), // Offset in x and y directions
                 ),
               ],
             ),
-            child: Image.asset(
-              'assets/icon/download.png',
-              scale: 12,
+            child: GestureDetector(
+              onTap: ()async{
+              },
+              child: Image.asset(
+                'assets/icon/download.png',
+                scale: 12,
+              ),
             ),
           ),
         ),
