@@ -1,11 +1,13 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:gift2grow/models/rank/user_profile_for_share.dart';
 import 'package:gift2grow/widgets/preview_share_icon.dart';
 import 'package:gift2grow/widgets/profile_frame1st.dart';
 
 class Share_1st extends StatelessWidget {
-  const Share_1st({Key? key}) : super(key: key);
+  const Share_1st({Key? key, required this.profile}) : super(key: key);
+  final UserProfileForShare profile;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +77,7 @@ class Share_1st extends StatelessWidget {
                     children: [
                       Transform.scale(
                         scale: 2.2, // Adjust the scale factor as needed
-                        child: const Profile1st(),
+                        child: Profile1st(profile: profile,),
                       )
                     ],
                   ),
@@ -85,20 +87,20 @@ class Share_1st extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50.0),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(10, 20, 10, 30),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 30),
                     child: Column(
                       children: [
-                        Text('BenHann',
-                            style: TextStyle(
+                        Text(profile.username,
+                            style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF9468AC))),
-                        Text('999 TAMBOON',
-                            style: TextStyle(
+                        Text('${profile.tamboonPoint} TAMBOON',
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xFF9468AC))),
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Text(
                               '"You have made a total of 120 donations"',
@@ -107,7 +109,7 @@ class Share_1st extends StatelessWidget {
                                   color: Color(0xFFFFC107))),
                         ),
                         //ทำเช็คว่าอยู่levelไหน
-                        Text(
+                        const Text(
                           'For truly we are all angels',
                           style: TextStyle(
                             fontSize: 16,
@@ -115,7 +117,7 @@ class Share_1st extends StatelessWidget {
                             color: Color(0xFF9468AC),
                           ),
                         ),
-                        Text(
+                        const Text(
                           'temporarily hiding as humans.',
                           style: TextStyle(
                             fontSize: 16,

@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gift2grow/models/rank/response_user_profile_for_share.dart';
+import 'package:gift2grow/models/rank/user_profile_for_share.dart';
+import 'package:gift2grow/utilities/caller.dart';
 import 'package:gift2grow/widgets/profile_frame1st.dart';
 import 'package:gift2grow/widgets/profile_frame2nd.dart';
 import 'package:gift2grow/widgets/profile_frame3rd.dart';
@@ -8,8 +12,33 @@ import 'package:gift2grow/widgets/share_1st.dart';
 // import 'package:gift2grow/widgets/share_3rd.dart';
 // import 'package:gift2grow/widgets/share_born_angel.dart';
 
-class RankPage extends StatelessWidget {
+class RankPage extends StatefulWidget {
   const RankPage({Key? key}) : super(key: key);
+
+  @override
+  State<RankPage> createState() => _RankPageState();
+}
+
+class _RankPageState extends State<RankPage> {
+  UserProfileForShare profile = UserProfileForShare(userId: FirebaseAuth.instance.currentUser!.uid, username: "", profileImage: null, tamboonPoint: 0);
+
+  Future getUserProfileForShare()async{
+    try{
+      final response = await Caller.dio.get("/rank/getProfileForShare?userId=${FirebaseAuth.instance.currentUser?.uid}");
+      ResponseUserProfileForShare d = ResponseUserProfileForShare.fromJson(response.data);
+      setState(() {
+        profile = d.data;
+      });
+    }catch (e){
+      debugPrint(e.toString());
+    }
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    getUserProfileForShare();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +49,13 @@ class RankPage extends StatelessWidget {
             child: Container(
                 decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFF9468AC),
-                    Colors.white,
-                  ],
-                )),
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xFF9468AC),
+                        Colors.white,
+                      ],
+                    )),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -65,9 +94,9 @@ class RankPage extends StatelessWidget {
                             ],
                           ),
                           //Padding(padding: EdgeInsets.only(bottom: 20)),
-                          const Center(
-                            child: Profile1st(),
+                          Center(
                             heightFactor: 1.3,
+                            child: Profile1st(profile: profile,),
                           ),
                           Positioned(
                               top: 63,
@@ -108,7 +137,7 @@ class RankPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.fromLTRB(53.5, 180, 52, 17),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -129,7 +158,7 @@ class RankPage extends StatelessWidget {
                                 ),
                                 Column(
                                   children: [
-                                    Text("username",
+                                    Text("${profile.username}",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 14,
@@ -164,7 +193,7 @@ class RankPage extends StatelessWidget {
                     Column(
                       children: List.generate(
                         17, // Replace with the actual number of items
-                        (index) => Padding(
+                            (index) => Padding(
                           padding: const EdgeInsets.fromLTRB(27, 2, 27, 0),
                           child: Card(
                             elevation: 4,
@@ -188,7 +217,7 @@ class RankPage extends StatelessWidget {
           Positioned(
             left: 0,
             right: 0,
-            top: 708,
+            top: 715,
             child: Card(
               color: const Color(0xFFFECE6B),
               shape: const RoundedRectangleBorder(
@@ -210,7 +239,7 @@ class RankPage extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF9468AC))),
                         const Spacer(),
-                        const Text("100 TAMBOON",
+                        Text("${profile.tamboonPoint} TAMBOON",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF9468AC))),
@@ -221,13 +250,13 @@ class RankPage extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const Share_1st()), //widget for test sharing
+                                  Share_1st(profile: profile,)), //widget for test sharing
                             );
                           },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(9, 0, 9, 2),
                             child:
-                                Image.asset('assets/icon/share.png', scale: 28),
+                            Image.asset('assets/icon/share.png', scale: 28),
                           ),
                         )
                       ],
@@ -242,3 +271,4 @@ class RankPage extends StatelessWidget {
     );
   }
 }
+
