@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/user_info.dart';
+import 'package:gift2grow/screen/bottom_navbar.dart';
 import 'package:gift2grow/utilities/upload.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -76,7 +77,12 @@ class _EditProfileformState extends State<EditProfileform> {
           _isloading = false;
         });
         // ignore: use_build_context_synchronously
-        Navigator.pushNamedAndRemoveUntil(context, '/profile', (route) => false);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const MyBottomNavbar(
+                      screen: 3,
+                    )));
       } on DioError catch (e) {
         if (kDebugMode) {
           print(e.response);
