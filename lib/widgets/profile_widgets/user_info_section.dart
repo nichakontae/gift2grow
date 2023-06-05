@@ -159,44 +159,126 @@ class _UserInformationState extends State<UserInformation> {
                   ],
                 ),
               ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text("History", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    '${donateHistory!.length} succesful donations',
-                    style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xff9468AC)),
-                  ),
-                ],
-              ),
-              for (var i = 0; i < 2; i++)
-                DonateHistory(
-                  donateHistory: donateHistory![i],
-                ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/donatehistory');
-                      },
-                      child: const Text(
-                        'show more...',
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xff9468AC)),
+              donateHistory!.isEmpty || donateHistory == null
+                  ? Column(children: [
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text("History",
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                        ],
                       ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            '0 succesful donations',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff9468AC)),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+                        child: GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, '/home'),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(30),
+                              ),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(
+                                      0.5), //Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
+                                  offset: const Offset(0.0, 3.0), //(x,y)
+                                  blurRadius: 7.0,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                const Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
+                                    child: Text('You have 0 donation history',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0xff9468AC))),
+                                  ),
+                                ),
+                                Image(
+                                  image: const AssetImage('assets/images/nong_unicorn.png'),
+                                  width: MediaQuery.of(context).size.width * 0.3,
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
+                                  child: Text(
+                                    "Let's go donated!",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff9468AC)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ])
+                  : Column(
+                      children: [
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text("History",
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${donateHistory!.length} succesful donations',
+                              style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff9468AC)),
+                            ),
+                          ],
+                        ),
+                        for (var i = 0; i < 2; i++)
+                          DonateHistory(
+                            donateHistory: donateHistory![i],
+                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/donatehistory');
+                                },
+                                child: const Text(
+                                  'show more...',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xff9468AC)),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
                     ),
-                  )
-                ],
-              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 32, 0, 16),
                 child: CustomButton(
