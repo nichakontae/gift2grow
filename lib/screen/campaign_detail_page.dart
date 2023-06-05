@@ -81,10 +81,10 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
   @override
   Widget build(BuildContext context) {
     if (campaign == null) {
-      return Column(
+      return const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [CircularProgressIndicator()],
+        children: [CircularProgressIndicator()],
       );
     }
     return Scaffold(
@@ -172,29 +172,29 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                             )
                           ],
                         )),
-                        SizedBox(height: 20,),
+                        const SizedBox(height: 20,),
                         Text(campaign!.topic,
                             textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
-                              color: const Color.fromRGBO(148, 104, 172, 1),
+                              color: Color.fromRGBO(148, 104, 172, 1),
                             )),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 10, 0, 8),
                           child: Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.school,
                                 size: 25,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(
                                 campaign!.schoolName,
                                 textAlign: TextAlign.start,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black),
@@ -209,11 +209,11 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                           ),
                         ),
                       ])),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Expanded(
                       child: Text(
                         textAlign: TextAlign.start,
@@ -288,12 +288,12 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SizedBox(width: 10.0),
-                    Icon(
+                    const SizedBox(width: 10.0),
+                    const Icon(
                       Icons.phone,
                       size: 30,
                     ),
-                    SizedBox(width: 15.0),
+                    const SizedBox(width: 15.0),
                     Text(
                       'Tel. ' + campaign!.telContact,
                       style: const TextStyle(color: Colors.black, fontSize: 16),

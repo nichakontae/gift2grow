@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/tracking.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
@@ -27,18 +27,21 @@ class _AddTrackingState extends State<AddTracking> {
 
   void postTrackingNum(Tracking tracking) async {
     try {
+      // ignore: unused_local_variable
       final response = await Caller.dio
           .post('/campaign/postTracking', data: tracking.toJson());
-    } on DioError catch (e) {
-      print(e.toString());
-      print("erorr ja post mai dai");
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+        print('error ja');
+      }
     }
   }
 
   @override
   void initState() {
     super.initState();
-    myController.addListener(_printLatestValue);
+    // myController.addListener(_printLatestValue);
     setState(() {
       tracking = Tracking(
         campaignId: widget.campaignId,
@@ -54,9 +57,9 @@ class _AddTrackingState extends State<AddTracking> {
     super.dispose();
   }
 
-  void _printLatestValue() {
-    print('Tracking number: ${myController.text}');
-  }
+  // void _printLatestValue() {
+  //   print('Tracking number: ${myController.text}');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +110,7 @@ class _AddTrackingState extends State<AddTracking> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
@@ -119,7 +122,7 @@ class _AddTrackingState extends State<AddTracking> {
                       onTap: () {
                         if (_formkey.currentState!.validate()) {
                           //post
-                          tracking!.trackingNumber = myController.text;
+                          tracking.trackingNumber = myController.text;
                           postTrackingNum(tracking);
 
                           //modal
@@ -127,7 +130,7 @@ class _AddTrackingState extends State<AddTracking> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                insetPadding: EdgeInsets.symmetric(
+                                insetPadding: const EdgeInsets.symmetric(
                                     vertical: 215, horizontal: 40),
                                 elevation: 8,
                                 shape: RoundedRectangleBorder(
