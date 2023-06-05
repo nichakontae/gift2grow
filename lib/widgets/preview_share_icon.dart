@@ -10,9 +10,22 @@ class PreviewShareIcon extends StatelessWidget {
         Positioned(
           bottom: 15,
           right: 20,
-          child: Image.asset(
-            'assets/icon/download.png',
-            scale: 12,
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  //color: Colors.black,
+                  color: Colors.black.withOpacity(0.25), // Shadow color
+                  blurRadius: 1, // Spread radius
+                  offset: Offset(1, 2), // Offset in x and y directions
+                ),
+              ],
+            ),
+            child: Image.asset(
+              'assets/icon/download.png',
+              scale: 12,
+            ),
           ),
         ),
         Positioned(
