@@ -1,58 +1,148 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gift2grow/models/user_noti.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
+import '../utilities/caller.dart';
 
 class NotificationPage extends StatefulWidget {
-  const NotificationPage({super.key});
+  const NotificationPage({Key? key}) : super(key: key);
 
   @override
   State<NotificationPage> createState() => _NotificationPageState();
 }
 
 class _NotificationPageState extends State<NotificationPage> {
-  List<NotificationItem> notifications = [
-    NotificationItem(
-      title: 'Notification 1',
-      status: 'Read',
-      time: '9:00 AM',
-    ),
-    NotificationItem(
-      title: 'Notification 2',
-      status: 'Unread',
-      time: '10:30 AM',
-    ),
-    NotificationItem(
-      title: 'Notification 3',
-      status: 'Read',
-      time: '2:15 PM',
-    ),
-  ];
+  final user = FirebaseAuth.instance.currentUser;
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+
+  List<UserNoti> notifications = [];
+  Map<String, List<UserNoti>> notificationsByDate = {};
+
+  void getUserNoti(String userId) async {
+    try {
+      final response = await Caller.dio.get('/noti/getUserNoti?userId=$userId');
+      if (response.statusCode == 200) {
+        setState(() {
+          //print(response.data);
+          notifications = response.data
+              .map<UserNoti>((item) => UserNoti.fromJson(item))
+              .toList();
+          separateNotificationsByDate();
+        });
+      }
+    } catch (e) {
+      //print(e.toString());
+    }
+  }
+
+  void editUserNoti(notiobjectId) async {
+    try {
+      await Caller.dio.put('/noti/editUserNoti', data: {
+        'notiObjectId': notiobjectId,
+        'userId': userId,
+      });
+    } catch (e) {
+      //print(e.toString());
+    }
+  }
+
+  void separateNotificationsByDate() {
+    notifications.sort(
+        (a, b) => b.notiObject.createdAt!.compareTo(a.notiObject.createdAt!));
+    notificationsByDate.clear();
+
+    for (var notification in notifications) {
+      DateTime createdAt = notification.notiObject.createdAt ?? DateTime.now();
+      DateTime currentDate = DateTime.now();
+      DateTime yesterdayDate = currentDate.subtract(const Duration(days: 1));
+      //print(createdAt);
+      String formattedDate;
+
+      if (createdAt.year == currentDate.year &&
+          createdAt.month == currentDate.month &&
+          createdAt.day == currentDate.day) {
+        formattedDate = 'Today';
+      } else if (createdAt.year == yesterdayDate.year &&
+          createdAt.month == yesterdayDate.month &&
+          createdAt.day == yesterdayDate.day) {
+        formattedDate = 'Yesterday';
+      } else {
+        formattedDate = DateFormat.yMMMMd('en_US').format(createdAt);
+      }
+
+      if (notificationsByDate.containsKey(formattedDate)) {
+        notificationsByDate[formattedDate]!.add(notification);
+      } else {
+        notificationsByDate[formattedDate] = [notification];
+      }
+    }
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-            padding: const EdgeInsets.all(30),
-            child: Column(
+  void initState() {
+    super.initState();
+    initializeDateFormatting('en', null);
+    getUserNoti(userId);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  Widget showNotification() {
+    if (notifications.isNotEmpty) {
+      return Expanded(
+        child: ListView.builder(
+          itemCount: notificationsByDate.length,
+          itemBuilder: (context, index) {
+            String date = notificationsByDate.keys.elementAt(index);
+            List<UserNoti> notificationsForDate = notificationsByDate[date]!;
+
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Notfications',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                Text(
+                  date,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
+                    color: Color(0xff9468AC),
+                  ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: notifications.length,
-                      itemBuilder: (context, index) {
-                        bool isUnread = notifications[index].status == 'Unread';
-                        Color borderColor = isUnread
-                            ? Theme.of(context).colorScheme.primary
-                            : Colors.grey;
-                        Color circleColor = isUnread
-                            ? Theme.of(context).colorScheme.primary
-                            : Colors.grey;
+                const SizedBox(height: 10),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: notificationsForDate.length,
+                  itemBuilder: (context, innerIndex) {
+                    UserNoti notification = notificationsForDate[innerIndex];
 
-                        return Card(
+                    bool isRead = notification.isRead == true;
+                    Color borderColor = isRead
+                        ? const Color(0xFFD9D9D9)
+                        : Theme.of(context).colorScheme.primary;
+                    Color circleColor = isRead
+                        ? const Color(0xFFD9D9D9)
+                        : Theme.of(context).colorScheme.primary;
+
+                    return Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: GestureDetector(
+                        onTap: () => setState(() {
+                          notification.isRead = true;
+                          editUserNoti(notification.notiObject.notiObjectId);
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => campaignPage(
+                          //       campaignId: notification.notiObject.campaignId,
+                          //     ),
+                          // ),
+                        }),
+                        child: Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
                             side: BorderSide(color: borderColor),
@@ -64,41 +154,64 @@ class _NotificationPageState extends State<NotificationPage> {
                               children: [
                                 CircleAvatar(
                                   backgroundColor: circleColor,
-                                  radius: 5,
+                                  radius: 4,
                                 ),
                                 Text(
-                                  notifications[index].title,
+                                  notification.notiObject.notiObjectId
+                                      .toString(),
                                   style: const TextStyle(
                                     fontSize: 12,
                                   ),
                                 ),
                                 const SizedBox(height: 5),
                                 Text(
-                                  notifications[index].time,
+                                  DateFormat('h:mm a', 'en_US').format(
+                                      notification.notiObject.createdAt!
+                                          .toLocal()),
                                   style: const TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 12,
-                                  ),
+                                      fontSize: 12, color: Colors.grey),
                                 ),
                               ],
                             ),
                           ),
-                        );
-                      }),
+                        ),
+                      ),
+                    );
+                  },
                 ),
+                const SizedBox(height: 20),
               ],
-            )));
+            );
+          },
+        ),
+      );
+    } else {
+      return const Center(
+        child: Text('You don\'t have any notifications yet'),
+      );
+    }
   }
-}
 
-class NotificationItem {
-  final String title;
-  final String status;
-  final String time;
-
-  NotificationItem({
-    required this.title,
-    required this.status,
-    required this.time,
-  });
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Container(
+        padding: const EdgeInsets.all(30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Notifications',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            showNotification(),
+          ],
+        ),
+      ),
+    );
+  }
 }
