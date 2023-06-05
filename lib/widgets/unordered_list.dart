@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class UnorderedList extends StatelessWidget {
-  UnorderedList(this.texts);
+  const UnorderedList(this.texts, {super.key});
   final List<String> texts;
 
   @override
