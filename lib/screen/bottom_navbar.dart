@@ -47,9 +47,17 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
             // backgroundColor: Colors.black,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
+                icon: Image(
+                  image: AssetImage("assets/icon/home-2.png"),
+                  width: 25,
+                  height: 25,
+                ),
                 label: "Home",
-                activeIcon: Icon(Icons.home),
+                activeIcon: Image(
+                  image: AssetImage("assets/icon/home-3.png"),
+                  width: 25,
+                  height: 25,
+                ),
               ),
               BottomNavigationBarItem(
                 icon: Image(
@@ -77,9 +85,18 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
                     height: 30,
                   )),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person_2_outlined),
+                  icon: Image(
+                  image: AssetImage("assets/icon/user.png"),
+                  width: 25,
+                  height: 25,
+                ),
                   label: "Profile",
-                  activeIcon: Icon(Icons.person)),
+                  activeIcon: Image(
+                  image: AssetImage("assets/icon/user-2.png"),
+                  width: 25,
+                  height: 25,
+                ),
+              )
             ],
             currentIndex: _selectedScreen,
             selectedItemColor: Colors.black,
