@@ -44,6 +44,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   trackingNumber: response.data[index]['tracking_number'],
                   donatedAt: response.data[index]['donation_date'],
                   schoolName: response.data[index]['campaign']['school_name'],
+                  isCompleted: response.data[index]['campaign']['is_completed'],
                 ));
       });
     } catch (e) {

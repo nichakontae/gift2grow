@@ -25,6 +25,7 @@ class _EditProfileformState extends State<EditProfileform> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
+  bool _isOk = false;
 
   @override
   void initState() {
@@ -38,6 +39,7 @@ class _EditProfileformState extends State<EditProfileform> {
   @override
   Widget build(BuildContext context) {
     Future getImage() async {
+      Navigator.of(context).pop();
       XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
       setState(() {
         widget.userInfo!.profileImageFile = file;
@@ -67,7 +69,10 @@ class _EditProfileformState extends State<EditProfileform> {
             if (kDebugMode) {
               print(upload.data);
             }
-          } catch (e) {
+            setState(() {
+              _isOk = true;
+            });
+          } on DioError catch (e) {
             if (kDebugMode) {
               print(e);
             }
@@ -77,17 +82,86 @@ class _EditProfileformState extends State<EditProfileform> {
           _isloading = false;
         });
         // ignore: use_build_context_synchronously
+      } on DioError catch (e) {
+        if (kDebugMode) {
+          print(e.response);
+        }
+      }
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pop();
+      if (_isOk || widget.userInfo!.profileImageFile == null) {
+        // ignore: use_build_context_synchronously
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => const MyBottomNavbar(
                       screen: 3,
                     )));
-      } on DioError catch (e) {
-        if (kDebugMode) {
-          print(e.response);
-        }
+      } else {
+        // ignore: use_build_context_synchronously
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+              title: const Text("Fail to uplaod image"),
+              content: const Text(
+                  "Plase make sure that your Image does not exceed 4MB and the file type is either JPEG, JPG or PNG"),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
       }
+    }
+
+    void showPopup() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+            title: const Text("Upload Image"),
+            content: const Text(
+                "Plase make sure that your Image does not exceed 4MB and the file type is either JPEG, JPG or PNG"),
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton(
+                    child: const Text("Cancle", style: TextStyle(fontSize: 18)),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  SizedBox(
+                    height: 25,
+                    child: VerticalDivider(
+                      color: Colors.black.withAlpha(100),
+                      thickness: 2,
+                      indent: 5,
+                      endIndent: 0,
+                      width: 20,
+                    ),
+                  ),
+                  TextButton(
+                    child: const Text("OK", style: TextStyle(fontSize: 18)),
+                    onPressed: () {
+                      getImage();
+                    },
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
+      );
     }
 
     return Column(
@@ -100,6 +174,7 @@ class _EditProfileformState extends State<EditProfileform> {
                 children: [
                   widget.userInfo!.profileImageFile != null
                       ? CircleAvatar(
+                          backgroundColor: Colors.transparent,
                           backgroundImage: FileImage(File(widget.userInfo!.profileImageFile!.path)),
                           radius: 90.0,
                         )
@@ -111,6 +186,7 @@ class _EditProfileformState extends State<EditProfileform> {
                               radius: 90.0,
                             )
                           : const CircleAvatar(
+                              backgroundColor: Colors.transparent,
                               backgroundImage: AssetImage('assets/images/profileNull.png'),
                               radius: 90.0,
                             ),
@@ -131,7 +207,7 @@ class _EditProfileformState extends State<EditProfileform> {
                         ),
                       ),
                       onTap: () {
-                        getImage();
+                        showPopup();
                       },
                     ),
                   )
@@ -171,7 +247,7 @@ class _EditProfileformState extends State<EditProfileform> {
                             if (value == null ||
                                 value.isEmpty ||
                                 !RegExp(r'^[A-Za-z][A-Za-z\d]{5,29}$').hasMatch(value)) {
-                              return "username must be at least 5 characters";
+                              return "username must be at least 6 characters";
                             }
                             return null;
                           },
@@ -226,7 +302,6 @@ class _EditProfileformState extends State<EditProfileform> {
                                 value.isEmpty ||
                                 !RegExp(r'^\w+$').hasMatch(value)) {
                               return "Please enter only text";
-                              // อย่าลืมใส่คำที่ดีกว่านี้
                             }
                             return null;
                           },
@@ -308,6 +383,8 @@ class _EditProfileformState extends State<EditProfileform> {
                                     showDialog<String>(
                                         context: context,
                                         builder: (BuildContext context) => AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(30.0)),
                                               content: SizedBox(
                                                 height: 120,
                                                 child: Container(
