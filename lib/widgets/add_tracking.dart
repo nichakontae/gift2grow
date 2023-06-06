@@ -38,6 +38,18 @@ class _AddTrackingState extends State<AddTracking> {
     }
   }
 
+  void addTamboon() async {
+    try{
+      // ignore: unused_local_variable
+      final response = await Caller.dio.put('/campaign/putTamboon?userId=${widget.userId}');
+    }catch (e) {
+      if (kDebugMode) {
+        print(e);
+        print('error ja');
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -124,6 +136,7 @@ class _AddTrackingState extends State<AddTracking> {
                           //post
                           tracking.trackingNumber = myController.text;
                           postTrackingNum(tracking);
+                          addTamboon();
 
                           //modal
                           showDialog(
