@@ -46,7 +46,23 @@ dependencies:
   image_picker: ^0.8.7+5
   intl: ^0.18.1
   percent_indicator: ^4.2.3
+
+  # for share
   share_plus: ^7.0.2
+
+  # screenshot
+  screenshot: ^2.1.0
+
+  # for share and get image path
+  path_provider: ^2.0.15
+
+  #save image
+  image_gallery_saver: ^2.0.1
+  permission_handler: ^10.2.0
+
+  # for share on social media
+  url_launcher: ^6.1.11
+  social_share: ^2.3.1
   firebase_messaging: ^14.6.2
 dev_dependencies:
   flutter_test:
@@ -211,6 +227,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+     - assets/
+     - assets/images/
      - assets/logo/
      - assets/icon/
 

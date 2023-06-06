@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:gift2grow/screen/donate_appp.dart';
+import 'package:gift2grow/screen/donate_to_app.dart';
 import 'package:gift2grow/screen/home.dart';
-import 'package:gift2grow/screen/profile_pagee.dart';
+import 'package:gift2grow/screen/profile_page.dart';
 import 'package:gift2grow/screen/ranking_pagee.dart';
 
 class MyBottomNavbar extends StatefulWidget {
-  const MyBottomNavbar({super.key});
+  const MyBottomNavbar({
+    super.key,
+    required this.screen,
+  });
+  final int screen;
 
   @override
   State<MyBottomNavbar> createState() => _MyBottomNavbarState();
@@ -13,10 +17,16 @@ class MyBottomNavbar extends StatefulWidget {
 
 class _MyBottomNavbarState extends State<MyBottomNavbar> {
   int _selectedScreen = 0;
+  @override
+  void initState() {
+    super.initState();
+    _selectedScreen = widget.screen;
+  }
+
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     RankingPage(),
-    DonateApp(),
+    DonateToApp(),
     ProfilePage(),
   ];
 
@@ -43,12 +53,19 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
             ],
           ),
           child: BottomNavigationBar(
-            // backgroundColor: Colors.black,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
+                icon: Image(
+                  image: AssetImage("assets/icon/home-2.png"),
+                  width: 25,
+                  height: 25,
+                ),
                 label: "Home",
-                activeIcon: Icon(Icons.home),
+                activeIcon: Image(
+                  image: AssetImage("assets/icon/home-3.png"),
+                  width: 25,
+                  height: 25,
+                ),
               ),
               BottomNavigationBarItem(
                 icon: Image(
@@ -76,9 +93,18 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
                     height: 30,
                   )),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person_2_outlined),
-                  label: "Profile",
-                  activeIcon: Icon(Icons.person)),
+                icon: Image(
+                  image: AssetImage("assets/icon/user.png"),
+                  width: 25,
+                  height: 25,
+                ),
+                label: "Profile",
+                activeIcon: Image(
+                  image: AssetImage("assets/icon/user-2.png"),
+                  width: 25,
+                  height: 25,
+                ),
+              )
             ],
             currentIndex: _selectedScreen,
             selectedItemColor: Colors.black,

@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:gift2grow/screen/forgot_password.dart';
-//import 'package:gift2grow/screen/home.dart';
-import 'package:gift2grow/screen/login.dart';
-import 'package:gift2grow/screen/notification.dart';
-import 'package:gift2grow/screen/resgister.dart';
+import 'package:gift2grow/screen/authentication/forgot_password.dart';
+import 'package:gift2grow/screen/authentication/login.dart';
+import 'package:gift2grow/screen/donate_history.dart';
+import 'package:gift2grow/screen/donate_to_app.dart';
+import 'package:gift2grow/screen/bottom_navbar.dart';
+import 'package:gift2grow/screen/profile_page.dart';
+import 'package:gift2grow/screen/authentication/resgister.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -118,7 +120,12 @@ class _Gift2GrowState extends State<Gift2Grow> {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/forgot-password': (context) => const ForgotPasswordPage(),
-        '/home': (context) => const NotificationPage(),
+        '/home': (context) => const MyBottomNavbar(
+              screen: 0,
+            ),
+        '/profile': (context) => const ProfilePage(),
+        '/donatetoapp': (context) => const DonateToApp(),
+        '/donatehistory': (context) => const HistoryPage(),
       },
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(
