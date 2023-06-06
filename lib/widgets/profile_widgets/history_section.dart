@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/donate_history.dart';
+import 'package:gift2grow/screen/campaign_detail_page.dart';
+import 'package:gift2grow/screen/complete_campaign.dart';
+import 'package:gift2grow/utilities/caller.dart';
 import 'package:intl/intl.dart';
 
 class DonateHistory extends StatefulWidget {
@@ -11,11 +15,57 @@ class DonateHistory extends StatefulWidget {
 }
 
 class _DonateHistoryState extends State<DonateHistory> {
+  int? amountTracking;
+  Future<void> getAmountTracking() async {
+    try {
+      final response = await Caller.dio.get(
+        '/profile/getDonateNumber?Id=${widget.donateHistory!.campaignId}',
+      );
+      setState(() {
+        amountTracking = response.data;
+      });
+      if (kDebugMode) {
+        print(amountTracking);
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAmountTracking();
+  }
+
   @override
   Widget build(BuildContext context) {
     DateTime? date = DateTime.parse(widget.donateHistory!.donatedAt);
     var formatDate = DateFormat('d MMMM yyyy').format(date);
     return GestureDetector(
+      onTap: () {
+        if (widget.donateHistory!.isCompleted) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CompletedCampaign(
+                      campaignId: widget.donateHistory!.campaignId,
+                      trackingAmount: amountTracking!,
+                    )),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CampaignDetailPage(
+                      campaignId: widget.donateHistory!.campaignId,
+                      amountTracking: amountTracking!,
+                    )),
+          );
+        }
+      },
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
         child: Container(
