@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_social_content_share/flutter_social_content_share.dart';
 import 'package:gift2grow/models/rank/user_profile_for_share.dart';
 import 'package:gift2grow/widgets/rank_widget/share_template/third_rank.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -43,8 +44,8 @@ class _PreviewShareState extends State<PreviewShare> {
     final directory = await getApplicationDocumentsDirectory();
     final image = File('${directory.path}/ranking.png');
     image.writeAsBytesSync(bytes);
-
-    // await Share.shareFiles([image.path]);
+    // work with all app just share image
+    await Share.shareFiles([image.path]);
 
     // Twitter work! just text
     // await SocialShare.shareTwitter("hi",trailingText: "trailingText",url: "https://global-uploads.webflow.com/59dbe1c3542805000192616b/63178a7970d1b57a4c6a7a05_golden-retriever.png",hashtags: ["golden retriever"]);
@@ -52,36 +53,21 @@ class _PreviewShareState extends State<PreviewShare> {
     // Instagram stories work with image
     // await SocialShare.shareInstagramStory(appId: "630991508966207", imagePath: image.path);
 
+    // Facebook stories work with image
     // await SocialShare.shareFacebookStory(appId: "630991508966207",imagePath: image.path);
-    // shareToTwitter(imagePath: image.path);
-    // await SocialShare.shareInstagramStory(appId: "630991508966207", imagePath: image.path);
-    // await SocialSharePlugin.shareToFeedFacebook(path: image.path);
-  }
 
-  void shareToTwitter({required String imagePath}) async {
-    final tweetText = 'Check out this awesome content!'; // Replace with your tweet text
+    // Instagram both stories and feed in one work!
+    // await FlutterSocialContentShare.share(type: ShareType.instagramWithImageUrl,imageUrl: "https://global-uploads.webflow.com/59dbe1c3542805000192616b/63178a7970d1b57a4c6a7a05_golden-retriever.png");
 
-    var tweetUrl = 'https://twitter.com/intent/tweet?text=${Uri.encodeComponent(tweetText)}';
+    // must configuration android with at least minSdkVersion 21
+    // await FlutterSocialContentShare.share(
+    //     type: ShareType.facebookWithoutImage,
+    //     url: "https://www.apple.com",
+    //     quote: "captions");
 
-    if (imagePath != null) {
-      final file = File(imagePath);
-      final imageUri = 'data:image/jpeg;base64,${base64Encode(file.readAsBytesSync())}';
-      tweetUrl += '&amp;url=${Uri.encodeComponent(imageUri)}';
-    }
-
-    if (await canLaunch(tweetUrl)) {
-      await launch(tweetUrl);
-    } else {
-      print('Failed to launch Twitter');
-    }
   }
 
 
-  Future share(SocialMedia socialPlatform) async {
-    final urls = {
-      SocialMedia.facebook: "https://www.facebook.com/sharer/sharer.php?"
-    };
-  }
 
   @override
   Widget build(BuildContext context) {
