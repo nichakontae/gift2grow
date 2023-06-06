@@ -63,6 +63,7 @@ dependencies:
   # for share on social media
   url_launcher: ^6.1.11
   social_share: ^2.3.1
+  flutter_social_content_share: ^1.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
