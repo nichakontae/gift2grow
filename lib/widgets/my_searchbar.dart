@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/filter.dart';
-import 'package:gift2grow/models/searchPreload.dart';
+import 'package:gift2grow/models/search_preload.dart';
 
 class MySearchBar extends StatefulWidget {
   const MySearchBar({Key? key, required this.filter}) : super(key: key);

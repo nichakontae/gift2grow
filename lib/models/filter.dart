@@ -1,5 +1,3 @@
-import 'package:gift2grow/models/all_campaigns.dart';
-import 'package:gift2grow/widgets/campaign.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'filter.g.dart';

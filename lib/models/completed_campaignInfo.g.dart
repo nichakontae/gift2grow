@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'completed_campaignInfo.dart';
+part of 'completed_campaigninfo.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

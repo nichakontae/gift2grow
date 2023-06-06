@@ -2,16 +2,13 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gift2grow/models/searchPreload.dart';
+import 'package:gift2grow/models/search_preload.dart';
 // import 'package:gift2grow/models/all_campaigns.dart';
 import 'package:gift2grow/models/user_info.dart';
-import 'package:gift2grow/widgets/campaign.dart';
 import 'package:gift2grow/widgets/campaign_list.dart';
 import 'package:gift2grow/widgets/my_searchbar.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 import 'package:gift2grow/widgets/topleft.dart';
-
-import '../models/campaign_item.dart';
 import '../models/filter.dart';
 import '../utilities/caller.dart';
 // import 'package:gift2grow/widgets/navbar.dart';
