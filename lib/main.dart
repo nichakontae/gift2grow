@@ -90,7 +90,14 @@ class _Gift2GrowState extends State<Gift2Grow> {
     setupInteractedMessage();
   }
 
-  void _handleMessageOpen(RemoteMessage message) {}
+  void _handleMessageOpen(RemoteMessage message) {
+    if (message.data['type'] == 'chat') {
+      Navigator.pushNamed(context, '/home');
+    } else {
+      Navigator.pushNamed(context, '/home');
+    }
+  }
+
   void _handleMessageOpenTerminated(RemoteMessage message) {
     print('message from app that was terminated');
     _handleMessageOpen(message);
