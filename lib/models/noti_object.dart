@@ -1,3 +1,4 @@
+import 'package:gift2grow/models/noti_campaign.dart';
 import 'package:gift2grow/models/user_noti.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'noti_object.g.dart';
@@ -13,8 +14,8 @@ class NotiObject {
   @JsonKey(name: 'campaign_id')
   int? campaignId;
 
-  // @JsonKey(name: 'campaign')
-  // String? campaign;
+  @JsonKey(name: 'campaign')
+  NotiCampaign? campaign;
 
   @JsonKey(name: 'user_noti')
   UserNoti? userNoti;
@@ -23,6 +24,7 @@ class NotiObject {
       {required this.notiObjectId,
       this.createdAt,
       this.campaignId,
+      this.campaign,
       this.userNoti});
 
   factory NotiObject.fromJson(Map<String, dynamic> json) =>
