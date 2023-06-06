@@ -8,7 +8,8 @@ import '../widgets/progress_bar.dart';
 import 'full_screen_image.dart';
 
 class CompletedCampaign extends StatefulWidget {
-  const CompletedCampaign({super.key, required this.campaignId, required this.trackingAmount});
+  const CompletedCampaign(
+      {super.key, required this.campaignId, required this.trackingAmount});
 
   final int campaignId;
   final int trackingAmount;
@@ -19,24 +20,25 @@ class CompletedCampaign extends StatefulWidget {
 class _CompletedCampaignState extends State<CompletedCampaign> {
   CompletedCampaignInfo? campaignInfo;
 
-  Future<void> getCampaignDetail() async{
+  Future<void> getCampaignDetail() async {
     try {
-       final response = await Caller.dio.get(
-        '/campaign/completedCampaign?campaignId=${widget.campaignId}',        
+      final response = await Caller.dio.get(
+        '/campaign/completedCampaign?campaignId=${widget.campaignId}',
       );
-      
-        CompletedCampaignInfo? camapaign = CompletedCampaignInfo.fromJson(response.data);
-       
-        setState(() {
-          campaignInfo = camapaign;
-        });
-        // print(response.data);
+
+      CompletedCampaignInfo? camapaign =
+          CompletedCampaignInfo.fromJson(response.data);
+
+      setState(() {
+        campaignInfo = camapaign;
+      });
+      // print(response.data);
     } catch (e) {
       debugPrint(e.toString());
     }
   }
 
-   @override
+  @override
   void initState() {
     super.initState();
     getCampaignDetail();
@@ -46,6 +48,7 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
   void dispose() {
     super.dispose();
   }
+
   void _showFullScreenImage(int currentIndex) {
     Navigator.push(
       context,
@@ -136,7 +139,6 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
                             const SizedBox(
                               height: 5,
                             ),
-                          
                           ],
                         ),
                         const SizedBox(
@@ -160,14 +162,19 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                campaignInfo!.schoolName,
-                                textAlign: TextAlign.start,
-                                style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
+                              Expanded(
+                                child: Text(
+                                  campaignInfo!.schoolName,
+                                  textAlign: TextAlign.start,
+                                  overflow: TextOverflow.fade,
+                                  softWrap: true,
+                                  style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                      color:
+                                          Color.fromARGB(255, 211, 186, 186)),
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -216,21 +223,27 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12.0),
-                            child: Image.network(
-                              campaignInfo!.evidenceImg[j],
-                              fit: BoxFit.cover,
-                              width: 100,
-                              height: 100,
-                            ),
-                          ),
+                              borderRadius: BorderRadius.circular(12.0),
+                              child: FadeInImage(
+                                fadeInDuration: const Duration(milliseconds: 1),
+                                placeholder: const AssetImage(
+                                    'assets/images/default_image.png'),
+                                image: NetworkImage(
+                                  campaignInfo!.evidenceImg[j],
+                                ),
+                                fit: BoxFit.cover,
+                                width: 100,
+                                height: 100,
+                              )),
                         ),
                       );
                     },
                   ),
                 ),
               ),
-             const SizedBox(height: 40,),
+              const SizedBox(
+                height: 40,
+              ),
               LetterThank(letterOfThank: campaignInfo!.letterThank)
             ],
           ),

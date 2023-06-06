@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   String search = '';
   User? user = FirebaseAuth.instance.currentUser;
   MyUserInfo? userInfo;
-  
+
   void getUserInfo(String uid) async {
     try {
       final response = await Caller.dio.get('/profile/getProfile?userId=$uid');
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CustomButton(
-                        color: filter.tag == "All" ?  "primary" : "secondary",
+                        color: filter.tag == "All" ? "primary" : "secondary",
                         text: "All",
                         onTap: () {
                           setState(() {
@@ -111,7 +111,8 @@ class _HomePageState extends State<HomePage> {
                       width: 20,
                     ),
                     CustomButton(
-                        color: filter.tag == "Ongoing" ? "primary" : "secondary",
+                        color:
+                            filter.tag == "Ongoing" ? "primary" : "secondary",
                         text: "Ongoing",
                         onTap: () {
                           setState(() {
@@ -124,7 +125,8 @@ class _HomePageState extends State<HomePage> {
                       width: 20,
                     ),
                     CustomButton(
-                        color: filter.tag == "Complete" ? "primary" : "secondary",
+                        color:
+                            filter.tag == "Complete" ? "primary" : "secondary",
                         text: "Complete",
                         onTap: () {
                           setState(() {
@@ -136,9 +138,10 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-
-              CampaignList(status: filter.tag, search: filter.search,)
-              
+              CampaignList(
+                status: filter.tag,
+                search: filter.search,
+              )
             ],
           ),
         ));

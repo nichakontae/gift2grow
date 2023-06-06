@@ -74,7 +74,11 @@ class _AddTrackingState extends State<AddTracking> {
                   shadowColor: Colors.grey,
                   child: Padding(
                     padding: const EdgeInsets.all(3.0),
-                    child: TextFormField(
+                    child: SizedBox(
+                      height: 50,
+                      child:  
+                       TextFormField(
+                      
                       controller: myController,
                       decoration: InputDecoration(
                         // labelText: 'Tracking number',
@@ -108,6 +112,7 @@ class _AddTrackingState extends State<AddTracking> {
                         return null;
                       },
                     ),
+                    )
                   ),
                 ),
                 const SizedBox(
