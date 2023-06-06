@@ -186,14 +186,19 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                campaign!.schoolName,
-                                textAlign: TextAlign.start,
-                                style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
+                              Expanded(
+                                child: Text(
+                                  campaign!.schoolName,
+                                  textAlign: TextAlign.start,
+                                  overflow: TextOverflow.fade,
+                                  softWrap: true,
+                                  style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                      color:
+                                          Color.fromARGB(255, 211, 186, 186)),
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -243,11 +248,14 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12.0),
-                            child: Image.network(
-                              campaign!.campaignImages[j],
+                            child: FadeInImage(
+                              image: NetworkImage(campaign!.campaignImages[j]),
+                              fadeInDuration: const Duration(milliseconds: 1),
+                              placeholder: const AssetImage(
+                                  'assets/images/default_image.png'),
+                              width: double.infinity,
+                              height: 230,
                               fit: BoxFit.cover,
-                              width: 100,
-                              height: 100,
                             ),
                           ),
                         ),

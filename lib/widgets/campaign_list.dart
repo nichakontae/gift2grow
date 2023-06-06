@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gift2grow/screen/campaign_detail_page.dart';
 import 'package:gift2grow/screen/complete_campaign.dart';
 import 'package:gift2grow/widgets/campaign.dart';
+import 'package:flutter/foundation.dart';
 
 import '../models/campaign_item.dart';
 import '../utilities/caller.dart';
+
 
 class CampaignList extends StatefulWidget {
   const CampaignList({super.key, required this.status, required this.search});
@@ -103,7 +105,7 @@ class _CampaignListState extends State<CampaignList> {
   Widget build(BuildContext context) {
     if (loading) {
       return const Center(
-        child: CircularProgressIndicator(color: Color(0xFFDC6E46)),
+        child: CircularProgressIndicator(color: Color(0xFF9468AC)),
       );
     } else {
       filterResult = _performSearch(campaigns);
@@ -113,7 +115,7 @@ class _CampaignListState extends State<CampaignList> {
             // controller: _scrollController,
             padding: const EdgeInsets.only(top: 0, bottom: 20),
             crossAxisSpacing: 0,
-            childAspectRatio: 8.2 / 10,
+            childAspectRatio: defaultTargetPlatform == TargetPlatform.android ? 7.4 / 10 : 8.2/10, //8.2 ios
             crossAxisCount: 1,
             mainAxisSpacing: 40,
 
