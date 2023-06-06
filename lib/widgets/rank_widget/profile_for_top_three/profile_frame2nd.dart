@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gift2grow/models/rank/user_profile_for_share.dart';
 
 class Profile2nd extends StatelessWidget {
-  const Profile2nd({Key? key}) : super(key: key);
-
+  const Profile2nd({Key? key, required this.profile}) : super(key: key);
+  final UserProfileForShare profile;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -20,13 +21,16 @@ class Profile2nd extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 32,
-          left: 24,
-          child: Image.asset(
-            'assets/images/GrayCircle.png',
-            scale: 3.03,
-          ),
-        ),
+            top: 31,
+            left: 24,
+            child: CircleAvatar(
+              backgroundImage: profile.profileImage == null
+                  ? const AssetImage("assets/images/profileNull.png")
+                  : NetworkImage(
+                          "http://server1.ivelse.com:8080${profile.profileImage}")
+                      as ImageProvider,
+              radius: 35,
+            )),
         Positioned(
           top: 53,
           left: 18,

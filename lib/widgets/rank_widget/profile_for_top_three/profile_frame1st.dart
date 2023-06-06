@@ -22,13 +22,16 @@ class Profile1st extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 57,
-          left: 50,
-          child:CircleAvatar(
-            backgroundImage: profile.profileImage == null? const AssetImage("assets/images/profileNull.png"): NetworkImage("http://server1.ivelse.com:8080${profile.profileImage}") as ImageProvider,
-            radius: 35,
-          )
-        ),
+            top: 57,
+            left: 50,
+            child: CircleAvatar(
+              backgroundImage: profile.profileImage == null
+                  ? const AssetImage("assets/images/profileNull.png")
+                  : NetworkImage(
+                          "http://server1.ivelse.com:8080${profile.profileImage}")
+                      as ImageProvider,
+              radius: 35,
+            )),
         Positioned(
           top: 81,
           left: 44,
