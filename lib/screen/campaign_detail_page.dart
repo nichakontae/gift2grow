@@ -99,16 +99,6 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                 width: 350,
                 child: Stack(
                   children: [
-                    Card(
-                      color: Colors.deepPurpleAccent[100],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      elevation: 8,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
                     Positioned.fill(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30.0),
