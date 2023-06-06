@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/utilities/caller.dart';
 
+import '../screen/notification.dart';
+
 class MyTopLeft extends StatefulWidget {
   const MyTopLeft({super.key});
 
@@ -103,7 +105,12 @@ class _MyTopLeftState extends State<MyTopLeft> {
             width: 50,
             height: 50,
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const NotificationPage()),
+            );
+          },
         )
       ],
     );
