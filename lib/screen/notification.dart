@@ -138,6 +138,36 @@ class _NotificationPageState extends State<NotificationPage> {
     }
   }
 
+  void handleNotiTap(BuildContext context, notiobjectId, campaignId) {
+    // Mark as read
+    editUserNoti(notiobjectId);
+
+    // Retrieve trackingAmount
+    Future<dynamic> getTrackingAmount() async {
+      try {
+        final response =
+            await Caller.dio.get('/profile/getDonateNumber?Id=$campaignId');
+        return response.data;
+      } catch (e) {
+        print(e.toString());
+        return null;
+      }
+    }
+
+    // Navigate to the page
+    getTrackingAmount().then((trackingAmount) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CompletedCampaign(
+            campaignId: campaignId,
+            trackingAmount: trackingAmount,
+          ),
+        ),
+      );
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -191,18 +221,10 @@ class _NotificationPageState extends State<NotificationPage> {
                       child: GestureDetector(
                         onTap: () => setState(() {
                           notification.isRead = true;
-                          editUserNoti(notification.notiObject.notiObjectId);
-                          //postNoti();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CompletedCampaign(
-                                campaignId:
-                                    notification.notiObject.campaignId as int,
-                                trackingAmount: 12,
-                              ),
-                            ),
-                          );
+                          handleNotiTap(
+                              context,
+                              notification.notiObject.notiObjectId,
+                              notification.notiObject.campaignId);
                         }),
                         child: Card(
                           shape: RoundedRectangleBorder(
