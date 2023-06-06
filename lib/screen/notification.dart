@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:gift2grow/screen/complete_campaign.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -90,7 +91,7 @@ class _NotificationPageState extends State<NotificationPage> {
         });
       }
     } catch (e) {
-      //print(e.toString());
+      print(e.toString());
     }
   }
 
@@ -191,14 +192,17 @@ class _NotificationPageState extends State<NotificationPage> {
                         onTap: () => setState(() {
                           notification.isRead = true;
                           editUserNoti(notification.notiObject.notiObjectId);
-                          postNoti();
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => campaignPage(
-                          //       campaignId: notification.notiObject.campaignId,
-                          //     ),
-                          // ),
+                          //postNoti();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CompletedCampaign(
+                                campaignId:
+                                    notification.notiObject.campaignId as int,
+                                trackingAmount: 12,
+                              ),
+                            ),
+                          );
                         }),
                         child: Card(
                           shape: RoundedRectangleBorder(
@@ -214,9 +218,13 @@ class _NotificationPageState extends State<NotificationPage> {
                                   backgroundColor: circleColor,
                                   radius: 4,
                                 ),
+                                Icon(Icons.school,
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                                 Text(
-                                  notification.notiObject.notiObjectId
-                                      .toString(),
+                                  notification
+                                          .notiObject.campaign?.schoolName ??
+                                      'Unknown School',
                                   style: const TextStyle(
                                     fontSize: 12,
                                   ),
