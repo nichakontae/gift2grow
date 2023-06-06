@@ -28,7 +28,7 @@ class _ProgressBarState extends State<ProgressBar> {
             animation: true,
             lineHeight: 25.0,
             animationDuration: 500,
-            percent: widget.trackingNumber/widget.completedAmount,
+            percent: widget.isCompleted == true ? 1 : widget.trackingNumber/widget.completedAmount,
             progressColor: widget.isCompleted == true ? const Color(0xFFFECE6B) : const Color(0xFF9468AC),
           ),
             
