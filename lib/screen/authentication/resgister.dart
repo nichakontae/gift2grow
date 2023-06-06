@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gift2grow/models/register_controller.dart';
-import 'package:gift2grow/screen/verify_email.dart';
+import 'package:gift2grow/screen/authentication/verify_email.dart';
 import 'package:gift2grow/utilities/caller.dart';
-import 'package:gift2grow/widgets/background_gradient.dart';
-import 'package:gift2grow/widgets/confirm_password_text_form_field.dart';
-import 'package:gift2grow/widgets/password_text_form_field.dart';
-import 'package:gift2grow/widgets/register_text_form_field.dart';
+import 'package:gift2grow/widgets/authentication/background_gradient.dart';
+import 'package:gift2grow/widgets/authentication/confirm_password_text_form_field.dart';
+import 'package:gift2grow/widgets/authentication/password_text_form_field.dart';
+import 'package:gift2grow/widgets/authentication/register_text_form_field.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
+
+import '../../models/authentication/register_controller.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -254,6 +255,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         'The account already exists for that email.');
                                   }
                                 } catch (e) {
+                                  FirebaseAuth.instance.currentUser?.delete();
                                   Navigator.of(context).pop();
                                   debugPrint(e.toString());
                                 }

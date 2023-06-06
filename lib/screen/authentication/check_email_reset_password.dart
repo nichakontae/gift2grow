@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gift2grow/widgets/background_gradient.dart';
+import 'package:gift2grow/widgets/authentication/background_gradient.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
 class CheckEmail extends StatelessWidget {
