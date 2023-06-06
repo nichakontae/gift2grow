@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'completed_campaigninfo.g.dart';
+part 'completed_caminfo.g.dart';
 
 @JsonSerializable()
 class CompletedCampaignInfo {

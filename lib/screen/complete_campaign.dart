@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gift2grow/models/completed_campaigninfo.dart';
+import 'package:gift2grow/models/completed_caminfo.dart';
 import 'package:gift2grow/widgets/letter_thank.dart';
 
 import '../utilities/caller.dart';
