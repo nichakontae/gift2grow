@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, deprecated_member_use, unnecessary_null_comparison
 
 import 'dart:io';
 import 'dart:typed_data';
@@ -6,12 +6,16 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/rank/user_profile_for_share.dart';
 import 'package:gift2grow/widgets/rank_widget/share_template/first_rank.dart';
+import 'package:gift2grow/widgets/rank_widget/share_template/second_rank.dart';
+import 'package:gift2grow/widgets/rank_widget/share_template/third_rank.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
-enum SocialMedia {facebook,twitter,instagramFeed, instagramStories}
+
+enum SocialMedia { facebook, twitter, instagramFeed, instagramStories }
+
 class PreviewShare extends StatefulWidget {
   const PreviewShare({Key? key, required this.profile}) : super(key: key);
   final UserProfileForShare profile;
@@ -22,7 +26,6 @@ class PreviewShare extends StatefulWidget {
 
 class _PreviewShareState extends State<PreviewShare> {
   final ScreenshotController controller = ScreenshotController();
-
 
   Future<String> saveImage(Uint8List bytes) async {
     await [Permission.storage].request();
@@ -35,20 +38,20 @@ class _PreviewShareState extends State<PreviewShare> {
     return result['filePath'];
   }
 
-  Future saveAndShare(Uint8List bytes)async{
+  Future saveAndShare(Uint8List bytes) async {
     final directory = await getApplicationDocumentsDirectory();
     final image = File('${directory.path}/ranking.png');
     image.writeAsBytesSync(bytes);
 
     await Share.shareFiles([image.path]);
-
   }
 
-  Future share(SocialMedia socialPlatform) async{
+  Future share(SocialMedia socialPlatform) async {
     final urls = {
       SocialMedia.facebook: "https://www.facebook.com/sharer/sharer.php?"
     };
   }
+
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
@@ -56,7 +59,10 @@ class _PreviewShareState extends State<PreviewShare> {
       child: Scaffold(
         body: Stack(
           children: [
-            FirstRank(profile: widget.profile),
+            //เช็คif(1/2/3)else(เช็คlevel)
+            //FirstRank(profile: widget.profile),
+            //SecondRank(profile: widget.profile),
+            ThirdRank(profile: widget.profile),
             Positioned(
               top: 70,
               child: Padding(
@@ -83,14 +89,20 @@ class _PreviewShareState extends State<PreviewShare> {
                       //color: Colors.black,
                       color: Colors.black.withOpacity(0.25), // Shadow color
                       blurRadius: 1, // Spread radius
-                      offset: const Offset(1, 2), // Offset in x and y directions
+                      offset:
+                          const Offset(1, 2), // Offset in x and y directions
                     ),
                   ],
                 ),
                 child: GestureDetector(
                   onTap: () async {
-                    final image = await controller
-                        .captureFromWidget(FirstRank(profile: widget.profile),pixelRatio: MediaQuery.of(context).devicePixelRatio);
+                    final image = await controller.captureFromWidget(
+                        // FirstRank(profile: widget.profile),
+                        // pixelRatio: MediaQuery.of(context).devicePixelRatio);
+                        // SecondRank(profile: widget.profile),
+                        // pixelRatio: MediaQuery.of(context).devicePixelRatio);
+                        ThirdRank(profile: widget.profile),
+                        pixelRatio: MediaQuery.of(context).devicePixelRatio);
                     if (image == null) return;
                     await saveImage(image);
                   },
@@ -105,10 +117,15 @@ class _PreviewShareState extends State<PreviewShare> {
               bottom: 15,
               left: 20,
               child: GestureDetector(
-                onTap: ()async{
-                    // share(SocialMedia.facebook);
-                  final image = await controller
-                      .captureFromWidget(FirstRank(profile: widget.profile),pixelRatio: MediaQuery.of(context).devicePixelRatio);
+                onTap: () async {
+                  // share(SocialMedia.facebook);
+                  final image = await controller.captureFromWidget(
+                      // FirstRank(profile: widget.profile),
+                      // pixelRatio: MediaQuery.of(context).devicePixelRatio);
+                      // SecondRank(profile: widget.profile),
+                      // pixelRatio: MediaQuery.of(context).devicePixelRatio);
+                      ThirdRank(profile: widget.profile),
+                      pixelRatio: MediaQuery.of(context).devicePixelRatio);
                   saveAndShare(image);
                 },
                 child: Image.asset(

@@ -12,7 +12,7 @@ class RankCardProfile extends StatelessWidget {
         children: [
           Text(
             "#${index.toString()}",
-            style: TextStyle(fontWeight: FontWeight.w600),
+            style: const TextStyle(fontWeight: FontWeight.w600),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 15, 0),
@@ -21,12 +21,12 @@ class RankCardProfile extends StatelessWidget {
               scale: 4.7,
             ),
           ),
-          Text(
+          const Text(
             "username",
             style: TextStyle(fontWeight: FontWeight.w500),
           ),
-          Spacer(),
-          Text(
+          const Spacer(),
+          const Text(
             "999",
             style: TextStyle(fontWeight: FontWeight.w500),
           ),
@@ -37,12 +37,6 @@ class RankCardProfile extends StatelessWidget {
               scale: 6.3,
             ),
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.end,
-          //   children: [
-
-          //   ],
-          // )
         ],
       ),
     );
