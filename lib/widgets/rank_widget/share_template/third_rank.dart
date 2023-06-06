@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gift2grow/widgets/rank_widget/show_level_quote.dart';
 
 import '../../../models/rank/user_profile_for_share.dart';
-import '../profile_for_top_three/profile_frame1st.dart';
+import '../profile_for_top_three/profile_frame3rd.dart';
 
-class FirstRank extends StatelessWidget {
-  const FirstRank({Key? key, required this.profile}) : super(key: key);
+class ThirdRank extends StatelessWidget {
+  const ThirdRank({Key? key, required this.profile}) : super(key: key);
   final UserProfileForShare profile;
 
   @override
@@ -40,7 +40,7 @@ class FirstRank extends StatelessWidget {
                 ),
                 const Padding(padding: EdgeInsets.all(2)),
                 const Text(
-                  "You are in #1st",
+                  "You are in #3rd",
                   style: TextStyle(
                       fontSize: 29,
                       shadows: [
@@ -54,13 +54,13 @@ class FirstRank extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 80, 8, 80),
+                  padding: const EdgeInsets.fromLTRB(8, 90, 8, 107),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Transform.scale(
                         scale: 2.2, // Adjust the scale factor as needed
-                        child: Profile1st(profile: profile),
+                        child: Profile3rd(profile: profile),
                       )
                     ],
                   ),
@@ -85,8 +85,7 @@ class FirstRank extends StatelessWidget {
                                 color: Color(0xFF9468AC))),
                         const Padding(
                           padding: EdgeInsets.fromLTRB(4, 9, 4, 3),
-                          child: Text(
-                              '"You have made a total of 120 donations"',
+                          child: Text('"You have made a total of 90 donations"',
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xFFFFC107))),
