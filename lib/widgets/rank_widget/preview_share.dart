@@ -1,18 +1,19 @@
 // ignore_for_file: camel_case_types, deprecated_member_use, unnecessary_null_comparison
 
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/rank/user_profile_for_share.dart';
-import 'package:gift2grow/widgets/rank_widget/share_template/first_rank.dart';
-import 'package:gift2grow/widgets/rank_widget/share_template/second_rank.dart';
 import 'package:gift2grow/widgets/rank_widget/share_template/third_rank.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:social_share/social_share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 enum SocialMedia { facebook, twitter, instagramFeed, instagramStories }
 
@@ -43,8 +44,38 @@ class _PreviewShareState extends State<PreviewShare> {
     final image = File('${directory.path}/ranking.png');
     image.writeAsBytesSync(bytes);
 
-    await Share.shareFiles([image.path]);
+    // await Share.shareFiles([image.path]);
+
+    // Twitter work! just text
+    // await SocialShare.shareTwitter("hi",trailingText: "trailingText",url: "https://global-uploads.webflow.com/59dbe1c3542805000192616b/63178a7970d1b57a4c6a7a05_golden-retriever.png",hashtags: ["golden retriever"]);
+
+    // Instagram stories work with image
+    // await SocialShare.shareInstagramStory(appId: "630991508966207", imagePath: image.path);
+
+    // await SocialShare.shareFacebookStory(appId: "630991508966207",imagePath: image.path);
+    // shareToTwitter(imagePath: image.path);
+    // await SocialShare.shareInstagramStory(appId: "630991508966207", imagePath: image.path);
+    // await SocialSharePlugin.shareToFeedFacebook(path: image.path);
   }
+
+  void shareToTwitter({required String imagePath}) async {
+    final tweetText = 'Check out this awesome content!'; // Replace with your tweet text
+
+    var tweetUrl = 'https://twitter.com/intent/tweet?text=${Uri.encodeComponent(tweetText)}';
+
+    if (imagePath != null) {
+      final file = File(imagePath);
+      final imageUri = 'data:image/jpeg;base64,${base64Encode(file.readAsBytesSync())}';
+      tweetUrl += '&amp;url=${Uri.encodeComponent(imageUri)}';
+    }
+
+    if (await canLaunch(tweetUrl)) {
+      await launch(tweetUrl);
+    } else {
+      print('Failed to launch Twitter');
+    }
+  }
+
 
   Future share(SocialMedia socialPlatform) async {
     final urls = {
