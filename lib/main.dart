@@ -8,6 +8,7 @@ import 'package:gift2grow/screen/donate_to_app.dart';
 import 'package:gift2grow/screen/bottom_navbar.dart';
 import 'package:gift2grow/screen/profile_page.dart';
 import 'package:gift2grow/screen/authentication/resgister.dart';
+import 'package:gift2grow/utilities/caller.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -18,12 +19,34 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('Handling a background message ${message.messageId}');
 }
 
+//foreground event handler
 void _firebaseMessagingForegroundHandler(RemoteMessage message) {
   print('Got a message whilst in the foreground!');
   print('Message data: ${message.data}');
 
   if (message.notification != null) {
     print('Message also contained a notification: ${message.notification}');
+  }
+}
+
+void postUserToken() async {
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  print("FCM token:$fcmToken");
+  try {
+    var response = await Caller.dio.post('/noti/postUserToken', data: {
+      'UserId': FirebaseAuth.instance.currentUser!.uid,
+      'Token': fcmToken,
+    });
+    if (response.statusCode == 200) {
+      print('Token posted successfully');
+    } else {
+      if (response.statusCode == 400) {
+        print('Token already exists');
+      }
+      print('Token post failed');
+    }
+  } catch (e) {
+    print(e);
   }
 }
 
@@ -54,9 +77,7 @@ void main() async {
   print('User granted permission: ${settings.authorizationStatus}');
 
   //Handle token
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  print("FCM token:$fcmToken");
-  //store token to db
+  postUserToken();
 
   runApp(const Gift2Grow());
 }
