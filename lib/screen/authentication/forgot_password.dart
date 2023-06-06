@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gift2grow/screen/check_email_reset_password.dart';
-import 'package:gift2grow/widgets/background_gradient.dart';
+import 'package:gift2grow/widgets/authentication/background_gradient.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
+
+import 'check_email_reset_password.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);

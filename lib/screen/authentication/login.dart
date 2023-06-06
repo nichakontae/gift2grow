@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gift2grow/models/login_controller.dart';
-import 'package:gift2grow/screen/forgot_password.dart';
-import 'package:gift2grow/screen/resgister.dart';
-import 'package:gift2grow/screen/verify_email.dart';
+import 'package:gift2grow/models/authentication/login_controller.dart';
+import 'package:gift2grow/screen/authentication/forgot_password.dart';
+import 'package:gift2grow/screen/authentication/resgister.dart';
+import 'package:gift2grow/screen/authentication/verify_email.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
 class LoginPage extends StatefulWidget {

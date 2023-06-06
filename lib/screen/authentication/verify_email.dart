@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gift2grow/screen/bottom_navbar.dart';
 // import 'package:gift2grow/screen/home.dart';
 // import 'package:gift2grow/screen/home_test.dart';
-import 'package:gift2grow/widgets/background_gradient.dart';
+import 'package:gift2grow/widgets/authentication/background_gradient.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
 class VerifyEmailPage extends StatefulWidget {
