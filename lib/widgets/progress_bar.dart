@@ -13,8 +13,6 @@ class ProgressBar extends StatefulWidget {
 class _ProgressBarState extends State<ProgressBar> {
   @override
   Widget build(BuildContext context) {
-    // final tracking = widget.trackingNumber;
-    // final completed = widget.completedAmount;
     return  Container(
       width: double.infinity,
      

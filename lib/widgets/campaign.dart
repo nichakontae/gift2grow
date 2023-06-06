@@ -10,20 +10,9 @@ class Campaign extends StatefulWidget {
   const Campaign({
     super.key,
     required this.campaign,
-    // required this.schoolName,
-    // required this.completedAmount,
-    // required this.trackingAmount,
-    // required this.createdAt,
-    // required this.isCompleted,
   });
 
   final CampaignItem campaign;
-  // final String coverImage;
-  // final String schoolName;
-  // final int completedAmount;
-  // final int trackingAmount;
-  // final DateTime createdAt;
-  // final bool isCompleted;
 
   @override
   State<Campaign> createState() => _CampaignState();

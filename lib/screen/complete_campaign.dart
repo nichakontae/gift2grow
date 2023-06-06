@@ -24,7 +24,7 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
        final response = await Caller.dio.get(
         '/campaign/completedCampaign?campaignId=${widget.campaignId}',        
       );
-        // CompletedCampaignInfo campaign = response.data.map<CompletedCampaignInfo>((json) => CompletedCampaignInfo.fromJson(json));
+      
         CompletedCampaignInfo? camapaign = CompletedCampaignInfo.fromJson(response.data);
        
         setState(() {

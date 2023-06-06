@@ -59,7 +59,6 @@ class _LetterThankState extends State<LetterThank> {
           ),
           
         ),
-      //  const SizedBox(height: 30,),
       Container(
         padding: const EdgeInsets.fromLTRB(30,100,30,0),
         width: double.infinity,

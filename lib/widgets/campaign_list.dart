@@ -33,11 +33,9 @@ class _CampaignListState extends State<CampaignList> {
       setState(() {
         campaigns = all;
       });
-      // print(campaigns[0].campaignId);
       setState(() {
         loading = false;
       });
-      // print(campaigns[0].completedAmount);
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -104,13 +102,10 @@ class _CampaignListState extends State<CampaignList> {
   @override
   Widget build(BuildContext context) {
     if (loading) {
-      // filterResult = _performSearch(campaigns);
-      // _performSearch(campaigns);
       return const Center(
         child: CircularProgressIndicator(color: Color(0xFFDC6E46)),
       );
     } else {
-      // print(filterResult);
       filterResult = _performSearch(campaigns);
       return Builder(builder: (BuildContext context) {
         return Expanded(
@@ -139,8 +134,6 @@ class _CampaignListState extends State<CampaignList> {
                                   campaignId: filterResult[index].campaignId,
                                   amountTracking:
                                       filterResult[index].trackingAmount,
-                                  // dormItem: filteredData[index],
-                                  // previousPath: "home",
                                 ))));
                 },
                 child: Campaign(

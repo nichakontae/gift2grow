@@ -38,13 +38,11 @@ class _MySearchBarState extends State<MySearchBar> {
                 Expanded(
                   child: TextField(
                     onChanged: (value) {
-                      // searchCampaign = value;
                       
                       widget.filter.search = value;
                       if (SearchPreload.homeReload != null) {
                         SearchPreload.homeReload!();
                       }
-                      // widget.refreshState();
                     },
                     style: const TextStyle(fontSize: 14),
                     cursorColor: Colors.black87,

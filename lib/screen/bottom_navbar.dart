@@ -53,7 +53,6 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
             ],
           ),
           child: BottomNavigationBar(
-            // backgroundColor: Colors.black,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Image(
