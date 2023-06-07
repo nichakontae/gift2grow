@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/campaign_item.dart';
+import 'package:gift2grow/widgets/campaignlist_info.dart';
 import 'package:gift2grow/widgets/progress_bar.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 import 'package:intl/intl.dart';
@@ -42,7 +43,8 @@ class _CampaignState extends State<Campaign> {
               child: FadeInImage(
                 image: NetworkImage(widget.campaign.coverImg),
                 fadeInDuration: const Duration(milliseconds: 1),
-                placeholder: const AssetImage('assets/images/default_image.png'),
+                placeholder:
+                    const AssetImage('assets/images/default_image.png'),
                 width: double.infinity,
                 height: 230,
                 fit: BoxFit.cover,
@@ -61,16 +63,14 @@ class _CampaignState extends State<Campaign> {
                         const SizedBox(
                           width: 10,
                         ),
-                        Expanded(child: 
-                         Text(
-                         widget.campaign.schoolName,
-                          overflow:  TextOverflow.fade,
-                         softWrap: true,
+                        Expanded(
+                            child: Text(
+                          widget.campaign.schoolName,
+                          overflow: TextOverflow.fade,
+                          softWrap: true,
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
-                        )
-                        )
-                       
+                        ))
                       ],
                     ),
                     const SizedBox(
@@ -84,39 +84,13 @@ class _CampaignState extends State<Campaign> {
                     const SizedBox(
                       height: 10,
                     ),
-                    widget.campaign.isCompleted == true ? const Text("") :
-                    Text(
-                      "Remaining: ${widget.campaign.completedAmount - widget.campaign.trackingAmount}",
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Date: ${DateFormat.yMd().format(widget.campaign.createdAt)}",
-                        ),
-                        CustomButton(
-                          color: "primary",
-                          text: "Donate",
-                          onTap: () {
-                            Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CampaignDonatePage(
-                                  campaignId: widget.campaign.campaignId,
-                                  topic: widget.campaign.topic,
-                                  schoolName: widget.campaign.schoolName,
-                                  location: widget.campaign.location,
-                                  coverImage: widget.campaign.coverImg,
-                                )));
-                          },
-                          paddingHorizontal:
-                              const EdgeInsets.symmetric(horizontal: 20),
-                        )
-                      ],
-                    )
+                    widget.campaign.isCompleted == true
+                        ? Text(
+                            "Date: ${DateFormat.yMd().format(widget.campaign.createdAt)}")
+                        : Text(
+                            "Remaining: ${widget.campaign.completedAmount - widget.campaign.trackingAmount}",
+                          ),
+                    CampaignListInfo(campaign: widget.campaign)
                   ]),
             )
           ],

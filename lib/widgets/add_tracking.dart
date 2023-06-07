@@ -39,10 +39,11 @@ class _AddTrackingState extends State<AddTracking> {
   }
 
   void addTamboon() async {
-    try{
+    try {
       // ignore: unused_local_variable
-      final response = await Caller.dio.put('/campaign/putTamboon?userId=${widget.userId}');
-    }catch (e) {
+      final response =
+          await Caller.dio.put('/campaign/putTamboon?userId=${widget.userId}');
+    } catch (e) {
       if (kDebugMode) {
         print(e);
         print('error ja');
@@ -84,48 +85,48 @@ class _AddTrackingState extends State<AddTracking> {
                 Material(
                   elevation: 5.0,
                   shadowColor: Colors.grey,
+                  borderRadius: BorderRadius.circular(12.0),
                   child: Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: SizedBox(
-                      height: 50,
-                      child:  
-                       TextFormField(
-                      
-                      controller: myController,
-                      decoration: InputDecoration(
-                        // labelText: 'Tracking number',
-                        // labelStyle:
-                        //     TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
-                        // enabledBorder: OutlineInputBorder(
-                        //   borderSide:
-                        //       BorderSide(color: DefaultSelectionStyle.defaultColor),
-                        // ),
-                        errorStyle: TextStyle(color: Colors.red[700]),
-                        border: InputBorder.none,
-                        hintText: 'Add tracking number...',
-                        hintStyle: const TextStyle(
-                            color: Color(0xff858585), fontSize: 14),
-                        contentPadding: const EdgeInsets.all(10),
-                      ),
-                      // autofocus: true,
-                      // maxLines: 1,
-                      // onChanged: (value) {
-                      //   setState(() {
-                      //     trackingNumber = value;
-                      //   });
-                      // },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter tracking number';
-                        }
-                        if (value.length < 13 || value.length > 14) {
-                          return 'Please add a correct tracking number';
-                        }
-                        return null;
-                      },
-                    ),
-                    )
-                  ),
+                      padding: const EdgeInsets.all(3.0),
+                      child: SizedBox(
+                        height: 50,
+                        child: TextFormField(
+                          controller: myController,
+                          decoration: InputDecoration(
+                            // labelText: 'Tracking number',
+                            // labelStyle:
+                            //     TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
+                            // enabledBorder: OutlineInputBorder(
+                            //   borderSide:
+                            //       BorderSide(color: DefaultSelectionStyle.defaultColor),
+                            // ),
+
+                            errorStyle: TextStyle(color: Colors.red[700]),
+                            border: InputBorder.none,
+                            
+                            hintText: 'Add tracking number...',
+                            hintStyle: const TextStyle(
+                                color: Color(0xff858585), fontSize: 14),
+                            contentPadding: const EdgeInsets.all(10),
+                          ),
+                          // autofocus: true,
+                          // maxLines: 1,
+                          // onChanged: (value) {
+                          //   setState(() {
+                          //     trackingNumber = value;
+                          //   });
+                          // },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter tracking number';
+                            }
+                            if (value.length < 13 || value.length > 14) {
+                              return 'Please add a correct tracking number';
+                            }
+                            return null;
+                          },
+                        ),
+                      )),
                 ),
                 const SizedBox(
                   height: 20,
@@ -205,13 +206,14 @@ class _AddTrackingState extends State<AddTracking> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.fromLTRB(0,0,0,10),
-                                        
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 0, 0, 10),
                                         child: CustomButton(
                                           color: "primary",
                                           text: "   Back to home page   ",
                                           onTap: () {
-                                            Navigator.pushNamed(context, '/home');
+                                            Navigator.pushNamed(
+                                                context, '/home');
                                           },
                                         ),
                                       ),
