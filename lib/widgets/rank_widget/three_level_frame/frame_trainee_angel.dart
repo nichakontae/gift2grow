@@ -15,7 +15,8 @@ class FrameTraineeAngel extends StatelessWidget {
           Positioned(
             left: 15,
             child: CircleAvatar(
-              backgroundImage: profile.profileImage == null
+              backgroundImage: profile.profileImage == null ||
+                      profile.profileImage == ""
                   ? const AssetImage("assets/images/profileNull.png")
                   : NetworkImage(
                           "http://server1.ivelse.com:8080${profile.profileImage}")

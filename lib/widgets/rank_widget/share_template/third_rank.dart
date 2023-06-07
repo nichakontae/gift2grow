@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gift2grow/models/rank/ranking_users.dart';
 import 'package:gift2grow/widgets/rank_widget/show_level_quote.dart';
-
-import '../../../models/rank/user_profile_for_share.dart';
 import '../profile_for_top_three/profile_frame3rd.dart';
 
 class ThirdRank extends StatelessWidget {
-  const ThirdRank({Key? key, required this.profile}) : super(key: key);
-  final UserProfileForShare profile;
-
+  const ThirdRank({Key? key, required this.users, required this.donations})
+      : super(key: key);
+  final RankingUsers users;
+  final int donations;
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
@@ -60,7 +60,7 @@ class ThirdRank extends StatelessWidget {
                     children: [
                       Transform.scale(
                         scale: 2.2, // Adjust the scale factor as needed
-                        child: Profile3rd(profile: profile),
+                        child: Profile3rd(users: users),
                       )
                     ],
                   ),
@@ -74,24 +74,31 @@ class ThirdRank extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 22),
                     child: Column(
                       children: [
-                        Text(profile.username,
+                        Expanded(
+                          child: Text(
+                            users.username,
                             style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF9468AC))),
-                        Text('${profile.tamboonPoint} TAMBOON',
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF9468AC),
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Text('${users.tamboonPoint} TAMBOON',
                             style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xFF9468AC))),
-                        const Padding(
-                          padding: EdgeInsets.fromLTRB(4, 9, 4, 3),
-                          child: Text('"You have made a total of 90 donations"',
-                              style: TextStyle(
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 9, 4, 3),
+                          child: Text(
+                              '"You have made a total of $donations donations"',
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xFFFFC107))),
                         ),
                         //ทำเช็คว่าอยู่levelไหน
-                        ShowLevelQuote(tamboonPoint: profile.tamboonPoint),
+                        ShowLevelQuote(tamboonPoint: users.tamboonPoint),
                       ],
                     ),
                   ),
