@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:gift2grow/screen/complete_campaign.dart';
+import 'package:gift2grow/widgets/notification/noti_card.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -219,51 +220,15 @@ class _NotificationPageState extends State<NotificationPage> {
                     return Padding(
                       padding: const EdgeInsets.all(3.0),
                       child: GestureDetector(
-                        onTap: () => setState(() {
-                          notification.isRead = true;
-                          handleNotiTap(
-                              context,
-                              notification.notiObject.notiObjectId,
-                              notification.notiObject.campaignId);
-                        }),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            side: BorderSide(color: borderColor),
-                          ),
-                          child: ListTile(
-                            title: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor: circleColor,
-                                  radius: 4,
-                                ),
-                                Icon(Icons.school,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                                Text(
-                                  notification
-                                          .notiObject.campaign?.schoolName ??
-                                      'Unknown School',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  DateFormat('h:mm a', 'en_US').format(
-                                      notification.notiObject.createdAt!
-                                          .toLocal()),
-                                  style: const TextStyle(
-                                      fontSize: 12, color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                          onTap: () => setState(() {
+                                notification.isRead = true;
+                                handleNotiTap(
+                                    context,
+                                    notification.notiObject.notiObjectId,
+                                    notification.notiObject.campaignId);
+                              }),
+                          child: NotiCard(
+                              context, borderColor, circleColor, notification)),
                     );
                   },
                 ),
