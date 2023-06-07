@@ -7,8 +7,15 @@ import 'package:gift2grow/widgets/rank_widget/three_level_frame/frame_trainee_an
 import '../../../../../models/rank/user_profile_for_share.dart';
 
 class ShareRankLevel extends StatelessWidget {
-  const ShareRankLevel({Key? key, required this.profile}) : super(key: key);
+  const ShareRankLevel(
+      {Key? key,
+      required this.profile,
+      required this.ranking,
+      required this.donations})
+      : super(key: key);
   final UserProfileForShare profile;
+  final int ranking;
+  final int donations;
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +61,9 @@ class ShareRankLevel extends StatelessWidget {
                       color: Colors.white,
                       fontWeight: FontWeight.w500),
                 ),
-                const Text(
-                  "You are in #120",
-                  style: TextStyle(
+                Text(
+                  "You are in #$ranking",
+                  style: const TextStyle(
                       fontSize: 19,
                       color: Colors.white,
                       fontWeight: FontWeight.w500),
@@ -106,11 +113,11 @@ class ShareRankLevel extends StatelessWidget {
                             style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xFF9468AC))),
-                        const Padding(
-                          padding: EdgeInsets.fromLTRB(4, 9, 4, 3),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 9, 4, 3),
                           child: Text(
-                              '"You have made a total of 100 donations"',
-                              style: TextStyle(
+                              '"You have made a total of $donations donations"',
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xFFFFC107))),
                         ),
