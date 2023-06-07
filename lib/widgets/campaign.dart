@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gift2grow/models/campaign_item.dart';
 import 'package:gift2grow/widgets/campaignlist_info.dart';
 import 'package:gift2grow/widgets/progress_bar.dart';
-import 'package:gift2grow/widgets/theme_button.dart';
 import 'package:intl/intl.dart';
-
-import '../screen/campaign_donate_page.dart';
 
 class Campaign extends StatefulWidget {
   const Campaign({

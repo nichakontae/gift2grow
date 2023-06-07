@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/campaign_item.dart';
-import 'package:gift2grow/widgets/campaign.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 import 'package:intl/intl.dart';
 
