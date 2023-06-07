@@ -1,6 +1,5 @@
 // ignore_for_file: camel_case_types, deprecated_member_use, unnecessary_null_comparison
 
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -61,10 +60,7 @@ class _PreviewShareState extends State<PreviewShare> {
     //     type: ShareType.facebookWithoutImage,
     //     url: "https://www.apple.com",
     //     quote: "captions");
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
