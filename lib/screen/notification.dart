@@ -1,4 +1,5 @@
 import 'package:gift2grow/screen/complete_campaign.dart';
+import 'package:gift2grow/utilities/notification/notifyUser.dart';
 import 'package:gift2grow/widgets/notification/noti_card.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -206,10 +207,16 @@ class _NotificationPageState extends State<NotificationPage> {
             const SizedBox(
               height: 20,
             ),
+            ElevatedButton(
+                onPressed: () {
+                  notifyUser(20);
+                },
+                child: const Text('Notify')),
             showNotification(),
           ],
         ),
       ),
+      //bottomNavigationBar: const MyBottomNavbar(screen: 4),
     );
   }
 }
