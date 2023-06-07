@@ -103,14 +103,14 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30.0),
                         child: FadeInImage(
-                          image: NetworkImage(
-                            campaign!.coverImage),
-                            fadeInDuration: const Duration(milliseconds: 1) ,
-                            placeholder: const AssetImage('assets/images/default_image.png'),
-                            fit: BoxFit.cover,
-                          ),
+                          image: NetworkImage(campaign!.coverImage),
+                          fadeInDuration: const Duration(milliseconds: 1),
+                          placeholder: const AssetImage(
+                              'assets/images/default_image.png'),
+                          fit: BoxFit.cover,
                         ),
                       ),
+                    ),
                     Positioned(
                       top: 20.0,
                       left: 20.0,
@@ -196,8 +196,7 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                                   style: const TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.bold,
-                                      color:
-                                          Colors.black),
+                                      color: Colors.black),
                                 ),
                               )
                             ],
