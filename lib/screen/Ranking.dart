@@ -1,7 +1,10 @@
 // ignore_for_file: file_names
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gift2grow/models/rank/ranking_users.dart';
+import 'package:gift2grow/models/rank/ranking_users_list.dart';
 import 'package:gift2grow/models/rank/response_user_profile_for_share.dart';
 import 'package:gift2grow/models/rank/user_profile_for_share.dart';
 import 'package:gift2grow/utilities/caller.dart';
@@ -10,9 +13,6 @@ import 'package:gift2grow/widgets/rank_widget/rank_card_profile.dart';
 import 'package:gift2grow/widgets/rank_widget/preview_share.dart';
 import '../widgets/rank_widget/profile_for_top_three/profile_frame2nd.dart';
 import '../widgets/rank_widget/profile_for_top_three/profile_frame3rd.dart';
-// import 'package:gift2grow/widgets/share_2nd.dart';
-// import 'package:gift2grow/widgets/share_3rd.dart';
-// import 'package:gift2grow/widgets/share_born_angel.dart';
 
 class RankPage extends StatefulWidget {
   const RankPage({Key? key}) : super(key: key);
@@ -22,6 +22,7 @@ class RankPage extends StatefulWidget {
 }
 
 class _RankPageState extends State<RankPage> {
+  List<RankingUsers>? _rankingUsers = [];
   UserProfileForShare profile = UserProfileForShare(
     userId: FirebaseAuth.instance.currentUser!.uid,
     username: "",
@@ -43,14 +44,80 @@ class _RankPageState extends State<RankPage> {
     }
   }
 
+  void fetchUsers() async {
+    try {
+      final response = await Caller.dio.get("/rank/getAllUsers");
+      //print("700");
+
+      RankingUsersList data1 = RankingUsersList.fromJson(response.data);
+      //print("600");
+      setState(() {
+        _rankingUsers = data1.data;
+        //print("500");
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    fetchUsers();
     getUserProfileForShare();
   }
 
   @override
   Widget build(BuildContext context) {
+    int count = 0;
+    int ranking = 0;
+    if (_rankingUsers!.isEmpty) {
+      return MediaQuery(
+        data: const MediaQueryData(),
+        child: Scaffold(
+          body: Container(
+            decoration: const BoxDecoration(
+              color: Color(0xFF9468AC),
+            ),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 74, 0, 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Not have user",
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Add your content here
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+    if (_rankingUsers!.length >= 20) {
+      count = 17;
+    } else {
+      count = _rankingUsers!.length - 3;
+    }
+
+    while (_rankingUsers![ranking].userId != profile.userId) {
+      ranking++;
+    }
+    ranking++;
+    //print(userList);
+    //print(_rankingUsers);
     return MediaQuery(
       data: const MediaQueryData(),
       child: Scaffold(
@@ -104,10 +171,12 @@ class _RankPageState extends State<RankPage> {
                             ],
                           ),
                           //Padding(padding: EdgeInsets.only(bottom: 20)),
+                          //ต้องเปลี่ยนprofileให้เป็ยของuserแต่ละอันดับ
                           Center(
                             heightFactor: 1.3,
                             child: Profile1st(
-                              profile: profile,
+                              //profile: profile,
+                              users: _rankingUsers![0],
                             ),
                           ),
                           Positioned(
@@ -116,7 +185,7 @@ class _RankPageState extends State<RankPage> {
                               child: Transform.scale(
                                 scale: 0.8,
                                 child: Profile2nd(
-                                  profile: profile,
+                                  users: _rankingUsers![1],
                                 ),
                               )),
                           Positioned(
@@ -125,7 +194,7 @@ class _RankPageState extends State<RankPage> {
                               child: Transform.scale(
                                 scale: 0.8,
                                 child: Profile3rd(
-                                  profile: profile,
+                                  users: _rankingUsers![2],
                                 ),
                               )),
                           const Row(
@@ -159,15 +228,16 @@ class _RankPageState extends State<RankPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Column(
+                                Column(
                                   children: [
-                                    Text("username",
-                                        style: TextStyle(
+                                    Text(_rankingUsers![1].username,
+                                        style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600)),
-                                    Text("8888 TAMBOON",
-                                        style: TextStyle(
+                                    Text(
+                                        "${_rankingUsers![1].tamboonPoint} TAMBOON",
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 9,
                                         ))
@@ -175,27 +245,29 @@ class _RankPageState extends State<RankPage> {
                                 ),
                                 Column(
                                   children: [
-                                    Text(profile.username,
+                                    Text(_rankingUsers![0].username,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600)),
-                                    const Text("8888 TAMBOON",
-                                        style: TextStyle(
+                                    Text(
+                                        "${_rankingUsers![0].tamboonPoint} TAMBOON",
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 9,
                                         ))
                                   ],
                                 ),
-                                const Column(
+                                Column(
                                   children: [
-                                    Text("username",
-                                        style: TextStyle(
+                                    Text(_rankingUsers![2].username,
+                                        style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600)),
-                                    Text("8888 TAMBOON",
-                                        style: TextStyle(
+                                    Text(
+                                        "${_rankingUsers![2].tamboonPoint} TAMBOON",
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 9,
                                         ))
@@ -206,9 +278,10 @@ class _RankPageState extends State<RankPage> {
                           )
                         ],
                       ),
+
                       Column(
                         children: List.generate(
-                          17, // Replace with the actual number of items
+                          count, // Replace with the actual number of items
                           (index) => Padding(
                             padding: const EdgeInsets.fromLTRB(27, 2, 27, 0),
                             child: Card(
@@ -219,7 +292,12 @@ class _RankPageState extends State<RankPage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(13.5),
                                 child: Column(
-                                  children: [RankCardProfile(index + 4)],
+                                  children: [
+                                    RankCardProfile(
+                                      user: _rankingUsers![index + 3],
+                                      index: index + 4,
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
@@ -250,8 +328,8 @@ class _RankPageState extends State<RankPage> {
                         children: [
                           const Text("  Your Rank  ",
                               style: TextStyle(fontWeight: FontWeight.w600)),
-                          const Text("#120",
-                              style: TextStyle(
+                          Text("#$ranking",
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xFF9468AC))),
                           const Spacer(),
@@ -267,6 +345,8 @@ class _RankPageState extends State<RankPage> {
                                 MaterialPageRoute(
                                   builder: (context) => PreviewShare(
                                     profile: profile,
+                                    ranking: ranking,
+                                    users: _rankingUsers![ranking - 1],
                                   ),
                                 ), //widget for test sharing
                               );
