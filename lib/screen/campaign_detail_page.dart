@@ -102,16 +102,13 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                     Positioned.fill(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30.0),
-                        child: SizedBox(
-                            child: FadeInImage(
-                          placeholder: const AssetImage(
-                              "assets/images/default_image.png"),
-                          image: NetworkImage(
-                            campaign!.coverImage,
-                          ),
-                          fit: BoxFit.cover,
+                        child: FadeInImage(
+                          image: NetworkImage(campaign!.coverImage),
                           fadeInDuration: const Duration(milliseconds: 1),
-                        )),
+                          placeholder: const AssetImage(
+                              'assets/images/default_image.png'),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Positioned(
