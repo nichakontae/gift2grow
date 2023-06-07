@@ -102,14 +102,15 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                     Positioned.fill(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30.0),
-                        child: SizedBox(
-                          child: Image.network(
-                            campaign!.coverImage,
+                        child: FadeInImage(
+                          image: NetworkImage(
+                            campaign!.coverImage),
+                            fadeInDuration: const Duration(milliseconds: 1) ,
+                            placeholder: const AssetImage('assets/images/default_image.png'),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                    ),
                     Positioned(
                       top: 20.0,
                       left: 20.0,
@@ -196,7 +197,7 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
                                       fontSize: 17,
                                       fontWeight: FontWeight.bold,
                                       color:
-                                          Color.fromARGB(255, 211, 186, 186)),
+                                          Colors.black),
                                 ),
                               )
                             ],

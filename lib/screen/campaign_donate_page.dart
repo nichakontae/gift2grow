@@ -62,12 +62,13 @@ class _CampaignDonatePageState extends State<CampaignDonatePage> {
                     Positioned.fill(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30.0),
-                        child: SizedBox(
-                          child: Image.network(
-                            campaign!.coverImage,
+                        child: FadeInImage(
+                          image: NetworkImage(
+                            campaign!.coverImage),
+                            fadeInDuration: const Duration(milliseconds: 1) ,
+                            placeholder: const AssetImage('assets/images/default_image.png'),
                             fit: BoxFit.cover,
                           ),
-                        ),
                       ),
                     ),
                     Positioned(
