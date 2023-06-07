@@ -3,7 +3,6 @@ import 'package:gift2grow/screen/Ranking.dart';
 import 'package:gift2grow/screen/donate_to_app.dart';
 import 'package:gift2grow/screen/home.dart';
 import 'package:gift2grow/screen/profile_page.dart';
-import 'package:gift2grow/screen/ranking_pagee.dart';
 
 class MyBottomNavbar extends StatefulWidget {
   const MyBottomNavbar({
