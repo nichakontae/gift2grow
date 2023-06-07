@@ -5,7 +5,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_social_content_share/flutter_social_content_share.dart';
 import 'package:gift2grow/models/rank/user_profile_for_share.dart';
 import 'package:gift2grow/widgets/rank_widget/share_template/third_rank.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -13,8 +12,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:social_share/social_share.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 enum SocialMedia { facebook, twitter, instagramFeed, instagramStories }
 
