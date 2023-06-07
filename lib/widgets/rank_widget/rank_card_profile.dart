@@ -24,12 +24,15 @@ class RankCardProfile extends StatelessWidget {
                 : NetworkImage(
                         "http://server1.ivelse.com:8080${user.profileImage}")
                     as ImageProvider,
-            radius: 35,
+            radius: 32,
           ),
         ),
-        Text(
-          user.username,
-          style: const TextStyle(fontWeight: FontWeight.w500),
+        Expanded(
+          child: Text(
+            user.username,
+            style: const TextStyle(fontWeight: FontWeight.w500),
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         const Spacer(),
         Text(

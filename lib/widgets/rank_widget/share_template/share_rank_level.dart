@@ -104,11 +104,17 @@ class ShareRankLevel extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 22),
                     child: Column(
                       children: [
-                        Text(profile.username,
+                        SizedBox(
+                          child: Text(
+                            profile.username,
                             style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF9468AC))),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF9468AC),
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
                         Text('${profile.tamboonPoint} TAMBOON',
                             style: const TextStyle(
                                 fontWeight: FontWeight.w400,

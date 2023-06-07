@@ -1,7 +1,6 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/rank/ranking_users.dart';
 import 'package:gift2grow/models/rank/ranking_users_list.dart';
@@ -223,56 +222,80 @@ class _RankPageState extends State<RankPage> {
                             ],
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(53.5, 180, 52, 17),
+                            padding: const EdgeInsets.fromLTRB(58, 180, 57, 17),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Column(
-                                  children: [
-                                    Text(_rankingUsers![1].username,
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        _rankingUsers![1].username,
                                         style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600)),
-                                    Text(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
                                         "${_rankingUsers![1].tamboonPoint} TAMBOON",
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 9,
-                                        ))
-                                  ],
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Column(
-                                  children: [
-                                    Text(_rankingUsers![0].username,
+                                const Padding(padding: EdgeInsets.all(20)),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        _rankingUsers![0].username,
                                         style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600)),
-                                    Text(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
                                         "${_rankingUsers![0].tamboonPoint} TAMBOON",
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 9,
-                                        ))
-                                  ],
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Column(
-                                  children: [
-                                    Text(_rankingUsers![2].username,
+                                const Padding(padding: EdgeInsets.all(20)),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        _rankingUsers![2].username,
                                         style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600)),
-                                    Text(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
                                         "${_rankingUsers![2].tamboonPoint} TAMBOON",
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 9,
-                                        ))
-                                  ],
-                                )
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           )
@@ -290,7 +313,7 @@ class _RankPageState extends State<RankPage> {
                                 borderRadius: BorderRadius.circular(23.0),
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.all(13.5),
+                                padding: const EdgeInsets.all(12.5),
                                 child: Column(
                                   children: [
                                     RankCardProfile(

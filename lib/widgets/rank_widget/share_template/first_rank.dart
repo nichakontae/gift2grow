@@ -75,11 +75,17 @@ class FirstRank extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 22),
                     child: Column(
                       children: [
-                        Text(users.username,
+                        Expanded(
+                          child: Text(
+                            users.username,
                             style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF9468AC))),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF9468AC),
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
                         Text('${users.tamboonPoint} TAMBOON',
                             style: const TextStyle(
                                 fontWeight: FontWeight.w400,
