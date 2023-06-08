@@ -16,7 +16,7 @@ Future<void> pushNoti(sendData, userToken) async {
     Map<String, dynamic> data = {
       'notification': {
         'title': 'Gift2Grow',
-        'body': 'This is a test notification',
+        'body': 'The campaign you participated in has been completed!',
       },
       'to': userToken,
       'data': sendData
