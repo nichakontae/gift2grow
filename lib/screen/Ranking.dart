@@ -67,6 +67,11 @@ class _RankPageState extends State<RankPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     int count = 0;
     int ranking = 0;
@@ -78,16 +83,17 @@ class _RankPageState extends State<RankPage> {
             decoration: const BoxDecoration(
               color: Color(0xFF9468AC),
             ),
-            child: const Column(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 74, 0, 15),
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      CircularProgressIndicator(color: Colors.white),
                       Text(
-                        "Not have user",
+                        "Loading...",
                         style: TextStyle(
                           fontSize: 30,
                           color: Colors.white,

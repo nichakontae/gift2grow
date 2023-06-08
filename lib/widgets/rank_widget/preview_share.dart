@@ -1,7 +1,8 @@
-// ignore_for_file: camel_case_types, deprecated_member_use, unnecessary_null_comparison
+// ignore_for_file: camel_case_types, deprecated_member_use, unnecessary_null_comparison, avoid_print
 
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/donate_history.dart';
@@ -41,11 +42,12 @@ class _PreviewShareState extends State<PreviewShare> {
   List<DonateHistoryDetail>? donateHistory;
   int donateHistoryCount = 0;
 
-  Future<void> getDonateHistory(uid) async {
+  Future<void> getDonateHistory() async {
     try {
       final response = await Caller.dio.get(
-        '/profile/getDonateHistory?userId=$uid',
+        '/profile/getDonateHistory?userId=${FirebaseAuth.instance.currentUser?.uid}',
       );
+      //print(response.data);
       setState(() {
         donateHistory = List.generate(
           response.data.length,
@@ -57,6 +59,7 @@ class _PreviewShareState extends State<PreviewShare> {
             isCompleted: response.data[index]['campaign']['is_completed'],
           ),
         );
+
         donateHistoryCount = donateHistory?.length ?? 0;
       });
     } catch (e) {
@@ -101,6 +104,12 @@ class _PreviewShareState extends State<PreviewShare> {
     //     type: ShareType.facebookWithoutImage,
     //     url: "https://www.apple.com",
     //     quote: "captions");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getDonateHistory();
   }
 
   @override
