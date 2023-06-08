@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:gift2grow/widgets/rank_widget/show_level_quote.dart';
 import 'package:gift2grow/widgets/rank_widget/three_level_frame/frame_born_angel.dart';
@@ -32,6 +34,7 @@ class ShareRankLevel extends StatelessWidget {
       rank = 'Born to be Angel';
       frame = FrameBornAngel(profile: profile);
     }
+    print(donations);
 
     return MediaQuery(
       data: const MediaQueryData(),
@@ -101,7 +104,7 @@ class ShareRankLevel extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50.0),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 22),
+                    padding: const EdgeInsets.fromLTRB(10, 15, 10, 22),
                     child: Column(
                       children: [
                         SizedBox(
