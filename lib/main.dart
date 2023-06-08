@@ -3,12 +3,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/screen/authentication/forgot_password.dart';
 import 'package:gift2grow/screen/authentication/login.dart';
+import 'package:gift2grow/screen/complete_campaign.dart';
 import 'package:gift2grow/screen/donate_history.dart';
 import 'package:gift2grow/screen/donate_to_app.dart';
 import 'package:gift2grow/screen/bottom_navbar.dart';
 import 'package:gift2grow/screen/profile_page.dart';
 import 'package:gift2grow/screen/authentication/resgister.dart';
 import 'package:gift2grow/utilities/caller.dart';
+import 'package:gift2grow/utilities/notification/getTrackingAmount.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -83,7 +85,7 @@ void main() async {
 }
 
 class Gift2Grow extends StatefulWidget {
-  const Gift2Grow({super.key});
+  const Gift2Grow({Key? key}) : super(key: key);
 
   @override
   State<Gift2Grow> createState() => _Gift2GrowState();
@@ -91,6 +93,7 @@ class Gift2Grow extends StatefulWidget {
 
 class _Gift2GrowState extends State<Gift2Grow> {
   User? user;
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   Future<void> setupInteractedMessage() async {
     RemoteMessage? initialMessage =
@@ -113,11 +116,22 @@ class _Gift2GrowState extends State<Gift2Grow> {
     setupInteractedMessage();
   }
 
-  void _handleMessageOpen(RemoteMessage message) {
-    if (message.data['type'] == 'chat') {
-      Navigator.pushNamed(context, '/home');
-    } else {
-      Navigator.pushNamed(context, '/home');
+  void _handleMessageOpen(RemoteMessage message) async {
+    final campaignId = int.parse(message.data['CampaignId']);
+
+    try {
+      final trackingAmount = await getTrackingAmount(campaignId);
+
+      navigatorKey.currentState!.push(
+        MaterialPageRoute(
+          builder: (context) => CompletedCampaign(
+            campaignId: campaignId,
+            trackingAmount: trackingAmount,
+          ),
+        ),
+      );
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -136,6 +150,7 @@ class _Gift2GrowState extends State<Gift2Grow> {
     final ThemeData theme = ThemeData();
     return MaterialApp(
       title: 'Flutter Demo',
+      navigatorKey: navigatorKey,
       initialRoute: user == null ? '/login' : '/home',
       routes: {
         '/login': (context) => const LoginPage(),
