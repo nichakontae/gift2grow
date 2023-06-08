@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/screen/bottom_navbar.dart';
+
 // import 'package:gift2grow/screen/home.dart';
 // import 'package:gift2grow/screen/home_test.dart';
 import 'package:gift2grow/widgets/authentication/background_gradient.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class VerifyEmailPage extends StatefulWidget {
   const VerifyEmailPage({Key? key, required this.email}) : super(key: key);
@@ -32,7 +34,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       if (!isEmailVerified) {
         sendVerificationEmail();
 
-        timer = Timer.periodic(const Duration(seconds: 3), (_) => checkEmailVerified());
+        timer = Timer.periodic(
+            const Duration(seconds: 3), (_) => checkEmailVerified());
       }
     }
   }
@@ -73,7 +76,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       setState(() => canResendEmail = true);
     } catch (e) {
       if (_isDisposed) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
@@ -93,12 +97,19 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                     Container(
                       padding: const EdgeInsets.all(25),
                       decoration: const BoxDecoration(
-                          color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(25))),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(25))),
                       child: Column(
                         children: [
-                          Image.asset(
-                            "assets/logo/mail.png",
-                            scale: 2,
+                          CircleAvatar(
+                            backgroundColor:
+                                const Color(0xFF2A8089).withOpacity(0.4),
+                            radius: 65,
+                            child: const Icon(
+                              LineAwesomeIcons.envelope_open_text,
+                              size: 100,
+                              color: Color(0xFF2A8089),
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -106,7 +117,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                           RichText(
                             textAlign: TextAlign.center,
                             text: TextSpan(
-                              style: const TextStyle(color: Colors.black, fontFamily: "Poppins"),
+                              style: const TextStyle(color: Colors.black),
                               children: [
                                 const TextSpan(
                                   text: "We've sent an email to ",
@@ -119,7 +130,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                                 ),
                                 const TextSpan(text: " to verify"),
                                 const TextSpan(
-                                    text: " your email address and activate your account.")
+                                    text:
+                                        " your email address and activate your account.")
                               ],
                             ),
                           ),
@@ -130,18 +142,23 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               CustomButton(
-                                  paddingHorizontal: const EdgeInsets.symmetric(horizontal: 40),
+                                  paddingHorizontal: const EdgeInsets.symmetric(
+                                      horizontal: 40),
                                   color: "secondary",
                                   text: "Cancel",
                                   onTap: () {
                                     FirebaseAuth.instance.signOut();
-                                    Navigator.popUntil(context, ModalRoute.withName('/login'));
+                                    Navigator.popUntil(
+                                        context, ModalRoute.withName('/login'));
                                   }),
                               CustomButton(
                                 color: "primary",
                                 text: "Resend Email",
-                                onTap: canResendEmail ? sendVerificationEmail : null,
-                                paddingHorizontal: const EdgeInsets.symmetric(horizontal: 20),
+                                onTap: canResendEmail
+                                    ? sendVerificationEmail
+                                    : null,
+                                paddingHorizontal:
+                                    const EdgeInsets.symmetric(horizontal: 20),
                               ),
                             ],
                           )
