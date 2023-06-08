@@ -83,12 +83,14 @@ class _AddTrackingState extends State<AddTracking> {
                     height: 45,
                     child: Container(
                       decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(100)),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.9),
-                            spreadRadius: 3,
+                            color: Colors.grey.withOpacity(0.6),
+                            spreadRadius: 2,
                             blurRadius: 10,
-                            offset: const Offset(0, 3),
+                            offset: const Offset(0, 2),
                           ),
                         ],
                       ),
@@ -100,10 +102,11 @@ class _AddTrackingState extends State<AddTracking> {
                       filled: true,
                       fillColor: Colors.white,
                       errorStyle: TextStyle(color: Colors.red[700]),
-                      border: const OutlineInputBorder(),
+                      border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
                       hintText: 'Add tracking number...',
-                      hintStyle:
-                          const TextStyle(color: Color(0xff858585), fontSize: 14),
+                      hintStyle: const TextStyle(
+                          color: Color(0xff858585), fontSize: 14),
                       contentPadding: const EdgeInsets.all(10),
                     ),
                     validator: (value) {
@@ -216,5 +219,4 @@ class _AddTrackingState extends State<AddTracking> {
           ))
     ]);
   }
-}  
-           
+}
