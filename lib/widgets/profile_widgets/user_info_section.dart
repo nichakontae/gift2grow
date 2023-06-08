@@ -23,6 +23,11 @@ class _UserInformationState extends State<UserInformation> {
     getDonateHistory();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   List<DonateHistoryDetail>? donateHistory;
 
   Future<void> getDonateHistory() async {

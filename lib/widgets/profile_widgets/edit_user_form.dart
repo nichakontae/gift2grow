@@ -37,6 +37,11 @@ class _EditProfileformState extends State<EditProfileform> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Future getImage() async {
       Navigator.of(context).pop();

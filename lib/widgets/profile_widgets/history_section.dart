@@ -41,6 +41,11 @@ class _DonateHistoryState extends State<DonateHistory> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     DateTime? date = DateTime.parse(widget.donateHistory!.donatedAt);
     var formatDate = DateFormat('d MMMM yyyy').format(date);
