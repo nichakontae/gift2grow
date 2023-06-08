@@ -52,6 +52,41 @@ class _EditProfileformState extends State<EditProfileform> {
       });
     }
 
+    Future<void> updateEmail() async {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      final currentEmail = currentUser!.email;
+
+      final newEmail = _emailController.text;
+
+      try {
+        final credential =
+            EmailAuthProvider.credential(email: currentEmail as String, password: '123456789');
+        await currentUser.reauthenticateWithCredential(credential);
+        await currentUser.updateEmail(newEmail);
+        if (kDebugMode) {
+          print("Email updated successfully.");
+        }
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-mismatch') {
+          if (kDebugMode) {
+            print("The credential used to re-authenticate does not match the current user.");
+          }
+        } else if (e.code == 'wrong-password') {
+          if (kDebugMode) {
+            print("The current password provided is incorrect.");
+          }
+        } else {
+          if (kDebugMode) {
+            print("An error occurred during re-authentication: $e");
+          }
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print("An error occurred while updating email: $e");
+        }
+      }
+    }
+
     Future<void> updateProfile() async {
       try {
         await Caller.dio.put(
@@ -63,7 +98,7 @@ class _EditProfileformState extends State<EditProfileform> {
             "email": _emailController.text,
           },
         );
-        await FirebaseAuth.instance.currentUser?.updateEmail(_emailController.text);
+        updateEmail();
         if (widget.userInfo!.profileImageFile != null) {
           try {
             XFile file = widget.userInfo!.profileImageFile!;
