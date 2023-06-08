@@ -1,9 +1,9 @@
-import 'package:gift2grow/utilities/notification/postNoti.dart';
-import 'package:gift2grow/utilities/notification/pushNoti.dart';
+import 'package:gift2grow/utilities/notification/post_noti.dart';
+import 'package:gift2grow/utilities/notification/push_noti.dart';
 
-import 'getCampaignDetail.dart';
-import 'getUserCampaign.dart';
-import 'getUserToken.dart';
+import 'get_campaign_detail.dart';
+import 'get_user_campaign.dart';
+import 'get_user_token.dart';
 
 void notifyUser(int campaignId) async {
   var userIds = [];
@@ -31,9 +31,9 @@ void notifyUser(int campaignId) async {
         }
       }
     } else {
-      print('campaign is not completed');
+      //print('campaign is not completed');
     }
   } catch (e) {
-    print(e);
+    //print(e);
   }
 }

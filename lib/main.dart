@@ -10,7 +10,7 @@ import 'package:gift2grow/screen/bottom_navbar.dart';
 import 'package:gift2grow/screen/profile_page.dart';
 import 'package:gift2grow/screen/authentication/resgister.dart';
 import 'package:gift2grow/utilities/caller.dart';
-import 'package:gift2grow/utilities/notification/getTrackingAmount.dart';
+import 'package:gift2grow/utilities/notification/get_tracking_amount.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -19,16 +19,16 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print('Handling a background message ${message.messageId}');
+  //print('Handling a background message ${message.messageId}');
 }
 
 //foreground event handler
 void _firebaseMessagingForegroundHandler(RemoteMessage message) {
-  print('Got a message whilst in the foreground!');
-  print('Message data: ${message.data}');
+  //print('Got a message whilst in the foreground!');
+  //print('Message data: ${message.data}');
 
   if (message.notification != null) {
-    print('Message also contained a notification: ${message.notification}');
+    //print('Message also contained a notification: ${message.notification}');
 
     final snackbar = SnackBar(
       content: Text(message.notification!.body ?? ''),
@@ -43,22 +43,22 @@ void _firebaseMessagingForegroundHandler(RemoteMessage message) {
 
 void postUserToken() async {
   final fcmToken = await FirebaseMessaging.instance.getToken();
-  print("FCM token:$fcmToken");
+  //print("FCM token:$fcmToken");
   try {
     var response = await Caller.dio.post('/noti/postUserToken', data: {
       'UserId': FirebaseAuth.instance.currentUser!.uid,
       'Token': fcmToken,
     });
     if (response.statusCode == 200) {
-      print('Token posted successfully');
+      //print('Token posted successfully');
     } else {
       if (response.statusCode == 400) {
-        print('Token already exists');
+        //print('Token already exists');
       }
-      print('Token post failed');
+      //print('Token post failed');
     }
   } catch (e) {
-    print(e);
+    //print(e);
   }
 }
 
@@ -76,6 +76,7 @@ void main() async {
   FirebaseMessaging.onMessage.listen(_firebaseMessagingForegroundHandler);
 
   //Request permission
+  // ignore: unused_local_variable
   NotificationSettings settings =
       await FirebaseMessaging.instance.requestPermission(
     alert: true,
@@ -86,7 +87,7 @@ void main() async {
     provisional: false,
     sound: true,
   );
-  print('User granted permission: ${settings.authorizationStatus}');
+  //print('User granted permission: ${settings.authorizationStatus}');
 
   //Handle token
   postUserToken();
@@ -140,17 +141,17 @@ class _Gift2GrowState extends State<Gift2Grow> {
         ),
       );
     } catch (e) {
-      print(e);
+      //print(e);
     }
   }
 
   void _handleMessageOpenTerminated(RemoteMessage message) {
-    print('message from app that was terminated');
+    //print('message from app that was terminated');
     _handleMessageOpen(message);
   }
 
   void _handleMessageOpenBackground(RemoteMessage message) {
-    print('message from app that was in background');
+    //print('message from app that was in background');
     _handleMessageOpen(message);
   }
 

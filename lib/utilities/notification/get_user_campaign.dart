@@ -1,7 +1,7 @@
-import '../caller.dart';
+import 'package:gift2grow/utilities/caller.dart';
 
 Future<List> getUserCampaign(campaignId) async {
-  print('getting user campaign');
+  //print('getting user campaign');
   var userIds = [];
   try {
     final response =
@@ -9,10 +9,10 @@ Future<List> getUserCampaign(campaignId) async {
 
     if (response.statusCode == 200) {
       userIds = response.data;
-      print('User campaign retrieved successfully: ${response.data}');
+      //print('User campaign retrieved successfully: ${response.data}');
     }
   } catch (e) {
-    print(e.toString());
+    //print(e.toString());
   }
   return userIds;
 }

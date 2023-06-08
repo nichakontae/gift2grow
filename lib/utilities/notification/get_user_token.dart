@@ -1,17 +1,17 @@
-import '../caller.dart';
+import 'package:gift2grow/utilities/caller.dart';
 
 Future<List> getUserToken(userId) async {
-  print('getting user token');
+  //print('getting user token');
   var userTokens = [];
   try {
     final response = await Caller.dio.get('/noti/getUserToken?userId=$userId');
 
     if (response.statusCode == 200) {
       userTokens = response.data;
-      print(userTokens);
+      //print(userTokens);
     }
   } catch (e) {
-    print(e.toString());
+    //print(e.toString());
   }
   return userTokens;
 }

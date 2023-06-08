@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import '../utilities/caller.dart';
-import '../utilities/notification/getTrackingAmount.dart';
+import '../utilities/notification/get_tracking_amount.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -38,7 +38,7 @@ class _NotificationPageState extends State<NotificationPage> {
         });
       }
     } catch (e) {
-      print(e.toString());
+      //print(e.toString());
     }
   }
 

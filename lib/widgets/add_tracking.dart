@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/tracking.dart';
-import 'package:gift2grow/utilities/notification/notifyUser.dart';
+import 'package:gift2grow/utilities/notification/notify_user.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
 import '../utilities/caller.dart';
@@ -138,6 +138,7 @@ class _AddTrackingState extends State<AddTracking> {
                       notifyUser(widget.campaignId);
 
                       //modal
+                      // ignore: use_build_context_synchronously
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {

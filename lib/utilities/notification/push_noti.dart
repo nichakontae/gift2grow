@@ -1,8 +1,9 @@
+// ignore: file_names, depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Future<void> pushNoti(sendData, userToken) async {
-  print('pushing noti');
+  //print('pushing noti');
   try {
     //send push notification FCM
     final url = Uri.parse('https://fcm.googleapis.com/fcm/send');
@@ -32,13 +33,13 @@ Future<void> pushNoti(sendData, userToken) async {
 
     final response = await http.post(url, headers: headers, body: encodedData);
 
-    print(response);
+    //print(response);
     if (response.statusCode == 200) {
-      print('Push Notification sent successfully');
+      //print('Push Notification sent successfully');
     } else {
-      print('Failed to send notification. Error: ${response.body}');
+      //print('Failed to send notification. Error: ${response.body}');
     }
   } catch (e) {
-    print(e.toString());
+    //print(e.toString());
   }
 }
