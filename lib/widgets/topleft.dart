@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/utilities/caller.dart';
 
+import '../screen/notification.dart';
+
 class MyTopLeft extends StatefulWidget {
   const MyTopLeft({super.key});
 
@@ -13,7 +15,7 @@ class MyTopLeft extends StatefulWidget {
 class _MyTopLeftState extends State<MyTopLeft> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   var tamboon = 0;
-
+  var unreadNoti = 0;
   @override
   void initState() {
     super.initState();
@@ -21,6 +23,7 @@ class _MyTopLeftState extends State<MyTopLeft> {
     final uid = user!.uid;
     setState(() {
       getUserTamboon(uid);
+      getUnreadNoti(uid);
     });
   }
 
@@ -31,6 +34,21 @@ class _MyTopLeftState extends State<MyTopLeft> {
       );
       setState(() {
         tamboon = response.data['tamboon_point'];
+      });
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  void getUnreadNoti(String uid) async {
+    try {
+      final response = await Caller.dio.get(
+        '/noti/getUnreadNoti?userId=$uid',
+      );
+      setState(() {
+        unreadNoti = response.data;
       });
     } catch (e) {
       if (kDebugMode) {
@@ -98,12 +116,30 @@ class _MyTopLeftState extends State<MyTopLeft> {
                 ),
               ),
         GestureDetector(
-          child: const Image(
-            image: AssetImage("assets/images/bell.png"),
-            width: 50,
-            height: 50,
-          ),
-          onTap: () {},
+          child: Stack(children: [
+            const Image(
+              image: AssetImage("assets/images/bell.png"),
+              width: 50,
+              height: 50,
+            ),
+            Positioned(
+              right: 0,
+              child: CircleAvatar(
+                radius: 10,
+                backgroundColor: Colors.red,
+                child: Text(
+                  unreadNoti.toString(),
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+            )
+          ]),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const NotificationPage()),
+            );
+          },
         )
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/tracking.dart';
+import 'package:gift2grow/utilities/notification/notify_user.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
 import '../utilities/caller.dart';
@@ -25,7 +26,7 @@ class _AddTrackingState extends State<AddTracking> {
   final _formkey = GlobalKey<FormState>();
   final myController = TextEditingController();
 
-  void postTrackingNum(Tracking tracking) async {
+  Future<void> postTrackingNum(Tracking tracking) async {
     try {
       // ignore: unused_local_variable
       final response = await Caller.dio
@@ -128,14 +129,16 @@ class _AddTrackingState extends State<AddTracking> {
                 CustomButton(
                   color: "primary",
                   text: "Add",
-                  onTap: () {
+                  onTap: () async {
                     if (_formkey.currentState!.validate()) {
                       //post
                       tracking.trackingNumber = myController.text;
-                      postTrackingNum(tracking);
+                      await postTrackingNum(tracking);
                       addTamboon();
+                      notifyUser(widget.campaignId);
 
                       //modal
+                      // ignore: use_build_context_synchronously
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
