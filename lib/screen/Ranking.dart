@@ -67,6 +67,11 @@ class _RankPageState extends State<RankPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     int count = 0;
     int ranking = 0;
