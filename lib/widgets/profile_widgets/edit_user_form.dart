@@ -6,6 +6,7 @@ import 'package:gift2grow/models/user_info.dart';
 import 'package:gift2grow/screen/bottom_navbar.dart';
 import 'package:gift2grow/utilities/upload.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../utilities/caller.dart';
 import '../theme_button.dart';
@@ -62,6 +63,7 @@ class _EditProfileformState extends State<EditProfileform> {
             "email": _emailController.text,
           },
         );
+        await FirebaseAuth.instance.currentUser?.updateEmail(_emailController.text);
         if (widget.userInfo!.profileImageFile != null) {
           try {
             XFile file = widget.userInfo!.profileImageFile!;

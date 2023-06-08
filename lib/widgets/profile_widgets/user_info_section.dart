@@ -259,10 +259,15 @@ class _UserInformationState extends State<UserInformation> {
                             ),
                           ],
                         ),
-                        for (var i = 0; i < 2; i++)
+                        if (donateHistory!.length == 1)
                           DonateHistory(
-                            donateHistory: donateHistory![i],
+                            donateHistory: donateHistory![0],
                           ),
+                        if (donateHistory!.length > 1)
+                          for (var i = 0; i < 2; i++)
+                            DonateHistory(
+                              donateHistory: donateHistory![i],
+                            ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
