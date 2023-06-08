@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/tracking.dart';
+import 'package:gift2grow/utilities/notification/notifyUser.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
 import '../utilities/caller.dart';
@@ -25,7 +26,7 @@ class _AddTrackingState extends State<AddTracking> {
   final _formkey = GlobalKey<FormState>();
   final myController = TextEditingController();
 
-  void postTrackingNum(Tracking tracking) async {
+  Future<void> postTrackingNum(Tracking tracking) async {
     try {
       // ignore: unused_local_variable
       final response = await Caller.dio
@@ -39,10 +40,11 @@ class _AddTrackingState extends State<AddTracking> {
   }
 
   void addTamboon() async {
-    try{
+    try {
       // ignore: unused_local_variable
-      final response = await Caller.dio.put('/campaign/putTamboon?userId=${widget.userId}');
-    }catch (e) {
+      final response =
+          await Caller.dio.put('/campaign/putTamboon?userId=${widget.userId}');
+    } catch (e) {
       if (kDebugMode) {
         print(e);
         print('error ja');
@@ -85,47 +87,44 @@ class _AddTrackingState extends State<AddTracking> {
                   elevation: 5.0,
                   shadowColor: Colors.grey,
                   child: Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: SizedBox(
-                      height: 50,
-                      child:  
-                       TextFormField(
-                      
-                      controller: myController,
-                      decoration: InputDecoration(
-                        // labelText: 'Tracking number',
-                        // labelStyle:
-                        //     TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
-                        // enabledBorder: OutlineInputBorder(
-                        //   borderSide:
-                        //       BorderSide(color: DefaultSelectionStyle.defaultColor),
-                        // ),
-                        errorStyle: TextStyle(color: Colors.red[700]),
-                        border: InputBorder.none,
-                        hintText: 'Add tracking number...',
-                        hintStyle: const TextStyle(
-                            color: Color(0xff858585), fontSize: 14),
-                        contentPadding: const EdgeInsets.all(10),
-                      ),
-                      // autofocus: true,
-                      // maxLines: 1,
-                      // onChanged: (value) {
-                      //   setState(() {
-                      //     trackingNumber = value;
-                      //   });
-                      // },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter tracking number';
-                        }
-                        if (value.length < 13 || value.length > 14) {
-                          return 'Please add a correct tracking number';
-                        }
-                        return null;
-                      },
-                    ),
-                    )
-                  ),
+                      padding: const EdgeInsets.all(3.0),
+                      child: SizedBox(
+                        height: 50,
+                        child: TextFormField(
+                          controller: myController,
+                          decoration: InputDecoration(
+                            // labelText: 'Tracking number',
+                            // labelStyle:
+                            //     TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
+                            // enabledBorder: OutlineInputBorder(
+                            //   borderSide:
+                            //       BorderSide(color: DefaultSelectionStyle.defaultColor),
+                            // ),
+                            errorStyle: TextStyle(color: Colors.red[700]),
+                            border: InputBorder.none,
+                            hintText: 'Add tracking number...',
+                            hintStyle: const TextStyle(
+                                color: Color(0xff858585), fontSize: 14),
+                            contentPadding: const EdgeInsets.all(10),
+                          ),
+                          // autofocus: true,
+                          // maxLines: 1,
+                          // onChanged: (value) {
+                          //   setState(() {
+                          //     trackingNumber = value;
+                          //   });
+                          // },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter tracking number';
+                            }
+                            if (value.length < 13 || value.length > 14) {
+                              return 'Please add a correct tracking number';
+                            }
+                            return null;
+                          },
+                        ),
+                      )),
                 ),
                 const SizedBox(
                   height: 20,
@@ -136,11 +135,12 @@ class _AddTrackingState extends State<AddTracking> {
                     CustomButton(
                       color: "primary",
                       text: "Add",
-                      onTap: () {
+                      onTap: () async {
                         if (_formkey.currentState!.validate()) {
                           //post
                           tracking.trackingNumber = myController.text;
-                          postTrackingNum(tracking);
+                          await postTrackingNum(tracking);
+                          notifyUser(widget.campaignId);
                           addTamboon();
 
                           //modal
@@ -205,13 +205,14 @@ class _AddTrackingState extends State<AddTracking> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.fromLTRB(0,0,0,10),
-                                        
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 0, 0, 10),
                                         child: CustomButton(
                                           color: "primary",
                                           text: "   Back to home page   ",
                                           onTap: () {
-                                            Navigator.pushNamed(context, '/home');
+                                            Navigator.pushNamed(
+                                                context, '/home');
                                           },
                                         ),
                                       ),
