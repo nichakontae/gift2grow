@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import '../utilities/caller.dart';
+import '../utilities/notification/getTrackingAmount.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -59,8 +60,8 @@ class _NotificationPageState extends State<NotificationPage> {
     notificationsByDate.clear();
 
     for (var notification in notifications) {
-      DateTime createdAt = notification.notiObject.createdAt ?? DateTime.now();
-      DateTime currentDate = DateTime.now();
+      DateTime createdAt = notification.notiObject.createdAt!.toLocal();
+      DateTime currentDate = DateTime.now().toLocal();
       DateTime yesterdayDate = currentDate.subtract(const Duration(days: 1));
       //print(createdAt);
       String formattedDate;
@@ -90,19 +91,9 @@ class _NotificationPageState extends State<NotificationPage> {
     editUserNoti(notiobjectId);
 
     // Retrieve trackingAmount
-    Future<dynamic> getTrackingAmount() async {
-      try {
-        final response =
-            await Caller.dio.get('/profile/getDonateNumber?Id=$campaignId');
-        return response.data;
-      } catch (e) {
-        print(e.toString());
-        return null;
-      }
-    }
 
     // Navigate to the page
-    getTrackingAmount().then((trackingAmount) {
+    getTrackingAmount(campaignId).then((trackingAmount) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -209,7 +200,7 @@ class _NotificationPageState extends State<NotificationPage> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  notifyUser(20);
+                  notifyUser(1);
                 },
                 child: const Text('Notify')),
             showNotification(),
