@@ -190,9 +190,46 @@ class _NotificationPageState extends State<NotificationPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Notifications',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            Row(
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        offset: const Offset(0.0, 3.0),
+                        blurRadius: 7.0,
+                      ),
+                    ],
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      color: Colors.white,
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                const Text(
+                  'Notifications',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+              ],
             ),
             const SizedBox(
               height: 20,
@@ -206,7 +243,6 @@ class _NotificationPageState extends State<NotificationPage> {
           ],
         ),
       ),
-      //bottomNavigationBar: const MyBottomNavbar(screen: 4),
     );
   }
 }
