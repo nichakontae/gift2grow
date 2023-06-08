@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/authentication/login_controller.dart';
+import 'package:gift2grow/provider/user_provder.dart';
 import 'package:gift2grow/screen/authentication/forgot_password.dart';
 import 'package:gift2grow/screen/authentication/resgister.dart';
 import 'package:gift2grow/screen/authentication/verify_email.dart';
@@ -23,7 +24,6 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => VerifyEmailPage(email: email)));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                                     value.isEmpty ||
                                     !RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
                                         .hasMatch(value)) {
+                                  setState(() => errorMessage = "");
                                   return 'Please enter a valid email';
                                 }
                                 return null;
@@ -122,8 +123,10 @@ class _LoginPageState extends State<LoginPage> {
                               obscureText: passwordVisible,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
+                                  setState(() => errorMessage = "");
                                   return 'Please enter password';
                                 } else if (value.length < 8) {
+                                  setState(() => errorMessage = "");
                                   return "Password must be at least 8 characters long";
                                 }
                                 return null;
@@ -233,20 +236,26 @@ class _LoginPageState extends State<LoginPage> {
                                 try {
                                   showDialog<String>(
                                     context: context,
-                                    builder: (BuildContext context) => AlertDialog(
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
                                       content: SizedBox(
                                         height: 120,
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(vertical: 10),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10),
                                           child: Center(
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     CircularProgressIndicator(
-                                                      color: Theme.of(context).colorScheme.primary,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary,
                                                     ),
                                                     const SizedBox(height: 10),
                                                     const Text("Loading..."),
@@ -259,12 +268,20 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                   );
-                                  await FirebaseAuth.instance
+                                  UserCredential user = await FirebaseAuth
+                                      .instance
                                       .signInWithEmailAndPassword(
                                           email: _loginController.email,
                                           password: _loginController.password);
 
+                                 await UserProvider.setKeySpecialCase();
+
+                                  UserProvider.setUserDetails(
+                                      userId: user.user!.uid,
+                                      password: _loginController.password);
+
                                   navigate(_loginController.email);
+
                                   debugPrint("successfully login");
                                 } on FirebaseAuthException catch (e) {
                                   Navigator.of(context).pop();

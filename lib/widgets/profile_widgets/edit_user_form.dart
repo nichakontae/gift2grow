@@ -3,9 +3,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/user_info.dart';
+import 'package:gift2grow/provider/user_provder.dart';
 import 'package:gift2grow/screen/bottom_navbar.dart';
 import 'package:gift2grow/utilities/upload.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../utilities/caller.dart';
 import '../theme_button.dart';
@@ -37,6 +39,11 @@ class _EditProfileformState extends State<EditProfileform> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Future getImage() async {
       Navigator.of(context).pop();
@@ -44,6 +51,41 @@ class _EditProfileformState extends State<EditProfileform> {
       setState(() {
         widget.userInfo!.profileImageFile = file;
       });
+    }
+
+    Future<void> updateEmail() async {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      final currentEmail = currentUser!.email;
+
+      final newEmail = _emailController.text;
+
+      try {
+        final credential =
+            EmailAuthProvider.credential(email: currentEmail as String, password: UserProvider.decrypt());
+        await currentUser.reauthenticateWithCredential(credential);
+        await currentUser.updateEmail(newEmail);
+        if (kDebugMode) {
+          print("Email updated successfully.");
+        }
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-mismatch') {
+          if (kDebugMode) {
+            print("The credential used to re-authenticate does not match the current user.");
+          }
+        } else if (e.code == 'wrong-password') {
+          if (kDebugMode) {
+            print("The current password provided is incorrect.");
+          }
+        } else {
+          if (kDebugMode) {
+            print("An error occurred during re-authentication: $e");
+          }
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print("An error occurred while updating email: $e");
+        }
+      }
     }
 
     Future<void> updateProfile() async {
@@ -57,6 +99,7 @@ class _EditProfileformState extends State<EditProfileform> {
             "email": _emailController.text,
           },
         );
+        updateEmail();
         if (widget.userInfo!.profileImageFile != null) {
           try {
             XFile file = widget.userInfo!.profileImageFile!;
@@ -274,7 +317,7 @@ class _EditProfileformState extends State<EditProfileform> {
                             if (value == null ||
                                 value.isEmpty ||
                                 !RegExp(r'^\w+$').hasMatch(value)) {
-                              return "Please enter only text";
+                              return "Please enter text";
                             }
                             return null;
                           },
@@ -301,7 +344,7 @@ class _EditProfileformState extends State<EditProfileform> {
                             if (value == null ||
                                 value.isEmpty ||
                                 !RegExp(r'^\w+$').hasMatch(value)) {
-                              return "Please enter only text";
+                              return "Please enter text";
                             }
                             return null;
                           },

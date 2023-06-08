@@ -67,6 +67,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                     value.isEmpty ||
                                     !RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
                                         .hasMatch(value)) {
+                                  setState(() => errorMessage = "");
                                   return 'Please enter a valid email';
                                 }
                                 return null;

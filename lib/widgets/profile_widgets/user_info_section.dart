@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/user_info.dart';
+import 'package:gift2grow/provider/user_provder.dart';
 import 'package:gift2grow/screen/edit_profile_page.dart';
 import 'package:gift2grow/widgets/profile_widgets/history_section.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
@@ -21,6 +22,11 @@ class _UserInformationState extends State<UserInformation> {
   void initState() {
     super.initState();
     getDonateHistory();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   List<DonateHistoryDetail>? donateHistory;
@@ -254,10 +260,15 @@ class _UserInformationState extends State<UserInformation> {
                             ),
                           ],
                         ),
-                        for (var i = 0; i < 2; i++)
+                        if (donateHistory!.length == 1)
                           DonateHistory(
-                            donateHistory: donateHistory![i],
+                            donateHistory: donateHistory![0],
                           ),
+                        if (donateHistory!.length > 1)
+                          for (var i = 0; i < 2; i++)
+                            DonateHistory(
+                              donateHistory: donateHistory![i],
+                            ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -333,6 +344,7 @@ class _UserInformationState extends State<UserInformation> {
                                         await FirebaseAuth.instance.signOut().then(
                                               (_) => Navigator.pushNamed(context, '/login'),
                                             );
+                                        UserProvider.clearUser();
                                       },
                                     ),
                                   ),

@@ -59,10 +59,7 @@ dependencies:
   #save image
   image_gallery_saver: ^2.0.1
   permission_handler: ^10.2.0
-
-  # for share on social media
-  url_launcher: ^6.1.11
-  social_share: ^2.3.1
+  encrypt: ^5.0.1
 
   # for firebase messaging
   firebase_messaging: ^14.6.2
@@ -233,6 +230,7 @@ flutter:
      - assets/images/
      - assets/logo/
      - assets/icon/
+     - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
