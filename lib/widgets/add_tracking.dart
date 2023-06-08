@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/tracking.dart';
+import 'package:gift2grow/utilities/notification/notifyUser.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 
 import '../utilities/caller.dart';
@@ -128,12 +129,13 @@ class _AddTrackingState extends State<AddTracking> {
                 CustomButton(
                   color: "primary",
                   text: "Add",
-                  onTap: () {
+                  onTap: () async {
                     if (_formkey.currentState!.validate()) {
                       //post
                       tracking.trackingNumber = myController.text;
-                      postTrackingNum(tracking);
+                      await postTrackingNum(tracking);
                       addTamboon();
+                      notifyUser(widget.campaignId);
 
                       //modal
                       showDialog(
