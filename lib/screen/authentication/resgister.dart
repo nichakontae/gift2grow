@@ -51,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Form(
                 key: _formKey,
                 child: Container(
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),  
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                   decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -88,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 value.isEmpty ||
                                 !RegExp(r'^\w+$').hasMatch(value)) {
                               setState(() => errorMessage = "");
-                              return "Please enter only text";
+                              return "Please enter text";
                               // อย่าลืมใส่คำที่ดีกว่านี้
                             }
                             return null;
@@ -104,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 value.isEmpty ||
                                 !RegExp(r'^\w+$').hasMatch(value)) {
                               setState(() => errorMessage = "");
-                              return "Please enter only text";
+                              return "Please enter text";
                               // อย่าลืมใส่คำที่ดีกว่านี้
                             }
                             return null;
