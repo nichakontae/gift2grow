@@ -157,6 +157,9 @@ class _HistoryPageState extends State<HistoryPage> {
                   donateHistory: donateHistory![i],
                 ),
               ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.05,
+            )
           ],
         ),
       ),
