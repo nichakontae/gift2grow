@@ -39,10 +39,11 @@ class _AddTrackingState extends State<AddTracking> {
   }
 
   void addTamboon() async {
-    try{
+    try {
       // ignore: unused_local_variable
-      final response = await Caller.dio.put('/campaign/putTamboon?userId=${widget.userId}');
-    }catch (e) {
+      final response =
+          await Caller.dio.put('/campaign/putTamboon?userId=${widget.userId}');
+    } catch (e) {
       if (kDebugMode) {
         print(e);
         print('error ja');
@@ -69,168 +70,151 @@ class _AddTrackingState extends State<AddTracking> {
     super.dispose();
   }
 
-  // void _printLatestValue() {
-  //   print('Tracking number: ${myController.text}');
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Form(
-            key: _formkey,
-            child: Column(
-              children: <Widget>[
-                Material(
-                  elevation: 5.0,
-                  shadowColor: Colors.grey,
-                  child: Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: SizedBox(
-                      height: 50,
-                      child:  
-                       TextFormField(
-                      
-                      controller: myController,
-                      decoration: InputDecoration(
-                        // labelText: 'Tracking number',
-                        // labelStyle:
-                        //     TextStyle(color: Color.fromARGB(128, 38, 38, 38)),
-                        // enabledBorder: OutlineInputBorder(
-                        //   borderSide:
-                        //       BorderSide(color: DefaultSelectionStyle.defaultColor),
-                        // ),
-                        errorStyle: TextStyle(color: Colors.red[700]),
-                        border: InputBorder.none,
-                        hintText: 'Add tracking number...',
-                        hintStyle: const TextStyle(
-                            color: Color(0xff858585), fontSize: 14),
-                        contentPadding: const EdgeInsets.all(10),
+    return Column(children: [
+      Form(
+          key: _formkey,
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  SizedBox(
+                    height: 45,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.9),
+                            spreadRadius: 3,
+                            blurRadius: 10,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
                       ),
-                      // autofocus: true,
-                      // maxLines: 1,
-                      // onChanged: (value) {
-                      //   setState(() {
-                      //     trackingNumber = value;
-                      //   });
-                      // },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter tracking number';
-                        }
-                        if (value.length < 13 || value.length > 14) {
-                          return 'Please add a correct tracking number';
-                        }
-                        return null;
-                      },
                     ),
-                    )
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    CustomButton(
-                      color: "primary",
-                      text: "Add",
-                      onTap: () {
-                        if (_formkey.currentState!.validate()) {
-                          //post
-                          tracking.trackingNumber = myController.text;
-                          postTrackingNum(tracking);
-                          addTamboon();
+                  TextFormField(
+                    controller: myController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      errorStyle: TextStyle(color: Colors.red[700]),
+                      border: const OutlineInputBorder(),
+                      hintText: 'Add tracking number...',
+                      hintStyle:
+                          const TextStyle(color: Color(0xff858585), fontSize: 14),
+                      contentPadding: const EdgeInsets.all(10),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter tracking number';
+                      }
+                      if (value.length < 13 || value.length > 14) {
+                        return 'Please a a correct tracking number';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                CustomButton(
+                  color: "primary",
+                  text: "Add",
+                  onTap: () {
+                    if (_formkey.currentState!.validate()) {
+                      //post
+                      tracking.trackingNumber = myController.text;
+                      postTrackingNum(tracking);
+                      addTamboon();
 
-                          //modal
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                insetPadding: const EdgeInsets.symmetric(
-                                    vertical: 215, horizontal: 40),
-                                elevation: 8,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
+                      //modal
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            insetPadding: const EdgeInsets.symmetric(
+                                vertical: 215, horizontal: 40),
+                            elevation: 8,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            title: const Column(
+                              children: [
+                                Image(
+                                  image: AssetImage("assets/images/thank.png"),
+                                  width: 90,
+                                  height: 90,
                                 ),
-                                title: const Column(
-                                  children: [
-                                    Image(
-                                      image:
-                                          AssetImage("assets/images/thank.png"),
-                                      width: 90,
-                                      height: 90,
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Thank You ",
-                                          // textAlign: TextAlign.center,
-                                        ),
-                                        Icon(
-                                          Icons.favorite,
-                                          size: 20,
-                                          color:
-                                              Color.fromARGB(255, 244, 54, 105),
-                                        )
-                                      ],
-                                    ),
-                                  ],
+                                SizedBox(
+                                  height: 10,
                                 ),
-                                content: const Column(
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Thank you for your donation! ",
-                                      //We appreciate every items and it will really help to make impact for those in need
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.black),
+                                      "Thank You ",
+                                      // textAlign: TextAlign.center,
                                     ),
-                                    Text(
-                                      "We appreciate every items and it will really help to make impact for those in need",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.black),
-                                    ),
+                                    Icon(
+                                      Icons.favorite,
+                                      size: 20,
+                                      color: Color.fromARGB(255, 244, 54, 105),
+                                    )
                                   ],
                                 ),
-                                actions: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(0,0,0,10),
-                                        
-                                        child: CustomButton(
-                                          color: "primary",
-                                          text: "   Back to home page   ",
-                                          onTap: () {
-                                            Navigator.pushNamed(context, '/home');
-                                          },
-                                        ),
-                                      ),
-                                    ],
+                              ],
+                            ),
+                            content: const Column(
+                              children: [
+                                Text(
+                                  "Thank you for your donation! ",
+                                  //We appreciate every items and it will really help to make impact for those in need
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black),
+                                ),
+                                Text(
+                                  "We appreciate every items and it will really help to make impact for those in need",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                            actions: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                    child: CustomButton(
+                                      color: "primary",
+                                      text: "   Back to home page   ",
+                                      onTap: () {
+                                        Navigator.pushNamed(context, '/home');
+                                      },
+                                    ),
                                   ),
                                 ],
-                              );
-                            },
+                              ),
+                            ],
                           );
-                        }
-                      },
-                      paddingHorizontal:
-                          const EdgeInsets.symmetric(horizontal: 60),
-                    ),
-                  ],
+                        },
+                      );
+                    }
+                  },
+                  paddingHorizontal: const EdgeInsets.symmetric(horizontal: 60),
                 ),
-              ],
-            )),
-      ],
-    );
+              ]),
+            ],
+          ))
+    ]);
   }
-}
+}  
+           
