@@ -1,13 +1,9 @@
-import 'dart:convert';
-
-import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:gift2grow/models/authentication/success_auth.dart';
 import 'package:gift2grow/utilities/caller.dart';
 
 class UserProvider {
   static String _userId = "";
-  static String _password = "";
   static String _secretKey = "";
   static Encrypted? _encrypt;
 
@@ -16,9 +12,7 @@ class UserProvider {
   static void setUserDetails(
       {required String userId, required String password}) {
     _userId = userId;
-
-    String encrypt = encryptPassword(password);
-    _password = encrypt;
+    encryptPassword(password);
   }
 
   static String encryptPassword(String password) {
@@ -31,7 +25,6 @@ class UserProvider {
   }
 
   static String decrypt() {
-    print(_secretKey);
     final key = Key.fromUtf8(_secretKey.substring(0, 16));
     final encrypter = Encrypter(AES(key, mode: AESMode.cbc));
     final iv = IV.fromUtf8(_secretKey.substring(0, 16));
@@ -54,7 +47,6 @@ class UserProvider {
 
   static void clearUser() {
     _userId = "";
-    _password = "";
     _secretKey = "";
   }
 }
