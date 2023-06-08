@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, deprecated_member_use, unnecessary_null_comparison
+// ignore_for_file: camel_case_types, deprecated_member_use, unnecessary_null_comparison, avoid_print
 
 import 'dart:io';
 
@@ -47,7 +47,7 @@ class _PreviewShareState extends State<PreviewShare> {
       final response = await Caller.dio.get(
         '/profile/getDonateHistory?userId=${FirebaseAuth.instance.currentUser?.uid}',
       );
-      print(response.data);
+      //print(response.data);
       setState(() {
         donateHistory = List.generate(
           response.data.length,
