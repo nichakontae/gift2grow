@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/user_info.dart';
+import 'package:gift2grow/provider/user_provder.dart';
 import 'package:gift2grow/screen/edit_profile_page.dart';
 import 'package:gift2grow/widgets/profile_widgets/history_section.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
@@ -343,6 +344,7 @@ class _UserInformationState extends State<UserInformation> {
                                         await FirebaseAuth.instance.signOut().then(
                                               (_) => Navigator.pushNamed(context, '/login'),
                                             );
+                                        UserProvider.clearUser();
                                       },
                                     ),
                                   ),

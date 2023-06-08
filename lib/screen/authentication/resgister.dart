@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gift2grow/models/authentication/success_auth.dart';
+import 'package:gift2grow/provider/user_provder.dart';
 import 'package:gift2grow/screen/authentication/verify_email.dart';
 import 'package:gift2grow/utilities/caller.dart';
 import 'package:gift2grow/widgets/authentication/background_gradient.dart';
@@ -147,7 +149,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 20,
                       ),
                       ConfirmPasswordFormField(
-                        error: errorConfirmPassword,
+                          error: errorConfirmPassword,
                           confirmPasswordController:
                               _registerController.confirmPasswordController,
                           passwordController:
@@ -249,7 +251,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           email: _registerController.email,
                                           password:
                                               _registerController.password);
-                                  await Caller.dio
+                                  final response = await Caller.dio
                                       .post("/auth/register", data: {
                                     "user_id": userCredential.user?.uid,
                                     "username": _registerController.username,
@@ -257,6 +259,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                     "lastname": _registerController.lastname,
                                     "email": _registerController.email
                                   });
+                                  SuccessAuth d =
+                                      SuccessAuth.fromJson(response.data);
+
+                                  UserProvider.setKey(key: d.data);
+                                  
                                   debugPrint("register successful");
                                   navigate();
                                 } on FirebaseAuthException catch (e) {

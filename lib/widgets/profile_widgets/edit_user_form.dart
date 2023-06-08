@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/user_info.dart';
+import 'package:gift2grow/provider/user_provder.dart';
 import 'package:gift2grow/screen/bottom_navbar.dart';
 import 'package:gift2grow/utilities/upload.dart';
 import 'package:image_picker/image_picker.dart';
@@ -60,7 +61,7 @@ class _EditProfileformState extends State<EditProfileform> {
 
       try {
         final credential =
-            EmailAuthProvider.credential(email: currentEmail as String, password: '123456789');
+            EmailAuthProvider.credential(email: currentEmail as String, password: UserProvider.decrypt());
         await currentUser.reauthenticateWithCredential(credential);
         await currentUser.updateEmail(newEmail);
         if (kDebugMode) {
