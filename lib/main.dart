@@ -14,6 +14,7 @@ import 'package:gift2grow/utilities/notification/getTrackingAmount.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 //background event handler
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -28,6 +29,15 @@ void _firebaseMessagingForegroundHandler(RemoteMessage message) {
 
   if (message.notification != null) {
     print('Message also contained a notification: ${message.notification}');
+
+    final snackbar = SnackBar(
+      content: Text(message.notification!.body ?? ''),
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+      duration: const Duration(seconds: 5),
+    );
+
+    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(snackbar);
   }
 }
 
@@ -93,7 +103,6 @@ class Gift2Grow extends StatefulWidget {
 
 class _Gift2GrowState extends State<Gift2Grow> {
   User? user;
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   Future<void> setupInteractedMessage() async {
     RemoteMessage? initialMessage =
