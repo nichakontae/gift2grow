@@ -75,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                                     value.isEmpty ||
                                     !RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
                                         .hasMatch(value)) {
+                                  setState(() => errorMessage = "");
                                   return 'Please enter a valid email';
                                 }
                                 return null;
@@ -122,8 +123,10 @@ class _LoginPageState extends State<LoginPage> {
                               obscureText: passwordVisible,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
+                                  setState(() => errorMessage = "");
                                   return 'Please enter password';
                                 } else if (value.length < 8) {
+                                  setState(() => errorMessage = "");
                                   return "Password must be at least 8 characters long";
                                 }
                                 return null;
@@ -263,9 +266,9 @@ class _LoginPageState extends State<LoginPage> {
                                       .signInWithEmailAndPassword(
                                           email: _loginController.email,
                                           password: _loginController.password);
-
                                   navigate(_loginController.email);
                                   debugPrint("successfully login");
+
                                 } on FirebaseAuthException catch (e) {
                                   Navigator.of(context).pop();
                                   if (e.code == 'user-not-found') {

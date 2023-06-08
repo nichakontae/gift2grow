@@ -3,12 +3,14 @@ class ConfirmPasswordFormField extends StatefulWidget {
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
   final String hintText;
+  final Function error;
 
   const ConfirmPasswordFormField({
     Key? key,
     required this.passwordController,
     required this.hintText,
-    required this.confirmPasswordController
+    required this.confirmPasswordController,
+    required this.error
   }) : super(key: key);
 
   @override
@@ -31,8 +33,10 @@ class _ConfirmPasswordFormFieldState extends State<ConfirmPasswordFormField> {
               validator: (value){
                 if (value == null ||
                     value.isEmpty ) {
+                  widget.error();
                   return 'Please enter password';
                 }else if(value != widget.passwordController.text){
+                  widget.error();
                     return "Password must be same as above";
                 }
                 return null;

@@ -34,6 +34,10 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  void errorConfirmPassword() {
+    setState(() => errorMessage = "");
+  }
+
   @override
   Widget build(BuildContext context) {
     return BackgroundGradient(
@@ -47,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Form(
                 key: _formKey,
                 child: Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                   decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -66,7 +70,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           validate: (value) {
                             if (value == null ||
                                 value.isEmpty ||
-                                !RegExp(r'^[A-Za-z][A-Za-z\d]{5,29}$').hasMatch(value)) {
+                                !RegExp(r'^[A-Za-z][A-Za-z\d]{5,29}$')
+                                    .hasMatch(value)) {
+                              setState(() => errorMessage = "");
                               return "username must be at least 6 characters";
                             }
                             return null;
@@ -81,7 +87,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (value == null ||
                                 value.isEmpty ||
                                 !RegExp(r'^\w+$').hasMatch(value)) {
-                              return "Please enter only text";
+                              setState(() => errorMessage = "");
+                              return "Please enter text";
                               // อย่าลืมใส่คำที่ดีกว่านี้
                             }
                             return null;
@@ -96,7 +103,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (value == null ||
                                 value.isEmpty ||
                                 !RegExp(r'^\w+$').hasMatch(value)) {
-                              return "Please enter only text";
+                              setState(() => errorMessage = "");
+                              return "Please enter text";
                               // อย่าลืมใส่คำที่ดีกว่านี้
                             }
                             return null;
@@ -112,6 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 value.isEmpty ||
                                 !RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
                                     .hasMatch(value)) {
+                              setState(() => errorMessage = "");
                               return 'Please enter a valid email';
                             }
                             return null;
@@ -125,8 +134,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           controller: _registerController.passwordController,
                           validate: (value) {
                             if (value == null || value.isEmpty) {
+                              setState(() => errorMessage = "");
                               return 'Please enter password';
                             } else if (value.length < 8) {
+                              setState(() => errorMessage = "");
                               return "Password must be at least 8 characters long";
                             }
                             return null;
@@ -136,6 +147,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 20,
                       ),
                       ConfirmPasswordFormField(
+                        error: errorConfirmPassword,
                           confirmPasswordController:
                               _registerController.confirmPasswordController,
                           passwordController:
@@ -185,7 +197,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             color: "secondary",
                             text: "Back to Login",
                             onTap: () {
-                              Navigator.popUntil(context, ModalRoute.withName('/login'));
+                              Navigator.popUntil(
+                                  context, ModalRoute.withName('/login'));
                             },
                             paddingHorizontal:
                                 const EdgeInsets.symmetric(horizontal: 20),
@@ -249,8 +262,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 } on FirebaseAuthException catch (e) {
                                   Navigator.of(context).pop();
                                   if (e.code == 'email-already-in-use') {
-                                    setState(
-                                        () => errorMessage = "email already in use");
+                                    setState(() =>
+                                        errorMessage = "email already in use");
                                     debugPrint(
                                         'The account already exists for that email.');
                                   }

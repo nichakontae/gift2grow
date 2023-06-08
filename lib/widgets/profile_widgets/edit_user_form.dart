@@ -274,7 +274,7 @@ class _EditProfileformState extends State<EditProfileform> {
                             if (value == null ||
                                 value.isEmpty ||
                                 !RegExp(r'^\w+$').hasMatch(value)) {
-                              return "Please enter only text";
+                              return "Please enter text";
                             }
                             return null;
                           },
@@ -301,7 +301,7 @@ class _EditProfileformState extends State<EditProfileform> {
                             if (value == null ||
                                 value.isEmpty ||
                                 !RegExp(r'^\w+$').hasMatch(value)) {
-                              return "Please enter only text";
+                              return "Please enter text";
                             }
                             return null;
                           },
