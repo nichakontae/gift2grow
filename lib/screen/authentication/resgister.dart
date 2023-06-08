@@ -51,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Form(
                 key: _formKey,
                 child: Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),  
                   decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(30))),
