@@ -38,11 +38,9 @@ class UserProvider {
   // set from login
   static Future setKeySpecialCase() async {
     if (_secretKey == "") {
-      print("hi");
       final response = await Caller.dio.get("/auth/getKey");
       SuccessAuth d = SuccessAuth.fromJson(response.data);
       _secretKey = d.data;
-      print(_secretKey);
     }
   }
 
