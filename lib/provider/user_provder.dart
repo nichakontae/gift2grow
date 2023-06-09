@@ -12,16 +12,15 @@ class UserProvider {
   static void setUserDetails(
       {required String userId, required String password}) {
     _userId = userId;
-    encryptPassword(password);
+    _encrypt = encryptPassword(password);
   }
 
-  static String encryptPassword(String password) {
+  static Encrypted encryptPassword(String password) {
     final plainText = password;
     final key = Key.fromUtf8(_secretKey.substring(0, 16));
     final iv = IV.fromUtf8(_secretKey.substring(0, 16));
     final encrypter = Encrypter(AES(key, mode: AESMode.cbc));
-    _encrypt = encrypter.encrypt(plainText, iv: iv);
-    return _encrypt!.base64;
+    return encrypter.encrypt(plainText, iv: iv);
   }
 
   static String decrypt() {
@@ -39,9 +38,11 @@ class UserProvider {
   // set from login
   static Future setKeySpecialCase() async {
     if (_secretKey == "") {
+      print("hi");
       final response = await Caller.dio.get("/auth/getKey");
       SuccessAuth d = SuccessAuth.fromJson(response.data);
       _secretKey = d.data;
+      print(_secretKey);
     }
   }
 
