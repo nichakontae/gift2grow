@@ -25,20 +25,26 @@ class _NotificationPageState extends State<NotificationPage> {
   List<UserNoti> notifications = [];
   Map<String, List<UserNoti>> notificationsByDate = {};
 
+  bool isLoading = true;
+
   void getUserNoti(String userId) async {
     try {
       final response = await Caller.dio.get('/noti/getUserNoti?userId=$userId');
       if (response.statusCode == 200) {
-        setState(() {
-          //print(response.data);
-          notifications = response.data
-              .map<UserNoti>((item) => UserNoti.fromJson(item))
-              .toList();
-          separateNotificationsByDate();
-        });
+        try {
+          setState(() {
+            notifications = response.data
+                .map<UserNoti>((item) => UserNoti.fromJson(item))
+                .toList();
+            separateNotificationsByDate();
+            isLoading = false;
+          });
+        } catch (e) {
+          print(e.toString());
+        }
       }
     } catch (e) {
-      //print(e.toString());
+      print(e.toString());
     }
   }
 
@@ -175,8 +181,10 @@ class _NotificationPageState extends State<NotificationPage> {
         ),
       );
     } else {
-      return const Center(
-        child: Text('You don\'t have any notifications yet'),
+      return const Expanded(
+        child: Center(
+          child: Text('You don\'t have any notifications yet'),
+        ),
       );
     }
   }
@@ -239,7 +247,14 @@ class _NotificationPageState extends State<NotificationPage> {
             //       notifyUser(1);
             //     },
             //     child: const Text('Notify')),
-            showNotification(),
+            if (isLoading) // Show a loading indicator if isLoading is true
+              const Expanded(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            else
+              showNotification(),
           ],
         ),
       ),

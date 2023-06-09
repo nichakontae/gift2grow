@@ -11,6 +11,9 @@ class NotiObject {
   @JsonKey(name: 'created_at')
   DateTime? createdAt;
 
+  @JsonKey(name: 'desc')
+  String? desc;
+
   @JsonKey(name: 'campaign_id')
   int? campaignId;
 
@@ -23,6 +26,7 @@ class NotiObject {
   NotiObject(
       {required this.notiObjectId,
       this.createdAt,
+      this.desc,
       this.campaignId,
       this.campaign,
       this.userNoti});
