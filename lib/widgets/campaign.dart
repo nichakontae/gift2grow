@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gift2grow/models/campaign_item.dart';
 import 'package:gift2grow/widgets/campaignlist_info.dart';
 import 'package:gift2grow/widgets/progress_bar.dart';
-import 'package:intl/intl.dart';
-
 class Campaign extends StatefulWidget {
   const Campaign({
     super.key,

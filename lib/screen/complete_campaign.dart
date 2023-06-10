@@ -89,7 +89,7 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
             // padding: const EdgeInsets.symmetric(horizontal: 20),
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
                     SizedBox(
