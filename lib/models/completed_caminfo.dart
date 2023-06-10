@@ -31,6 +31,10 @@ class CompletedCampaignInfo {
   @JsonKey(name: 'letterThank')
   String letterThank;
 
+    @JsonKey(name: 'completedDate')
+  DateTime completedDate;
+
+
   CompletedCampaignInfo({
     required this.campaignId,
     required this.coverImg,
@@ -40,7 +44,8 @@ class CompletedCampaignInfo {
     required this.description,
     required this.evidenceImg,
     required this.topic,
-    required this.letterThank
+    required this.letterThank,
+    required this.completedDate
   });
   factory CompletedCampaignInfo.fromJson(Map<String, dynamic> json) =>
       _$CompletedCampaignInfoFromJson(json);

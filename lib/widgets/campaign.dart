@@ -81,10 +81,8 @@ class _CampaignState extends State<Campaign> {
                     const SizedBox(
                       height: 10,
                     ),
-                    widget.campaign.isCompleted == true
-                        ? Text(
-                            "Date: ${DateFormat.yMd().format(widget.campaign.createdAt)}")
-                        : Text(
+                   Text(
+                    widget.campaign.isCompleted == true ? "Remaining: 0" :
                             "Remaining: ${widget.campaign.completedAmount - widget.campaign.trackingAmount}",
                           ),
                     CampaignListInfo(campaign: widget.campaign)

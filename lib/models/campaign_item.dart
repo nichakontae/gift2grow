@@ -30,6 +30,10 @@ class CampaignItem {
 
   @JsonKey(name: 'location')
   String location;
+
+  @JsonKey(name: 'completedDate')
+  DateTime? completedDate;
+
   CampaignItem({
     required this.campaignId,
     required this.coverImg,
@@ -39,7 +43,8 @@ class CampaignItem {
     required this.trackingAmount,
     required this.createdAt,
     required this.topic,
-    required this.location
+    required this.location,
+    required this.completedDate
   });
   factory CampaignItem.fromJson(Map<String, dynamic> json) =>
       _$CampaignItemFromJson(json);

@@ -16,6 +16,9 @@ CampaignItem _$CampaignItemFromJson(Map<String, dynamic> json) => CampaignItem(
       createdAt: DateTime.parse(json['createdAt'] as String),
       topic: json['topic'] as String,
       location: json['location'] as String,
+      completedDate: json['completedDate'] == null
+          ? null
+          : DateTime.parse(json['completedDate'] as String),
     );
 
 Map<String, dynamic> _$CampaignItemToJson(CampaignItem instance) =>
@@ -29,4 +32,5 @@ Map<String, dynamic> _$CampaignItemToJson(CampaignItem instance) =>
       'createdAt': instance.createdAt.toIso8601String(),
       'topic': instance.topic,
       'location': instance.location,
+      'completedDate': instance.completedDate?.toIso8601String(),
     };

@@ -20,6 +20,7 @@ CompletedCampaignInfo _$CompletedCampaignInfoFromJson(
           .toList(),
       topic: json['topic'] as String,
       letterThank: json['letterThank'] as String,
+      completedDate: DateTime.parse(json['completedDate'] as String),
     );
 
 Map<String, dynamic> _$CompletedCampaignInfoToJson(
@@ -34,4 +35,5 @@ Map<String, dynamic> _$CompletedCampaignInfoToJson(
       'evidenceImg': instance.evidenceImg,
       'topic': instance.topic,
       'letterThank': instance.letterThank,
+      'completedDate': instance.completedDate.toIso8601String(),
     };
