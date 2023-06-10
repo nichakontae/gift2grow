@@ -131,7 +131,9 @@ class _CampaignListState extends State<CampaignList> {
                               ? CompletedCampaign(
                                   campaignId: filterResult[index].campaignId,
                                   trackingAmount:
-                                      filterResult[index].trackingAmount)
+                                      filterResult[index].trackingAmount,
+                                  
+                                      )
                               : CampaignDetailPage(
                                   campaignId: filterResult[index].campaignId,
                                   amountTracking:

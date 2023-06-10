@@ -55,7 +55,7 @@ class CustomButton extends StatelessWidget {
               text,
               style: TextStyle(
                 fontSize: 14,
-                color: onTap == null
+                color: onTap == null 
                     ? Colors.grey[600]
                     : color == "primary"
                         ? Colors.white
