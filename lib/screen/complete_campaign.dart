@@ -92,9 +92,11 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-                    SizedBox(
+                    Container(
+                      padding: EdgeInsets.zero,
                       height: 350,
                       width: 350,
+                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.0)),
                       child: Stack(
                         children: [
                           Positioned.fill(

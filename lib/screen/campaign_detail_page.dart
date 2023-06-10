@@ -94,9 +94,11 @@ class _CampaignDetailPageState extends State<CampaignDetailPage> {
           padding: const EdgeInsets.all(20),
           child: ListView(
             children: [
-              SizedBox(
+              Container(
+                padding: EdgeInsets.zero,
                 height: 350,
                 width: 350,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.0)),
                 child: Stack(
                   children: [
                     Positioned.fill(

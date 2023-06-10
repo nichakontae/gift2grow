@@ -22,7 +22,7 @@ class _CampaignState extends State<Campaign> {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(24.0)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.4),
