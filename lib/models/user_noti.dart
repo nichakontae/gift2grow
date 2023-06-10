@@ -1,4 +1,4 @@
-import 'package:gift2grow/models/noti_object.dart';
+import 'package:gift2grow/models/notification/noti_object.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'user_noti.g.dart';
 

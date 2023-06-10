@@ -12,6 +12,7 @@ Future<void> postNoti(sendData) async {
       //print('Noti post failed: ${response.data}');
     }
   } catch (e) {
-    // print(e.toString());
+    //print('post error mai');
+    //print(e.toString());
   }
 }
