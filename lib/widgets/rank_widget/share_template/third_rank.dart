@@ -10,11 +10,10 @@ class ThirdRank extends StatelessWidget {
   final int donations;
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: const MediaQueryData(),
-      child: Container(
-        width: double.infinity,
-        height: double.infinity,
+    return Scaffold(
+      body: Container(
+        width: double.maxFinite,
+        height: double.maxFinite,
         decoration: const BoxDecoration(
             gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -54,7 +53,7 @@ class ThirdRank extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 90, 8, 107),
+                  padding: const EdgeInsets.fromLTRB(8, 90, 8, 100),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -74,16 +73,14 @@ class ThirdRank extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 22),
                     child: Column(
                       children: [
-                        Expanded(
-                          child: Text(
-                            users.username,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF9468AC),
-                            ),
-                            overflow: TextOverflow.ellipsis,
+                        Text(
+                          users.username,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF9468AC),
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                         Text('${users.tamboonPoint} TAMBOON',
                             style: const TextStyle(
