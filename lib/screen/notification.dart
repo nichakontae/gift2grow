@@ -40,11 +40,11 @@ class _NotificationPageState extends State<NotificationPage> {
             isLoading = false;
           });
         } catch (e) {
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } catch (e) {
-      print(e.toString());
+      //print(e.toString());
     }
   }
 

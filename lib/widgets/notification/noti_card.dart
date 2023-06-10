@@ -22,11 +22,16 @@ Widget NotiCard(BuildContext context, Color borderColor, Color circleColor,
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                notification.notiObject.campaign?.schoolName ??
-                    'Unknown School',
-                style: const TextStyle(
-                  fontSize: 12,
+              SizedBox(
+                width: 200,
+                child: Text(
+                  notification.notiObject.campaign?.schoolName ??
+                      'Unknown School',
+                  style: const TextStyle(
+                    fontSize: 12,
+                  ),
+                  overflow: TextOverflow
+                      .ellipsis, // Apply ellipsis for overflowing text
                 ),
               ),
               Text(

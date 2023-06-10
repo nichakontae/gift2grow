@@ -25,6 +25,7 @@ void notifyUser(int campaignId) async {
       //get token for each user
       for (var userId in userIds) {
         final allUserToken = await getUserToken(userId);
+        //print('$userId>>userToken:$allUserToken');
         //send push notification to each user
         for (var userToken in allUserToken) {
           await pushNoti(sendData, userToken);
