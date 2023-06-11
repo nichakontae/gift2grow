@@ -7,7 +7,6 @@ import 'package:gift2grow/widgets/campaign_list.dart';
 import 'package:gift2grow/widgets/my_searchbar.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
 import 'package:gift2grow/widgets/topleft.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../models/filter.dart';
 import '../utilities/caller.dart';
 
@@ -49,20 +48,21 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
-  void setProvider() async {
-    String? password;
-    await UserProvider.getData(key: "password").then((value) => password = value);
-    await UserProvider.setKeySpecialCase();
-    UserProvider.setUserDetails(
-        userId: FirebaseAuth.instance.currentUser!.uid, password: password!);
-  }
+  // for set Provider to use password in update email
+  // void setProvider() async {
+  //   String? password;
+  //   await UserProvider.getData(key: "password").then((value) => password = value);
+  //   await UserProvider.setKeySpecialCase();
+  //   UserProvider.setUserDetails(
+  //       userId: FirebaseAuth.instance.currentUser!.uid, password: password!);
+  // }
 
   @override
   void initState() {
     super.initState();
     SearchPreload.homeReload = refreshState;
     getUserInfo(user!.uid);
-    setProvider();
+    // setProvider();
   }
 
   @override
