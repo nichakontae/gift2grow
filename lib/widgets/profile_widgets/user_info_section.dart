@@ -1,9 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gift2grow/main.dart';
 import 'package:gift2grow/models/user_info.dart';
 import 'package:gift2grow/provider/user_provder.dart';
 import 'package:gift2grow/screen/edit_profile_page.dart';
