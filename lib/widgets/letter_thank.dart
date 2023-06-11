@@ -4,7 +4,7 @@ import 'package:gift2grow/screen/bottom_navbar.dart';
 class LetterThank extends StatefulWidget {
   const LetterThank({super.key, required this.letterOfThank});
 
-  final String letterOfThank;
+  final String? letterOfThank;
 
   @override
   State<LetterThank> createState() => _LetterThankState();
@@ -13,8 +13,8 @@ class LetterThank extends StatefulWidget {
 class _LetterThankState extends State<LetterThank> {
   @override
   Widget build(BuildContext context) {
-    bool contains = widget.letterOfThank.toLowerCase().contains("gift2grow");
-    int startIndex = widget.letterOfThank.toLowerCase().indexOf("gift2grow");
+    bool contains = widget.letterOfThank!.toLowerCase().contains("gift2grow");
+    int startIndex = widget.letterOfThank!.toLowerCase().indexOf("gift2grow");
     int endIndex = startIndex + "gift2grow".length;
     final textSpan = contains == true ? TextSpan(
       style: DefaultTextStyle.of(context).style.copyWith(
@@ -23,16 +23,16 @@ class _LetterThankState extends State<LetterThank> {
           color: const Color(0xFF9D9D9D)),
       children: <TextSpan>[
         TextSpan(
-            text: widget.letterOfThank
+            text: widget.letterOfThank!
                 .substring(0, startIndex)), // Text before the substring
         TextSpan(
-          text: widget.letterOfThank.substring(startIndex, endIndex),
+          text: widget.letterOfThank!.substring(startIndex, endIndex),
           style: const TextStyle(
               color: Color(0xFF9468AC),
               fontWeight: FontWeight.w600), // Substring in purple color
         ),
         TextSpan(
-            text: widget.letterOfThank
+            text: widget.letterOfThank!
                 .substring(endIndex)), // Text after the substring
       ],
     ) : TextSpan(children:[TextSpan(text: widget.letterOfThank)], style: const TextStyle(color:  Color(0xFF9D9D9D)),);

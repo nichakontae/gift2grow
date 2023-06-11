@@ -184,17 +184,47 @@ class _PreviewShareState extends State<PreviewShare> {
                 ),
                 child: GestureDetector(
                   onTap: () async {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          AlertDialog(
+                            content: SizedBox(
+                              height: 120,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: [
+                                          CircularProgressIndicator(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
+                                          const SizedBox(height: 10),
+                                          const Text("Loading..."),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                    );
                     final image = await controller.captureFromWidget(
-                        // FirstRank(profile: widget.profile),
-                        // pixelRatio: MediaQuery.of(context).devicePixelRatio);
-                        // SecondRank(profile: widget.profile),
-                        // pixelRatio: MediaQuery.of(context).devicePixelRatio);
-                        // ThirdRank(profile: widget.profile),
-                        // pixelRatio: MediaQuery.of(context).devicePixelRatio);
                         goToWidget,
                         pixelRatio: MediaQuery.of(context).devicePixelRatio);
                     if (image == null) return;
                     await saveImage(image);
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context).pop();
                   },
                   child: Image.asset(
                     'assets/icon/download2.png',
@@ -221,17 +251,46 @@ class _PreviewShareState extends State<PreviewShare> {
                 ),
                 child: GestureDetector(
                   onTap: () async {
-                    // share(SocialMedia.facebook);
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          AlertDialog(
+                            content: SizedBox(
+                              height: 120,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: [
+                                          CircularProgressIndicator(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
+                                          const SizedBox(height: 10),
+                                          const Text("Loading..."),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                    );
                     final image = await controller.captureFromWidget(
-                        // FirstRank(profile: widget.profile),
-                        // pixelRatio: MediaQuery.of(context).devicePixelRatio);
-                        // SecondRank(profile: widget.profile),
-                        // pixelRatio: MediaQuery.of(context).devicePixelRatio);
-                        // ThirdRank(profile: widget.profile),
-                        // pixelRatio: MediaQuery.of(context).devicePixelRatio);
                         goToWidget,
                         pixelRatio: MediaQuery.of(context).devicePixelRatio);
                     saveAndShare(image);
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context).pop();
                   },
                   child: Image.asset(
                     'assets/icon/share_to1.png',

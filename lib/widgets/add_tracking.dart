@@ -31,10 +31,11 @@ class _AddTrackingState extends State<AddTracking> {
       // ignore: unused_local_variable
       final response = await Caller.dio
           .post('/campaign/postTracking', data: tracking.toJson());
+          addTamboon();
     } catch (e) {
       if (kDebugMode) {
         print(e);
-        print('error ja');
+        print('error ja post tracking');
       }
     }
   }
@@ -47,7 +48,7 @@ class _AddTrackingState extends State<AddTracking> {
     } catch (e) {
       if (kDebugMode) {
         print(e);
-        print('error ja');
+        print('error ja add tamboon');
       }
     }
   }
@@ -134,7 +135,6 @@ class _AddTrackingState extends State<AddTracking> {
                       //post
                       tracking.trackingNumber = myController.text;
                       await postTrackingNum(tracking);
-                      addTamboon();
                       notifyUser(widget.campaignId);
 
                       //modal
@@ -198,7 +198,7 @@ class _AddTrackingState extends State<AddTracking> {
                                 children: [
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 30),
                                     child: CustomButton(
                                       color: "primary",
                                       text: "   Back to home page   ",

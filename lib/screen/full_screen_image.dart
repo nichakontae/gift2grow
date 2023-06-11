@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class FullScreenImageScreen extends StatefulWidget {
-  final List<String> imageUrls;
+  final List<String>? imageUrls;
   final int currentIndex;
 
   const FullScreenImageScreen(
@@ -31,7 +31,7 @@ class _FullScreenImageScreenState extends State<FullScreenImageScreen> {
   }
 
   void _goToNextImage() {
-    if (_currentIndex < widget.imageUrls.length - 1) {
+    if (_currentIndex < widget.imageUrls!.length - 1) {
       setState(() {
         _currentIndex++;
       });
@@ -56,7 +56,7 @@ class _FullScreenImageScreenState extends State<FullScreenImageScreen> {
           fit: StackFit.expand,
           children: [
             Image.network(
-              widget.imageUrls[_currentIndex],
+              widget.imageUrls![_currentIndex],
               fit: BoxFit.contain,
             ),
             Positioned(

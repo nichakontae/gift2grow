@@ -20,6 +20,7 @@ class CompletedCampaign extends StatefulWidget {
 
 class _CompletedCampaignState extends State<CompletedCampaign> {
   CompletedCampaignInfo? campaignInfo;
+  bool checkEvidence = false;
 
   Future<void> getCampaignDetail() async {
     try {
@@ -29,9 +30,12 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
 
       CompletedCampaignInfo camapaign =
           CompletedCampaignInfo.fromJson(response.data);
-
+        
       setState(() {
         campaignInfo = camapaign;
+        if (campaignInfo!.evidenceImg?.isEmpty == false && (campaignInfo?.letterThank != "" && campaignInfo?.letterThank != null)) {
+          checkEvidence = true;
+        }
       });
       // print(response.data);
     } catch (e) {
@@ -55,7 +59,7 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
       context,
       MaterialPageRoute(
         builder: (context) => FullScreenImageScreen(
-          imageUrls: campaignInfo!.evidenceImg,
+          imageUrls: campaignInfo?.evidenceImg,
           currentIndex: currentIndex,
         ),
       ),
@@ -215,7 +219,7 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
                                 ),
                               ),
                             ])),
-                    campaignInfo!.evidenceImg.isEmpty == false
+                    checkEvidence == true
                         ? Column(
                             children: [
                               const Padding(
@@ -250,7 +254,7 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
                                             crossAxisSpacing: 0,
                                             mainAxisSpacing: 0),
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: campaignInfo!.evidenceImg.length,
+                                    itemCount: campaignInfo!.evidenceImg?.length,
                                     itemBuilder: (BuildContext context, int j) {
                                       return GestureDetector(
                                         onTap: () => _showFullScreenImage(j),
@@ -265,7 +269,7 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
                                                 placeholder: const AssetImage(
                                                     'assets/images/default_image.png'),
                                                 image: NetworkImage(
-                                                  campaignInfo!.evidenceImg[j],
+                                                  campaignInfo!.evidenceImg![j],
                                                 ),
                                                 fit: BoxFit.cover,
                                                 width: 100,
@@ -288,7 +292,7 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
                   ],
                 ),
               ),
-                campaignInfo!.evidenceImg.isEmpty == false ? const SizedBox(height: 50,) :
+                checkEvidence == true ? const SizedBox(height: 50,) :
               Image.asset(
                 "assets/images/NoEvidence.png",
                 fit: BoxFit.contain,
