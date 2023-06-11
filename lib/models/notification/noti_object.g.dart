@@ -11,6 +11,7 @@ NotiObject _$NotiObjectFromJson(Map<String, dynamic> json) => NotiObject(
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
+      desc: json['desc'] as String?,
       campaignId: json['campaign_id'] as int?,
       campaign: json['campaign'] == null
           ? null
@@ -24,6 +25,7 @@ Map<String, dynamic> _$NotiObjectToJson(NotiObject instance) =>
     <String, dynamic>{
       'id': instance.notiObjectId,
       'created_at': instance.createdAt?.toIso8601String(),
+      'desc': instance.desc,
       'campaign_id': instance.campaignId,
       'campaign': instance.campaign,
       'user_noti': instance.userNoti,

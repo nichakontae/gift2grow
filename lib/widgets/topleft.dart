@@ -14,8 +14,11 @@ class MyTopLeft extends StatefulWidget {
 
 class _MyTopLeftState extends State<MyTopLeft> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final user = FirebaseAuth.instance.currentUser;
+  final userId = FirebaseAuth.instance.currentUser!.uid;
   var tamboon = 0;
   var unreadNoti = 0;
+
   @override
   void initState() {
     super.initState();
@@ -47,6 +50,7 @@ class _MyTopLeftState extends State<MyTopLeft> {
       final response = await Caller.dio.get(
         '/noti/getUnreadNoti?userId=$uid',
       );
+      //print(response.data);
       setState(() {
         unreadNoti = response.data;
       });
@@ -125,7 +129,7 @@ class _MyTopLeftState extends State<MyTopLeft> {
             Positioned(
               right: 0,
               child: CircleAvatar(
-                radius: 10,
+                radius: 14,
                 backgroundColor: Colors.red,
                 child: Text(
                   unreadNoti.toString(),
@@ -134,11 +138,13 @@ class _MyTopLeftState extends State<MyTopLeft> {
               ),
             )
           ]),
-          onTap: () {
-            Navigator.push(
+          onTap: () async {
+            await Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const NotificationPage()),
             );
+
+            getUnreadNoti(userId);
           },
         )
       ],
