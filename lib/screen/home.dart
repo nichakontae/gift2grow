@@ -52,7 +52,6 @@ class _HomePageState extends State<HomePage> {
   void setProvider() async {
     String? password;
     await UserProvider.getData(key: "password").then((value) => password = value);
-    print("password: $password");
     await UserProvider.setKeySpecialCase();
     UserProvider.setUserDetails(
         userId: FirebaseAuth.instance.currentUser!.uid, password: password!);
