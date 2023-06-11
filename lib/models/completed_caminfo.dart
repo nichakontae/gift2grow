@@ -29,7 +29,7 @@ class CompletedCampaignInfo {
   String topic;
 
   @JsonKey(name: 'letterThank')
-  String letterThank;
+  String? letterThank;
 
     @JsonKey(name: 'completedDate')
   DateTime completedDate;

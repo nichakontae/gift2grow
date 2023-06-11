@@ -19,7 +19,7 @@ CompletedCampaignInfo _$CompletedCampaignInfoFromJson(
           ?.map((e) => e as String)
           .toList(),
       topic: json['topic'] as String,
-      letterThank: json['letterThank'] as String,
+      letterThank: json['letterThank'] as String?,
       completedDate: DateTime.parse(json['completedDate'] as String),
     );
 

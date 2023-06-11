@@ -30,10 +30,10 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
 
       CompletedCampaignInfo camapaign =
           CompletedCampaignInfo.fromJson(response.data);
-        
+        print("${camapaign.evidenceImg} + Evidence +  ${campaignInfo?.letterThank}");
       setState(() {
         campaignInfo = camapaign;
-        if (campaignInfo!.evidenceImg?.isEmpty == false && campaignInfo?.letterThank != "") {
+        if (campaignInfo!.evidenceImg?.isEmpty == false && (campaignInfo?.letterThank != "" && campaignInfo?.letterThank != null)) {
           checkEvidence = true;
         }
       });
