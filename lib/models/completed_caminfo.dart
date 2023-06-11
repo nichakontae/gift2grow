@@ -23,7 +23,7 @@ class CompletedCampaignInfo {
   String description;
 
   @JsonKey(name: 'evidenceImg')
-  List<String> evidenceImg;
+  List<String>? evidenceImg;
 
   @JsonKey(name: 'topic')
   String topic;

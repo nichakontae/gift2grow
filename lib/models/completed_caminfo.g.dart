@@ -15,8 +15,8 @@ CompletedCampaignInfo _$CompletedCampaignInfoFromJson(
       isCompleted: json['isCompleted'] as bool,
       completedAmount: json['completedAmount'] as int,
       description: json['description'] as String,
-      evidenceImg: (json['evidenceImg'] as List<dynamic>)
-          .map((e) => e as String)
+      evidenceImg: (json['evidenceImg'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
       topic: json['topic'] as String,
       letterThank: json['letterThank'] as String,
