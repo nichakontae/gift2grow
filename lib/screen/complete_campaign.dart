@@ -215,7 +215,7 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
                                 ),
                               ),
                             ])),
-                    campaignInfo!.evidenceImg.isEmpty
+                    campaignInfo!.evidenceImg.isEmpty == false
                         ? Column(
                             children: [
                               const Padding(
@@ -288,6 +288,7 @@ class _CompletedCampaignState extends State<CompletedCampaign> {
                   ],
                 ),
               ),
+                campaignInfo!.evidenceImg.isEmpty == false ? const SizedBox(height: 50,) :
               Image.asset(
                 "assets/images/NoEvidence.png",
                 fit: BoxFit.contain,
