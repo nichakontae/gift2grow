@@ -31,6 +31,7 @@ class _AddTrackingState extends State<AddTracking> {
       // ignore: unused_local_variable
       final response = await Caller.dio
           .post('/campaign/postTracking', data: tracking.toJson());
+          addTamboon();
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -134,7 +135,6 @@ class _AddTrackingState extends State<AddTracking> {
                       //post
                       tracking.trackingNumber = myController.text;
                       await postTrackingNum(tracking);
-                      addTamboon();
                       notifyUser(widget.campaignId);
 
                       //modal
