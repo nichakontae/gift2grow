@@ -6,6 +6,7 @@ import 'package:gift2grow/screen/authentication/forgot_password.dart';
 import 'package:gift2grow/screen/authentication/resgister.dart';
 import 'package:gift2grow/screen/authentication/verify_email.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -279,6 +280,8 @@ class _LoginPageState extends State<LoginPage> {
                                   UserProvider.setUserDetails(
                                       userId: user.user!.uid,
                                       password: _loginController.password);
+
+                                  UserProvider.storeData(key: "password", value: _loginController.password);
 
                                   navigate(_loginController.email);
 
