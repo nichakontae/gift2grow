@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/search_preload.dart';
 import 'package:gift2grow/models/user_info.dart';
-import 'package:gift2grow/provider/user_provder.dart';
 import 'package:gift2grow/widgets/campaign_list.dart';
 import 'package:gift2grow/widgets/my_searchbar.dart';
 import 'package:gift2grow/widgets/theme_button.dart';
