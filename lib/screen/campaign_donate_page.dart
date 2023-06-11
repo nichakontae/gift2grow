@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gift2grow/models/campaign_donate.dart';
 import 'package:gift2grow/widgets/add_tracking.dart';
 
-
 class CampaignDonatePage extends StatefulWidget {
   final int campaignId;
   final String topic;
@@ -63,12 +62,12 @@ class _CampaignDonatePageState extends State<CampaignDonatePage> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30.0),
                         child: FadeInImage(
-                          image: NetworkImage(
-                            campaign!.coverImage),
-                            fadeInDuration: const Duration(milliseconds: 1) ,
-                            placeholder: const AssetImage('assets/images/default_image.png'),
-                            fit: BoxFit.cover,
-                          ),
+                          image: NetworkImage(campaign!.coverImage),
+                          fadeInDuration: const Duration(milliseconds: 1),
+                          placeholder: const AssetImage(
+                              'assets/images/default_image.png'),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Positioned(
@@ -115,14 +114,18 @@ class _CampaignDonatePageState extends State<CampaignDonatePage> {
                               const SizedBox(
                                 width: 5,
                               ),
+                              Expanded(child: 
                               Text(
                                 campaign!.schoolName,
                                 textAlign: TextAlign.start,
+                                overflow: TextOverflow.fade,
+                                softWrap: true,
                                 style: const TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black),
                               ),
+                              )
                             ],
                           ),
                         ),

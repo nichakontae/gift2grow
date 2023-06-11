@@ -65,6 +65,7 @@ dependencies:
   # for firebase messaging
   firebase_messaging: ^14.6.2
   drop_shadow_image: ^0.9.1
+  simple_shadow: ^0.3.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

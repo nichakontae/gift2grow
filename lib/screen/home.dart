@@ -55,6 +55,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.only(left: 35.0, right: 35, top: 55),

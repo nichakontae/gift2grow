@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gift2grow/models/campaign_item.dart';
 import 'package:gift2grow/widgets/campaignlist_info.dart';
 import 'package:gift2grow/widgets/progress_bar.dart';
-import 'package:intl/intl.dart';
-
 class Campaign extends StatefulWidget {
   const Campaign({
     super.key,
@@ -24,7 +22,7 @@ class _CampaignState extends State<Campaign> {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(24.0)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.4),
@@ -81,10 +79,8 @@ class _CampaignState extends State<Campaign> {
                     const SizedBox(
                       height: 10,
                     ),
-                    widget.campaign.isCompleted == true
-                        ? Text(
-                            "Date: ${DateFormat.yMd().format(widget.campaign.createdAt)}")
-                        : Text(
+                   Text(
+                    widget.campaign.isCompleted == true ? "Remaining: 0" :
                             "Remaining: ${widget.campaign.completedAmount - widget.campaign.trackingAmount}",
                           ),
                     CampaignListInfo(campaign: widget.campaign)
