@@ -34,7 +34,7 @@ class _AddTrackingState extends State<AddTracking> {
     } catch (e) {
       if (kDebugMode) {
         print(e);
-        print('error ja');
+        print('error ja post tracking');
       }
     }
   }
@@ -47,7 +47,7 @@ class _AddTrackingState extends State<AddTracking> {
     } catch (e) {
       if (kDebugMode) {
         print(e);
-        print('error ja');
+        print('error ja add tamboon');
       }
     }
   }
@@ -198,7 +198,7 @@ class _AddTrackingState extends State<AddTracking> {
                                 children: [
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 30),
                                     child: CustomButton(
                                       color: "primary",
                                       text: "   Back to home page   ",
