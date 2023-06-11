@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class ShowLevelQuote extends StatelessWidget {
   final int tamboonPoint;
 
-  const ShowLevelQuote({Key? key, required this.tamboonPoint})
-      : super(key: key);
+  const ShowLevelQuote({Key? key, required this.tamboonPoint}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -44,11 +44,10 @@ class Profile1st extends StatelessWidget {
             top: 57,
             left: 50,
             child: CircleAvatar(
-              backgroundImage: users.profileImage == null ||
-                      users.profileImage == ""
+              backgroundColor: Colors.transparent,
+              backgroundImage: users.profileImage == null || users.profileImage == ""
                   ? const AssetImage("assets/images/profileNull.png")
-                  : NetworkImage(
-                          "http://server1.ivelse.com:8080${users.profileImage}")
+                  : NetworkImage("http://server1.ivelse.com:8080${users.profileImage}")
                       as ImageProvider,
               radius: 35,
             )),

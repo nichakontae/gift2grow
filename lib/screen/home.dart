@@ -77,14 +77,15 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   userInfo?.profileImage != null
                       ? CircleAvatar(
+                          backgroundColor: Colors.transparent,
                           backgroundImage: NetworkImage(
                             'http://server1.ivelse.com:8080${userInfo!.profileImage}',
                           ),
                           radius: 25,
                         )
                       : const CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/profileNull.png'),
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: AssetImage('assets/images/profileNull.png'),
                           radius: 25,
                         ),
                   const MyTopLeft()
@@ -110,36 +111,31 @@ class _HomePageState extends State<HomePage> {
                             filter.tag = "All";
                           });
                         },
-                        paddingHorizontal:
-                            const EdgeInsets.symmetric(horizontal: 20)),
+                        paddingHorizontal: const EdgeInsets.symmetric(horizontal: 20)),
                     const SizedBox(
                       width: 20,
                     ),
                     CustomButton(
-                        color:
-                            filter.tag == "Ongoing" ? "primary" : "secondary",
+                        color: filter.tag == "Ongoing" ? "primary" : "secondary",
                         text: "Ongoing",
                         onTap: () {
                           setState(() {
                             filter.tag = "Ongoing";
                           });
                         },
-                        paddingHorizontal:
-                            const EdgeInsets.symmetric(horizontal: 20)),
+                        paddingHorizontal: const EdgeInsets.symmetric(horizontal: 20)),
                     const SizedBox(
                       width: 20,
                     ),
                     CustomButton(
-                        color:
-                            filter.tag == "Complete" ? "primary" : "secondary",
+                        color: filter.tag == "Complete" ? "primary" : "secondary",
                         text: "Complete",
                         onTap: () {
                           setState(() {
                             filter.tag = "Complete";
                           });
                         },
-                        paddingHorizontal:
-                            const EdgeInsets.symmetric(horizontal: 20)),
+                        paddingHorizontal: const EdgeInsets.symmetric(horizontal: 20)),
                   ],
                 ),
               ),

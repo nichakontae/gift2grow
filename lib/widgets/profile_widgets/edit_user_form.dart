@@ -60,8 +60,8 @@ class _EditProfileformState extends State<EditProfileform> {
       final newEmail = _emailController.text;
 
       try {
-        final credential =
-            EmailAuthProvider.credential(email: currentEmail as String, password: UserProvider.decrypt());
+        final credential = EmailAuthProvider.credential(
+            email: currentEmail as String, password: UserProvider.decrypt());
         await currentUser.reauthenticateWithCredential(credential);
         await currentUser.updateEmail(newEmail);
         if (kDebugMode) {
@@ -131,16 +131,21 @@ class _EditProfileformState extends State<EditProfileform> {
         }
       }
       // ignore: use_build_context_synchronously
-      Navigator.of(context).pop();
+
       if (_isOk || widget.userInfo!.profileImageFile == null) {
         // ignore: use_build_context_synchronously
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const MyBottomNavbar(
-                      screen: 3,
-                    )));
+        Future.delayed(const Duration(seconds: 3), () {
+          Navigator.of(context).pop();
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const MyBottomNavbar(
+                        screen: 3,
+                      )));
+        });
       } else {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pop();
         // ignore: use_build_context_synchronously
         showDialog(
           context: context,

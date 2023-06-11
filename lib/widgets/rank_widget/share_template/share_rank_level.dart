@@ -10,10 +10,7 @@ import '../../../../../models/rank/user_profile_for_share.dart';
 
 class ShareRankLevel extends StatelessWidget {
   const ShareRankLevel(
-      {Key? key,
-      required this.profile,
-      required this.ranking,
-      required this.donations})
+      {Key? key, required this.profile, required this.ranking, required this.donations})
       : super(key: key);
   final UserProfileForShare profile;
   final int ranking;
@@ -51,17 +48,13 @@ class ShareRankLevel extends StatelessWidget {
                   children: [
                     const Text(
                       "Ranking",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500),
+                      style:
+                          TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500),
                     ),
                     Text(
                       "You are in #$ranking",
                       style: const TextStyle(
-                          fontSize: 19,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500),
+                          fontSize: 19, color: Colors.white, fontWeight: FontWeight.w500),
                     ),
                     const Padding(padding: EdgeInsets.all(10)),
                     Text(
@@ -112,15 +105,12 @@ class ShareRankLevel extends StatelessWidget {
                             ),
                             Text('${profile.tamboonPoint} TAMBOON',
                                 style: const TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xFF9468AC))),
+                                    fontWeight: FontWeight.w400, color: Color(0xFF9468AC))),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(4, 9, 4, 3),
-                              child: Text(
-                                  '"You have made a total of $donations donations"',
+                              child: Text('"You have made a total of $donations donations"',
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xFFFFC107))),
+                                      fontWeight: FontWeight.w600, color: Color(0xFFFFC107))),
                             ),
                             ShowLevelQuote(tamboonPoint: tamboonPoint)
                           ],
@@ -199,17 +189,13 @@ class ShareRankLevel extends StatelessWidget {
                 children: [
                   const Text(
                     "Ranking",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500),
+                    style:
+                        TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500),
                   ),
                   Text(
                     "You are in #$ranking",
                     style: const TextStyle(
-                        fontSize: 19,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500),
+                        fontSize: 19, color: Colors.white, fontWeight: FontWeight.w500),
                   ),
                   const Padding(padding: EdgeInsets.all(10)),
                   Text(
@@ -260,15 +246,12 @@ class ShareRankLevel extends StatelessWidget {
                           ),
                           Text('${profile.tamboonPoint} TAMBOON',
                               style: const TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFF9468AC))),
+                                  fontWeight: FontWeight.w400, color: Color(0xFF9468AC))),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(4, 9, 4, 3),
-                            child: Text(
-                                '"You have made a total of $donations donations"',
+                            child: Text('"You have made a total of $donations donations"',
                                 style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFFFFC107))),
+                                    fontWeight: FontWeight.w600, color: Color(0xFFFFC107))),
                           ),
                           ShowLevelQuote(tamboonPoint: tamboonPoint)
                         ],

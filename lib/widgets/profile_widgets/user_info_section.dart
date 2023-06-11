@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gift2grow/main.dart';
 import 'package:gift2grow/models/user_info.dart';
 import 'package:gift2grow/provider/user_provder.dart';
 import 'package:gift2grow/screen/edit_profile_page.dart';
@@ -18,6 +21,11 @@ class UserInformation extends StatefulWidget {
 }
 
 class _UserInformationState extends State<UserInformation> {
+  final _formKey = GlobalKey<FormState>();
+  bool passwordVisible = true;
+  String errorMessage = "";
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +38,45 @@ class _UserInformationState extends State<UserInformation> {
   }
 
   List<DonateHistoryDetail>? donateHistory;
+  final currentUser = FirebaseAuth.instance.currentUser;
+  final uEmail = FirebaseAuth.instance.currentUser!.email;
+
+  Future<void> navigate() async {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return EditProfilePage(
+        userInfo: widget.userInfo,
+      );
+    }));
+
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+              content: SizedBox(
+                height: 120,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                          CircularProgressIndicator(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text("Loading...")
+                        ]),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ));
+    Navigator.pop(context);
+  }
 
   Future<void> getDonateHistory() async {
     try {
@@ -107,11 +154,193 @@ class _UserInformationState extends State<UserInformation> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return EditProfilePage(
-                          userInfo: widget.userInfo,
-                        );
-                      }));
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return StatefulBuilder(builder: (context, setState) {
+                              return AlertDialog(
+                                shape:
+                                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(200),
+                                          ),
+                                          color: const Color(0xff2A8089).withOpacity(0.4),
+                                        ),
+                                        child: SizedBox(
+                                          width: MediaQuery.of(context).size.width * 0.3,
+                                          height: MediaQuery.of(context).size.width * 0.3,
+                                          child: Icon(
+                                            Icons.lock_outline,
+                                            size: MediaQuery.of(context).size.width * 0.15,
+                                            color: const Color(0xff2A8089),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const Padding(
+                                      padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
+                                      child: Text(
+                                        'This content is password protected',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                    Form(
+                                      key: _formKey,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.all(0),
+                                            child: TextFormField(
+                                              controller: _passwordController,
+                                              obscureText: passwordVisible,
+                                              validator: (value) {
+                                                if (value == null || value.isEmpty) {
+                                                  setState(() => errorMessage = "");
+                                                  return 'Please enter your password';
+                                                }
+                                                return null;
+                                              },
+                                              decoration: InputDecoration(
+                                                  contentPadding: const EdgeInsets.symmetric(
+                                                      horizontal: 25, vertical: 15),
+                                                  border: const OutlineInputBorder(
+                                                    borderRadius: BorderRadius.all(
+                                                      Radius.circular(25),
+                                                    ),
+                                                  ),
+                                                  prefixIcon: Icon(
+                                                    Icons.key,
+                                                    color: Theme.of(context).colorScheme.primary,
+                                                  ),
+                                                  suffixIcon: IconButton(
+                                                    icon: Icon(
+                                                      passwordVisible
+                                                          ? Icons.visibility
+                                                          : Icons.visibility_off,
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        passwordVisible = !passwordVisible;
+                                                      });
+                                                    },
+                                                  ),
+                                                  filled: true,
+                                                  fillColor: Colors.white,
+                                                  hintText: "Type your password"),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: errorMessage != "" ? true : false,
+                                            child: const SizedBox(
+                                              height: 10,
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: errorMessage != "" ? true : false,
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.symmetric(vertical: 3),
+                                                    decoration: BoxDecoration(
+                                                        color: const Color(0xFFFFEFF2),
+                                                        border: Border.all(
+                                                            color: const Color(0xFFB7415E),
+                                                            width: 1.5),
+                                                        borderRadius: const BorderRadius.all(
+                                                            Radius.circular(10))),
+                                                    child: Text(
+                                                      errorMessage,
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.grey[800], fontSize: 14),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                actions: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 24),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width * 0.3,
+                                          height: MediaQuery.of(context).size.height * 0.045,
+                                          child: CustomButton(
+                                            color: 'tertiary',
+                                            text: 'Cancel',
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width * 0.05,
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width * 0.3,
+                                          height: MediaQuery.of(context).size.height * 0.045,
+                                          child: CustomButton(
+                                            color: 'primary',
+                                            text: 'Confirm',
+                                            onTap: () async {
+                                              if (_formKey.currentState!.validate()) {
+                                                try {
+                                                  await FirebaseAuth.instance
+                                                      .signInWithEmailAndPassword(
+                                                          email: uEmail!,
+                                                          password: _passwordController.text);
+
+                                                  await UserProvider.setKeySpecialCase();
+                                                  UserProvider.setUserDetails(
+                                                      userId: currentUser!.uid,
+                                                      password: _passwordController.text);
+                                                  setState(() {
+                                                    errorMessage = "";
+                                                  });
+
+                                                  navigate();
+                                                } on FirebaseAuthException catch (e) {
+                                                  if (kDebugMode) {
+                                                    print(e);
+                                                  }
+                                                  setState(() {
+                                                    errorMessage = "Password Incorrect";
+                                                  });
+                                                }
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              );
+                            });
+                          });
                     },
                   ),
                 ],
@@ -200,8 +429,7 @@ class _UserInformationState extends State<UserInformation> {
                               color: Colors.white,
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.withOpacity(
-                                      0.5), //Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
+                                  color: Colors.grey.withOpacity(0.5),
                                   offset: const Offset(0.0, 3.0), //(x,y)
                                   blurRadius: 7.0,
                                 ),
