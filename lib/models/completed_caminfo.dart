@@ -23,13 +23,13 @@ class CompletedCampaignInfo {
   String description;
 
   @JsonKey(name: 'evidenceImg')
-  List<String> evidenceImg;
+  List<String>? evidenceImg;
 
   @JsonKey(name: 'topic')
   String topic;
 
   @JsonKey(name: 'letterThank')
-  String letterThank;
+  String? letterThank;
 
     @JsonKey(name: 'completedDate')
   DateTime completedDate;
