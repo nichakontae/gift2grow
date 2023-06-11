@@ -11,7 +11,6 @@ import 'package:intl/date_symbol_data_local.dart';
 
 import '../utilities/caller.dart';
 import '../utilities/notification/get_tracking_amount.dart';
-import '../utilities/notification/notify_user.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -246,11 +245,11 @@ class _NotificationPageState extends State<NotificationPage> {
             const SizedBox(
               height: 20,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  notifyUser(1);
-                },
-                child: const Text('Notify')),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       notifyUser(1);
+            //     },
+            //     child: const Text('Notify')),
             if (isLoading) // Show a loading indicator if isLoading is true
               const Expanded(
                 child: Center(

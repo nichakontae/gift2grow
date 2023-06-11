@@ -32,9 +32,9 @@ void notifyUser(int campaignId) async {
         }
       }
     } else {
-      print('campaign is not completed');
+      //print('campaign is not completed');
     }
   } catch (e) {
-    print(e);
+    //print(e);
   }
 }

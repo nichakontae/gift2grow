@@ -146,12 +146,12 @@ class _Gift2GrowState extends State<Gift2Grow> {
   }
 
   void _handleMessageOpenTerminated(RemoteMessage message) {
-    print('message from app that was terminated');
+    //print('message from app that was terminated');
     _handleMessageOpen(message);
   }
 
   void _handleMessageOpenBackground(RemoteMessage message) {
-    print('message from app that was in background');
+    //print('message from app that was in background');
     _handleMessageOpen(message);
   }
 
