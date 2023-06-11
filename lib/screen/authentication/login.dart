@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gift2grow/models/authentication/login_controller.dart';
-import 'package:gift2grow/provider/user_provder.dart';
 import 'package:gift2grow/screen/authentication/forgot_password.dart';
 import 'package:gift2grow/screen/authentication/resgister.dart';
 import 'package:gift2grow/screen/authentication/verify_email.dart';
@@ -268,7 +267,8 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                   );
-                                  UserCredential user = await FirebaseAuth
+                                  // UserCredential user =
+                                  await FirebaseAuth
                                       .instance
                                       .signInWithEmailAndPassword(
                                           email: _loginController.email,

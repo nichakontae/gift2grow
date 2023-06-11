@@ -11,7 +11,6 @@ import 'package:gift2grow/screen/profile_page.dart';
 import 'package:gift2grow/screen/authentication/resgister.dart';
 import 'package:gift2grow/utilities/caller.dart';
 import 'package:gift2grow/utilities/notification/get_tracking_amount.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
