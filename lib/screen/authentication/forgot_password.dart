@@ -142,7 +142,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
                                   sendResetPasswordEmail();
-                                  errorMessage != ""
+                                  debugPrint(errorMessage);
+                                  errorMessage == ""
                                       ? Navigator.push(
                                           context,
                                           MaterialPageRoute(
