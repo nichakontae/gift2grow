@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:gift2grow/screen/complete_campaign.dart';
 import 'package:gift2grow/widgets/notification/noti_card.dart';
 
@@ -44,7 +45,9 @@ class _NotificationPageState extends State<NotificationPage> {
         }
       }
     } catch (e) {
-      //print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 

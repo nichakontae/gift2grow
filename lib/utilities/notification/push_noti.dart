@@ -1,8 +1,14 @@
-// ignore: file_names, depend_on_referenced_packages
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:yaml/yaml.dart';
+
 Future<void> pushNoti(sendData, userToken) async {
+  String configYaml = await rootBundle.loadString('config.yaml');
+  var yaml = loadYaml(configYaml);
+
   //print('pushing noti');
   try {
     //send push notification FCM
@@ -10,8 +16,7 @@ Future<void> pushNoti(sendData, userToken) async {
 
     Map<String, String> headers = {
       'Content-Type': 'application/json',
-      'Authorization':
-          'key=AAAAP5tc8QM:APA91bEO-kTymLMV2feQsYYRlaSIwkAZWYjfgTNVhKzm33iim5A7CMnRtdIoFDOvUmc-h1qsLy1qt6IcVnfLOKN3BkO4NTtFLVNFm2O9jjGwiNDTN3eD-b-ictuhlmDmOxN2RXO2sLSM',
+      'Authorization': yaml['authKey']
     };
 
     Map<String, dynamic> data = {
