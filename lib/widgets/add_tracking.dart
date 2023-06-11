@@ -34,7 +34,7 @@ class _AddTrackingState extends State<AddTracking> {
     } catch (e) {
       if (kDebugMode) {
         print(e);
-        print('error ja');
+        print('error ja post tracking');
       }
     }
   }
@@ -47,7 +47,7 @@ class _AddTrackingState extends State<AddTracking> {
     } catch (e) {
       if (kDebugMode) {
         print(e);
-        print('error ja');
+        print('error ja add tamboon');
       }
     }
   }
