@@ -1,6 +1,7 @@
 import 'package:encrypt/encrypt.dart';
 import 'package:gift2grow/models/authentication/success_auth.dart';
 import 'package:gift2grow/utilities/caller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProvider {
   static String _userId = "";
@@ -42,6 +43,17 @@ class UserProvider {
       SuccessAuth d = SuccessAuth.fromJson(response.data);
       _secretKey = d.data;
     }
+  }
+
+  //
+  static Future<String?> getData({required String key}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key);
+  }
+
+  static Future storeData({required String key, required String value}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(key, value);
   }
 
   static void clearUser() {

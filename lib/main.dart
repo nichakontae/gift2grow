@@ -65,6 +65,9 @@ void postUserToken() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // for store password
+  // await SharedPreferences.getInstance();
+
   //background event handler
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 

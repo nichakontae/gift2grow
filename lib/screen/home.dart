@@ -47,11 +47,21 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  // for set Provider to use password in update email
+  // void setProvider() async {
+  //   String? password;
+  //   await UserProvider.getData(key: "password").then((value) => password = value);
+  //   await UserProvider.setKeySpecialCase();
+  //   UserProvider.setUserDetails(
+  //       userId: FirebaseAuth.instance.currentUser!.uid, password: password!);
+  // }
+
   @override
   void initState() {
     super.initState();
     SearchPreload.homeReload = refreshState;
     getUserInfo(user!.uid);
+    // setProvider();
   }
 
   @override
