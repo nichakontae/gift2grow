@@ -4,8 +4,7 @@ import 'package:gift2grow/models/rank/ranking_users.dart';
 class RankCardProfile extends StatelessWidget {
   final int index;
   final RankingUsers user;
-  const RankCardProfile({Key? key, required this.user, required this.index})
-      : super(key: key);
+  const RankCardProfile({Key? key, required this.user, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +17,10 @@ class RankCardProfile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 15, 0),
           child: CircleAvatar(
-            backgroundImage: user.profileImage == null ||
-                    user.profileImage == ""
+            backgroundColor: Colors.transparent,
+            backgroundImage: user.profileImage == null || user.profileImage == ""
                 ? const AssetImage("assets/images/profileNull.png")
-                : NetworkImage(
-                        "http://server1.ivelse.com:8080${user.profileImage}")
+                : NetworkImage("http://server1.ivelse.com:8080${user.profileImage}")
                     as ImageProvider,
             radius: 32,
           ),

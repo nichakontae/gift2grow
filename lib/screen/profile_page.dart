@@ -21,9 +21,8 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     final User? user = auth.currentUser;
-    final uid = user!.uid;
     setState(() {
-      getUserInfo(uid);
+      getUserInfo(user);
     });
   }
 
@@ -34,10 +33,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   MyUserInfo? userInfo;
 
-  Future<void> getUserInfo(uid) async {
+  Future<void> getUserInfo(user) async {
     try {
       final response = await Caller.dio.get(
-        '/profile/getProfile?userId=$uid',
+        '/profile/getProfile?userId=${user.uid}',
       );
       setState(() {
         userInfo = MyUserInfo(
@@ -46,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
           profileImage: response.data["profile_image"],
           firstName: response.data["first_name"],
           lastName: response.data['last_name'],
-          email: response.data['email'],
+          email: user.email,
         );
       });
     } catch (e) {
@@ -76,7 +75,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 end: Alignment.bottomCenter)),
         child: ListView(
           children: [
-            const MyTopLeft(),
+            const Padding(
+              padding: EdgeInsets.only(right: 16),
+              child: MyTopLeft(),
+            ),
             UserInformation(
               userInfo: userInfo,
             ),

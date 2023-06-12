@@ -40,11 +40,10 @@ class FrameBornAngel extends StatelessWidget {
               top: 5.5,
               left: 15,
               child: CircleAvatar(
-                backgroundImage: profile.profileImage == null ||
-                        profile.profileImage == ""
+                backgroundColor: Colors.transparent,
+                backgroundImage: profile.profileImage == null || profile.profileImage == ""
                     ? const AssetImage("assets/images/profileNull.png")
-                    : NetworkImage(
-                            "http://server1.ivelse.com:8080${profile.profileImage}")
+                    : NetworkImage("http://server1.ivelse.com:8080${profile.profileImage}")
                         as ImageProvider,
                 radius: 35,
               ),
