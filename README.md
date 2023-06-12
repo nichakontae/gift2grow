@@ -4,7 +4,7 @@ An app to facilitate the donation of student uniforms and learning materials. Wh
 
 ## Getting Started
 
-To get started with the ModDormy app, follow these steps:
+To get started with the Gift2Grow app, follow these steps:
 
 1. Run `flutter pub get` to resolve dependencies and ensure all required packages are installed.
 2. Execute the `main.dart` file to launch the application.
@@ -31,7 +31,7 @@ ModDormy offers the following features:
    - Giving TAMBOON point: Users will get TAMBOON points when they post the tracking number of a donation on the system.
    - Ranking and Share TAMBOON: The TAMBOON of the user will be arranged into a ranking so that the user can share this ranking and TAMBOON points with other applications.
 
-5. **Collect comprehensive donation information **
+5. **Collect comprehensive donation information**
    - Tag: Users can filter campaigns based on the status of the campaign tag to find the campaign.
    - Search: Users can search the campaign by using school name.
    - Home: The system will provide the comprehensive donation information of the campaign on the Home screen.
