@@ -31,10 +31,9 @@ class _RankPageState extends State<RankPage> {
 
   Future getUserProfileForShare() async {
     try {
-      final response = await Caller.dio.get(
-          "/rank/getProfileForShare?userId=${FirebaseAuth.instance.currentUser?.uid}");
-      ResponseUserProfileForShare d =
-          ResponseUserProfileForShare.fromJson(response.data);
+      final response = await Caller.dio
+          .get("/rank/getProfileForShare?userId=${FirebaseAuth.instance.currentUser?.uid}");
+      ResponseUserProfileForShare d = ResponseUserProfileForShare.fromJson(response.data);
       setState(() {
         profile = d.data;
       });
@@ -146,9 +145,7 @@ class _RankPageState extends State<RankPage> {
                           Text(
                             "Ranking",
                             style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
+                                fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500),
                           )
                         ],
                       ),
@@ -163,9 +160,7 @@ class _RankPageState extends State<RankPage> {
                               child: Text(
                                 "1st",
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.w700),
+                                    color: Colors.white, fontSize: 21, fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -181,7 +176,7 @@ class _RankPageState extends State<RankPage> {
                         ),
                         Positioned(
                             top: 63,
-                            left: 32,
+                            left: MediaQuery.of(context).size.width * 0.08,
                             child: Transform.scale(
                               scale: 0.8,
                               child: Profile2nd(
@@ -190,7 +185,7 @@ class _RankPageState extends State<RankPage> {
                             )),
                         Positioned(
                             top: 63,
-                            left: 245,
+                            right: MediaQuery.of(context).size.width * 0.08,
                             child: Transform.scale(
                               scale: 0.8,
                               child: Profile3rd(
@@ -198,26 +193,23 @@ class _RankPageState extends State<RankPage> {
                               ),
                             )),
                         const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
                               padding: EdgeInsets.fromLTRB(76.5, 60, 0, 0),
                               child: Text(
                                 "2nd",
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600),
+                                    color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                               ),
                             ),
-                            Spacer(),
+                            // Spacer(),
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 60, 76.5, 0),
                               child: Text(
                                 "3rd",
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600),
+                                    color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                               ),
                             ),
                           ],
@@ -335,7 +327,7 @@ class _RankPageState extends State<RankPage> {
           Positioned(
             left: 0,
             right: 0,
-            top: 715,
+            bottom: MediaQuery.of(context).size.height * 0 - 10,
             child: Card(
               color: const Color(0xFFFECE6B),
               shape: const RoundedRectangleBorder(
@@ -350,17 +342,14 @@ class _RankPageState extends State<RankPage> {
                   children: [
                     Row(
                       children: [
-                        const Text("  Your Rank  ",
-                            style: TextStyle(fontWeight: FontWeight.w600)),
+                        const Text("  Your Rank  ", style: TextStyle(fontWeight: FontWeight.w600)),
                         Text("#$ranking",
                             style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF9468AC))),
+                                fontWeight: FontWeight.w600, color: Color(0xFF9468AC))),
                         const Spacer(),
                         Text("${profile.tamboonPoint} TAMBOON",
                             style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF9468AC))),
+                                fontWeight: FontWeight.w600, color: Color(0xFF9468AC))),
                         // ตอนดึงข้อมูลuserมาแล้วเช็คif(1/2/3)else(เช็คlevel)
                         InkWell(
                           onTap: () {
@@ -377,8 +366,7 @@ class _RankPageState extends State<RankPage> {
                           },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(9, 0, 9, 2),
-                            child:
-                                Image.asset('assets/icon/share.png', scale: 28),
+                            child: Image.asset('assets/icon/share.png', scale: 28),
                           ),
                         )
                       ],
