@@ -33,7 +33,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="gift2grow"
+        android:label="Gift2Grow"
         android:name="androidx.multidex.MultiDexApplication"
         android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher">
